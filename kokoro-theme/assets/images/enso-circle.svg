@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Enso — incomplete Zen circle, brush stroke style -->
+  <path
+    d="M100,20 C145,20 175,50 178,95 C181,140 155,175 110,180 C65,185 30,155 25,110 C20,65 45,35 80,25"
+    stroke="currentColor"
+    stroke-width="8"
+    stroke-linecap="round"
+    opacity="0.6"
+  />
+  <!-- Brush tail thinning -->
+  <path
+    d="M80,25 C85,23 90,21 95,20"
+    stroke="currentColor"
+    stroke-width="4"
+    stroke-linecap="round"
+    opacity="0.3"
+  />
+</svg>

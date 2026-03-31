@@ -62,10 +62,10 @@ add_action('after_setup_theme', 'kokoro_setup');
    ========================================================================== */
 
 function kokoro_enqueue_assets() {
-    // Google Fonts — Barlow Condensed + Barlow
+    // Google Fonts — Barlow Condensed + Barlow + Noto Serif JP (kanji)
     wp_enqueue_style(
         'kokoro-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600;700&family=Noto+Serif+JP:wght@700;900&display=swap',
         [],
         null
     );
@@ -78,13 +78,16 @@ function kokoro_enqueue_assets() {
         KOKORO_VERSION
     );
 
-    // Main stylesheet
-    wp_enqueue_style(
-        'kokoro-main',
-        KOKORO_URI . '/assets/css/main.css',
-        ['kokoro-variables', 'kokoro-google-fonts'],
-        KOKORO_VERSION
-    );
+    // CSS Modules (loaded individually for performance)
+    $css_modules = ['reset', 'typography', 'components', 'japanese', 'responsive'];
+    foreach ($css_modules as $module) {
+        wp_enqueue_style(
+            'kokoro-' . $module,
+            KOKORO_URI . '/assets/css/' . $module . '.css',
+            ['kokoro-variables', 'kokoro-google-fonts'],
+            KOKORO_VERSION
+        );
+    }
 
     // Main script
     wp_enqueue_script(
