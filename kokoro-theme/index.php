@@ -10,8 +10,8 @@ get_header();
 
 <section class="page-header">
   <div class="container">
-    <div class="section-number">Știri Sportive</div>
-    <h1>NOUTĂȚI <em>KOKORO</em></h1>
+    <div class="section-number">Articole</div>
+    <h1>ARTICOLE <em>KOKORO</em></h1>
   </div>
   <div class="page-header__number" aria-hidden="true">新聞</div>
 </section>

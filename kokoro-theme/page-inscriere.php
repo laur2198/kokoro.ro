@@ -68,7 +68,7 @@ get_header();
             <option value="">Alege disciplina...</option>
             <option value="jujitsu-competitional">Ju-Jitsu Competițional</option>
             <option value="autoaparare">Ju-Jitsu Autoapărare</option>
-            <option value="trx">TRX Suspension Training</option>
+            <option value="jujitsu-contact">Ju-Jitsu Contact</option>
             <option value="personal-training">Personal Training</option>
           </select>
         </div>

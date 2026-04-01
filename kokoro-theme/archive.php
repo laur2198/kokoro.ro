@@ -10,7 +10,7 @@ get_header();
 
 <section class="page-header">
   <div class="container">
-    <div class="section-number">Știri Sportive</div>
+    <div class="section-number">Articole</div>
     <h1>
       <?php if (is_category()) : ?>
         <?php single_cat_title(); ?>
@@ -19,7 +19,7 @@ get_header();
       <?php elseif (is_date()) : ?>
         ARHIVĂ
       <?php else : ?>
-        NOUTĂȚI <em>KOKORO</em>
+        ARTICOLE <em>KOKORO</em>
       <?php endif; ?>
     </h1>
     <?php if (category_description()) : ?>

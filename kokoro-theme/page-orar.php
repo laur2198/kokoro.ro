@@ -80,7 +80,7 @@ get_header();
           <tr>
             <td rowspan="2" style="font-weight: 700; color: var(--color-white); vertical-align: middle;">MARȚI</td>
             <td>17:00 – 18:00</td>
-            <td>TRX Suspension Training</td>
+            <td>Ju-Jitsu Contact</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
             <td style="color: var(--color-white);">—</td>
           </tr>
@@ -116,7 +116,7 @@ get_header();
           <tr>
             <td rowspan="2" style="font-weight: 700; color: var(--color-white); vertical-align: middle;">JOI</td>
             <td>17:00 – 18:00</td>
-            <td>TRX Suspension Training</td>
+            <td>Ju-Jitsu Contact</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
             <td style="color: var(--color-white);">—</td>
           </tr>
@@ -143,7 +143,7 @@ get_header();
           </tr>
           <tr>
             <td>19:00 – 20:30</td>
-            <td>Ju-Jitsu + TRX</td>
+            <td>Ju-Jitsu Contact</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
             <td style="color: var(--color-white);">Sensei Lucică</td>
           </tr>

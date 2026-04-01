@@ -52,7 +52,7 @@ get_header();
           <div class="pricing-card__feature">Autoapărare</div>
           <div class="pricing-card__feature">Pregătire fizică inclusă</div>
           <div class="pricing-card__feature">Participare competiții</div>
-          <div class="pricing-card__feature">Acces TRX</div>
+          <div class="pricing-card__feature">Ju-Jitsu Contact</div>
         </div>
         <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--block">Înscrie-te</a>
       </div>
@@ -65,7 +65,7 @@ get_header();
         <div class="pricing-card__features">
           <div class="pricing-card__feature">1-on-1 cu antrenorul</div>
           <div class="pricing-card__feature">Program personalizat</div>
-          <div class="pricing-card__feature">TRX Suspension Training</div>
+          <div class="pricing-card__feature">Pregătire Ju-Jitsu Contact</div>
           <div class="pricing-card__feature">Pregătire specifică competiții</div>
           <div class="pricing-card__feature">Orar flexibil</div>
         </div>

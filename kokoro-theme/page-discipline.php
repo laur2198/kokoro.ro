@@ -65,15 +65,15 @@ get_header();
         </div>
       </a>
 
-      <!-- 03: TRX -->
-      <a href="<?php echo esc_url(home_url('/trx-suspension-training/')); ?>" class="discipline-card reveal reveal-delay-3" style="min-height: 400px;">
+      <!-- 03: Ju-Jitsu Contact -->
+      <a href="<?php echo esc_url(home_url('/ju-jitsu-contact/')); ?>" class="discipline-card reveal reveal-delay-3" style="min-height: 400px;">
         <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
         <div class="discipline-card__content">
           <div class="discipline-card__number">03</div>
-          <h3 class="discipline-card__title">TRX Suspension Training</h3>
+          <h3 class="discipline-card__title">Ju-Jitsu Contact</h3>
           <p class="discipline-card__subtitle">
-            Antrenament funcțional cu greutatea propriului corp.
-            Dezvoltă forța, echilibrul și rezistența — complement perfect pentru Ju-Jitsu.
+            Noua probă de competiție full-contact care îți testează limitele fizice și mentale.
+            Adrian Boglut — primul român medaliat la Campionatul Mondial, bronz 2025.
           </p>
           <span class="btn btn--outline-accent btn--small" style="margin-top: var(--space-lg); display: inline-flex;">Află Mai Mult</span>
         </div>

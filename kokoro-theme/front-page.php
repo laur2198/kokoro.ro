@@ -114,13 +114,13 @@ get_header();
         </div>
       </a>
 
-      <!-- TRX -->
-      <a href="<?php echo esc_url(home_url('/trx-suspension-training/')); ?>" class="discipline-card reveal reveal-delay-3">
+      <!-- Ju-Jitsu Contact -->
+      <a href="<?php echo esc_url(home_url('/ju-jitsu-contact/')); ?>" class="discipline-card reveal reveal-delay-3">
         <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
         <div class="discipline-card__content">
           <div class="discipline-card__number">03</div>
-          <h3 class="discipline-card__title">TRX<br>Suspension</h3>
-          <p class="discipline-card__subtitle">Antrenament funcțional cu greutatea corpului</p>
+          <h3 class="discipline-card__title">Ju-Jitsu<br>Contact</h3>
+          <p class="discipline-card__subtitle">Probă de competiție full-contact — bronz mondial 2025</p>
         </div>
       </a>
 
@@ -397,7 +397,7 @@ get_header();
           <tr>
             <td>Vineri</td>
             <td>19:00 – 20:30</td>
-            <td>TRX + Ju-Jitsu</td>
+            <td>Ju-Jitsu Contact</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
           </tr>
         </tbody>

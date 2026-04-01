@@ -47,10 +47,10 @@
       <div>
         <h4 class="footer__heading">Discipline</h4>
         <nav class="footer__links">
-          <a href="<?php echo esc_url(home_url('/ju-jitsu-competitional/')); ?>" class="footer__link">Ju-Jitsu Competițional</a>
+          <a href="<?php echo esc_url(home_url('/ju-jitsu/')); ?>" class="footer__link">Ju-Jitsu Competițional</a>
           <a href="<?php echo esc_url(home_url('/autoaparare/')); ?>" class="footer__link">Ju-Jitsu Autoapărare</a>
-          <a href="<?php echo esc_url(home_url('/trx-suspension-training/')); ?>" class="footer__link">TRX Suspension Training</a>
           <a href="<?php echo esc_url(home_url('/preparator-fizic/')); ?>" class="footer__link">Personal Training</a>
+          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="footer__link">Contact</a>
         </nav>
       </div>
 

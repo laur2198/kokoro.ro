@@ -3,7 +3,8 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kokoro Brașov Academy — Ju-Jitsu pentru copii, juniori și adulți din 2008. Campioni mondiali, antrenori dedicați.">
+  <meta name="description" content="Kokoro Brașov Academy — Cursuri autoapărare Brașov, Ju-Jitsu pentru copii, juniori și adulți din 2008. Autoapărare, Ju-Jitsu competițional, Ju-Jitsu Contact. Campioni mondiali.">
+  <meta name="keywords" content="autoapărare Brașov, cursuri autoapărare, ju-jitsu Brașov, arte marțiale Brașov, kokoro Brașov, autoapărare copii, ju-jitsu copii Brașov, ju-jitsu contact, cursuri ju-jitsu">
   <?php wp_head(); ?>
 </head>
 
