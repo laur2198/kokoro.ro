@@ -41,6 +41,7 @@
   }
 
   .values-grid {
+    grid-template-columns: 1fr;
     gap: var(--space-lg);
   }
 
@@ -58,9 +59,24 @@
     grid-template-columns: 1fr 1fr !important;
   }
 
+  .grid-2-col--stats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
   .marquee__item {
     font-size: 0.9375rem;
     padding: 0 var(--space-lg);
+  }
+
+  /* Section spacing */
+  .section {
+    padding: var(--space-4xl) 0;
+  }
+
+  /* Testimonial badge wrap */
+  .testimonial__badge {
+    flex-wrap: wrap;
+    font-size: 2rem;
   }
 }
 
@@ -94,22 +110,41 @@
 
   /* Hero mobile */
   .hero {
-    min-height: 85vh;
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: 120px;
   }
 
   .hero__headline {
-    font-size: clamp(3rem, 14vw, 5rem);
+    font-size: clamp(2.75rem, 12vw, 4.5rem);
+  }
+
+  .hero__subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .hero__stats {
+    position: relative;
   }
 
   .hero__stats-inner {
     flex-wrap: wrap;
-    gap: var(--space-lg);
-    justify-content: space-around;
+    gap: var(--space-md);
+    justify-content: center;
     padding: var(--space-lg) var(--container-padding);
   }
 
   .stat {
     flex: 0 0 calc(50% - var(--space-md));
+    text-align: center;
+  }
+
+  .stat__number {
+    font-size: 2rem;
+  }
+
+  .stat__label {
+    font-size: 0.6875rem;
   }
 
   /* Grids to single column */
@@ -162,6 +197,38 @@
   .contact-info__icon {
     width: 40px;
     height: 40px;
+  }
+
+  /* Section accent — values need more space */
+  .section--accent .values-grid {
+    gap: var(--space-md);
+  }
+
+  .section--accent .value-item {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  /* Testimonial grid spacing */
+  .testimonial {
+    padding: var(--space-xl);
+  }
+
+  /* Section headers */
+  .section__header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Grid 2 col stats on mobile — still 2 columns */
+  .grid-2-col--stats {
+    grid-template-columns: 1fr 1fr !important;
+    gap: var(--space-md) !important;
+  }
+
+  /* CTA buttons stack on mobile */
+  .section--accent .hero__cta,
+  .section--blue .hero__cta {
+    flex-direction: column;
+    align-items: center;
   }
 
   /* Footer */
