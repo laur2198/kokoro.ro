@@ -58,6 +58,62 @@
   color: var(--color-accent);
 }
 
+.section--blue a {
+  color: var(--color-white);
+}
+
+.section--blue a:hover {
+  color: var(--color-accent);
+}
+
+.section--blue strong {
+  color: var(--color-white);
+}
+
+.section--blue .stat__number {
+  color: var(--color-accent);
+}
+
+.section--blue .stat__label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.section--blue .schedule th {
+  color: var(--color-accent);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.section--blue .schedule td {
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.section--blue .schedule tr:hover td {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.section--blue .btn--outline-accent {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.section--blue .btn--outline-accent:hover {
+  background: var(--color-accent);
+  color: var(--color-primary-dark);
+}
+
+.section--blue .jp-quote__kanji {
+  color: var(--color-white);
+}
+
+.section--blue .jp-quote__romaji {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.section--blue .jp-quote__translation {
+  color: var(--color-accent);
+}
+
 .section--accent {
   background-color: var(--color-accent);
 }
@@ -72,6 +128,48 @@
 
 .section--accent em {
   color: var(--color-primary-dark);
+}
+
+.section--accent a {
+  color: var(--color-primary-dark);
+}
+
+.section--accent strong {
+  color: var(--color-primary-dark);
+}
+
+.section--accent .section-number {
+  color: var(--color-primary-dark);
+  opacity: 0.7;
+}
+
+.section--accent .btn--primary {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+  border-color: var(--color-primary-dark);
+}
+
+.section--accent .btn--outline {
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark);
+}
+
+.section--accent .btn--outline:hover {
+  background: var(--color-primary-dark);
+  color: var(--color-accent);
+}
+
+.section--accent .value-item__kanji {
+  color: var(--color-primary-dark);
+}
+
+.section--accent .value-item__romaji {
+  color: var(--color-primary-dark);
+}
+
+.section--accent .value-item__meaning {
+  color: var(--color-primary-dark);
+  opacity: 0.8;
 }
 
 .section__header {
@@ -159,6 +257,11 @@
   color: var(--color-white);
 }
 
+.btn:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
 .btn--large {
   padding: 1.25rem 3.5rem;
   font-size: 1.0625rem;
@@ -236,6 +339,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-lg);
+}
+
+.kokoro-menu__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 .kokoro-menu__link {
@@ -884,12 +992,12 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(8, 8, 8, 0);
+  background: rgba(13, 33, 55, 0);
   transition: background var(--transition-base);
 }
 
 .gallery-item:hover::after {
-  background: rgba(8, 8, 8, 0.3);
+  background: rgba(13, 33, 55, 0.3);
 }
 
 /* ---------- Footer ---------- */
@@ -1031,6 +1139,7 @@
 .form-select:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.12);
 }
 
 .form-textarea {
@@ -1127,6 +1236,33 @@
   top: 50%;
   transform: translateY(-50%);
   line-height: 1;
+}
+
+/* ---------- Utility Grid Classes ---------- */
+
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.grid-3-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+}
+
+.grid-2-col--stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
 }
 
 /* ---------- WhatsApp Float Button ---------- */

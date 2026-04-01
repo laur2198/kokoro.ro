@@ -52,7 +52,7 @@ get_header();
       <h2>ADRIAN <em>BOGLUȚ</em></h2>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: center;" class="reveal">
+    <div class="grid-2-col reveal">
       <div>
         <div style="width: 100%; height: 450px; background: var(--color-bg-card); border: 1px solid var(--color-gray-dark); display: flex; align-items: center; justify-content: center;">
           <span style="color: var(--color-gray);">Foto Adrian Bogluț — Campion Mondial</span>

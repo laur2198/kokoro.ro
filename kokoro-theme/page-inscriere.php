@@ -34,7 +34,7 @@ get_header();
         <!-- Datele sportivului -->
         <h3 class="heading-4" style="margin-bottom: var(--space-xl);">DATELE <em>SPORTIVULUI</em></h3>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="first-name">Prenume *</label>
             <input type="text" id="first-name" name="first_name" class="form-input" placeholder="Prenumele" required>
@@ -45,7 +45,7 @@ get_header();
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="birth-date">Data nașterii *</label>
             <input type="date" id="birth-date" name="birth_date" class="form-input" required>
@@ -86,7 +86,7 @@ get_header();
           Pentru minori, completați datele părintelui/tutorelui legal.
         </p>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="parent-name">Nume părinte/tutore</label>
             <input type="text" id="parent-name" name="parent_name" class="form-input" placeholder="Nume complet">
@@ -127,7 +127,7 @@ get_header();
 <!-- Info Section -->
 <section class="section section--alt">
   <div class="container">
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2xl); text-align: center;">
+    <div class="grid-3-col" style="text-align: center;">
 
       <div class="reveal reveal-delay-1">
         <div class="value-item__kanji" style="font-size: 2.5rem;">📞</div>

@@ -153,23 +153,23 @@ get_header();
     <div class="values-grid">
       <!-- Rei -->
       <div class="value-item reveal reveal-delay-1">
-        <div class="value-item__kanji" style="color: var(--color-primary-dark);">礼</div>
-        <div class="value-item__romaji" style="color: var(--color-primary-dark);">Rei</div>
-        <p class="value-item__meaning" style="opacity: 0.7;">Respect — Începi cu respect, termini cu respect. Fundamentul oricărei arte marțiale.</p>
+        <div class="value-item__kanji">礼</div>
+        <div class="value-item__romaji">Rei</div>
+        <p class="value-item__meaning">Respect — Începi cu respect, termini cu respect. Fundamentul oricărei arte marțiale.</p>
       </div>
 
       <!-- Seishin -->
       <div class="value-item reveal reveal-delay-2">
-        <div class="value-item__kanji" style="color: var(--color-primary-dark);">精神</div>
-        <div class="value-item__romaji" style="color: var(--color-primary-dark);">Seishin</div>
-        <p class="value-item__meaning" style="opacity: 0.7;">Spirit — Determinarea mentală care transformă efortul în performanță.</p>
+        <div class="value-item__kanji">精神</div>
+        <div class="value-item__romaji">Seishin</div>
+        <p class="value-item__meaning">Spirit — Determinarea mentală care transformă efortul în performanță.</p>
       </div>
 
       <!-- Shugyo -->
       <div class="value-item reveal reveal-delay-3">
-        <div class="value-item__kanji" style="color: var(--color-primary-dark);">修行</div>
-        <div class="value-item__romaji" style="color: var(--color-primary-dark);">Shugyo</div>
-        <p class="value-item__meaning" style="opacity: 0.7;">Disciplina Căii — Antrenamentul constant care formează caracterul și corpul.</p>
+        <div class="value-item__kanji">修行</div>
+        <div class="value-item__romaji">Shugyo</div>
+        <p class="value-item__meaning">Disciplina Căii — Antrenamentul constant care formează caracterul și corpul.</p>
       </div>
     </div>
   </div>
@@ -190,7 +190,7 @@ get_header();
     </div>
 
     <!-- Featured Champion -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: center; margin-bottom: var(--space-4xl);">
+    <div class="grid-2-col" style="margin-bottom: var(--space-4xl);">
       <div class="reveal reveal--left">
         <div class="card" style="border-color: var(--color-primary);">
           <div style="width: 100%; height: 350px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-xl);">
@@ -209,7 +209,7 @@ get_header();
         </p>
 
         <!-- Stats -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="grid-2-col--stats">
           <div class="stat">
             <div class="stat__number" data-counter="200" data-suffix="+">0</div>
             <div class="stat__label">Medalii</div>
