@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Înscriere — Kokoro Brașov Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600;700&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/typography.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/japanese.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="sakura-container" aria-hidden="true"></div>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo"><span class="navbar__logo-text">Kokoro <span>Academy</span></span></a>
+    <div class="navbar__menu">
+      <ul class="kokoro-menu">
+        <li class="kokoro-menu__item"><a href="index.html" class="kokoro-menu__link">Acasă</a></li>
+        <li class="kokoro-menu__item"><a href="discipline.html" class="kokoro-menu__link">Discipline</a></li>
+        <li class="kokoro-menu__item"><a href="orar.html" class="kokoro-menu__link">Orar</a></li>
+        <li class="kokoro-menu__item"><a href="tarife.html" class="kokoro-menu__link">Tarife</a></li>
+        <li class="kokoro-menu__item"><a href="campioni.html" class="kokoro-menu__link">Campioni</a></li>
+        <li class="kokoro-menu__item"><a href="galerie.html" class="kokoro-menu__link">Galerie</a></li>
+        <li class="kokoro-menu__item"><a href="contact.html" class="kokoro-menu__link">Contact</a></li>
+      </ul>
+    </div>
+    <a href="inscriere.html" class="btn btn--primary btn--small navbar__cta-desktop">Înscrie-te</a>
+    <button class="navbar__hamburger" aria-label="Deschide meniu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="navbar__mobile-menu">
+  <ul class="kokoro-menu">
+    <li class="kokoro-menu__item"><a href="index.html" class="kokoro-menu__link">Acasă</a></li>
+    <li class="kokoro-menu__item"><a href="discipline.html" class="kokoro-menu__link">Discipline</a></li>
+    <li class="kokoro-menu__item"><a href="orar.html" class="kokoro-menu__link">Orar</a></li>
+    <li class="kokoro-menu__item"><a href="tarife.html" class="kokoro-menu__link">Tarife</a></li>
+    <li class="kokoro-menu__item"><a href="campioni.html" class="kokoro-menu__link">Campioni</a></li>
+    <li class="kokoro-menu__item"><a href="galerie.html" class="kokoro-menu__link">Galerie</a></li>
+    <li class="kokoro-menu__item"><a href="contact.html" class="kokoro-menu__link">Contact</a></li>
+  </ul>
+  <a href="inscriere.html" class="btn btn--primary btn--large">Înscrie-te Acum</a>
+</div>
+
+<main id="content">
+
+<section class="page-header">
+  <div class="container">
+    <div class="section-number">Înscriere</div>
+    <h1>ÎNCEPE<br><em>CĂLĂTORIA</em></h1>
+    <p style="color: var(--color-gray); margin-top: var(--space-lg); max-width: 600px;">
+      Completează formularul de mai jos pentru a te înscrie la Kokoro Brașov Academy. Prima lecție este gratuită!
+    </p>
+  </div>
+  <div class="page-header__number" aria-hidden="true">力</div>
+</section>
+
+<section class="section section--dark">
+  <div class="container container--narrow">
+    <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Preview — formularul nu trimite date.');">
+
+      <h3 class="heading-4" style="margin-bottom: var(--space-xl);">DATELE <em>SPORTIVULUI</em></h3>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="form-group">
+          <label class="form-label" for="first-name">Prenume *</label>
+          <input type="text" id="first-name" class="form-input" placeholder="Prenumele">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="last-name">Nume *</label>
+          <input type="text" id="last-name" class="form-input" placeholder="Numele de familie">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="form-group">
+          <label class="form-label" for="birth-date">Data nașterii *</label>
+          <input type="date" id="birth-date" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="group">Grupa dorită *</label>
+          <select id="group" class="form-select">
+            <option value="">Alege grupa...</option>
+            <option>Copii (4-7 ani)</option>
+            <option>Copii (8-12 ani)</option>
+            <option>Juniori (13-17 ani)</option>
+            <option>Adulți (18+ ani)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="discipline">Disciplina *</label>
+        <select id="discipline" class="form-select">
+          <option value="">Alege disciplina...</option>
+          <option>Ju-Jitsu Competițional</option>
+          <option>Ju-Jitsu Autoapărare</option>
+          <option>TRX Suspension Training</option>
+          <option>Personal Training</option>
+        </select>
+      </div>
+
+      <!-- Torii Separator -->
+      <div class="torii-separator" style="margin: var(--space-2xl) 0;">
+        <div class="torii-separator__icon">
+          <svg width="40" height="40" viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.3"><line x1="5" y1="10" x2="115" y2="10"/><line x1="15" y1="22" x2="105" y2="22"/><line x1="25" y1="10" x2="25" y2="78"/><line x1="95" y1="10" x2="95" y2="78"/></svg>
+        </div>
+      </div>
+
+      <h3 class="heading-4" style="margin-bottom: var(--space-xl);">DATE DE <em>CONTACT</em></h3>
+      <p style="color: var(--color-gray); font-size: 0.875rem; margin-bottom: var(--space-xl);">Pentru minori, completați datele părintelui/tutorelui legal.</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="form-group">
+          <label class="form-label" for="parent-name">Nume părinte/tutore</label>
+          <input type="text" id="parent-name" class="form-input" placeholder="Nume complet">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">Telefon *</label>
+          <input type="tel" id="phone" class="form-input" placeholder="+40 7XX XXX XXX">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email *</label>
+        <input type="email" id="email" class="form-input" placeholder="email@exemplu.ro">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="message">Mesaj suplimentar</label>
+        <textarea id="message" class="form-textarea" placeholder="Experiență anterioară, întrebări, sau alte informații relevante..." rows="4"></textarea>
+      </div>
+
+      <div style="margin-top: var(--space-xl);">
+        <button type="submit" class="btn btn--primary btn--large btn--block">Trimite Înscrierea</button>
+        <p style="color: var(--color-gray); font-size: 0.8125rem; text-align: center; margin-top: var(--space-md);">
+          Te vom contacta în maxim 24 de ore pentru a confirma înscrierea și a stabili prima lecție gratuită.
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2xl); text-align: center;">
+      <div class="reveal reveal-delay-1">
+        <div style="font-size: 2.5rem; margin-bottom: var(--space-sm);">1</div>
+        <h4 class="heading-5" style="margin-bottom: var(--space-sm);">Te Contactăm</h4>
+        <p style="color: var(--color-gray); font-size: 0.875rem;">Primești confirmare și detalii despre prima lecție în maxim 24h.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div style="font-size: 2.5rem; margin-bottom: var(--space-sm);">2</div>
+        <h4 class="heading-5" style="margin-bottom: var(--space-sm);">Lecție Gratuită</h4>
+        <p style="color: var(--color-gray); font-size: 0.875rem;">Vii la prima lecție fără nicio obligație. Echipamentul este asigurat.</p>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div style="font-size: 2.5rem; margin-bottom: var(--space-sm);">3</div>
+        <h4 class="heading-5" style="margin-bottom: var(--space-sm);">Începi Antrenamentul</h4>
+        <p style="color: var(--color-gray); font-size: 0.875rem;">Dacă îți place, alegi abonamentul și devii parte din familia Kokoro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="torii-separator torii-separator--alt"><div class="torii-separator__icon"><svg width="40" height="40" viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.3"><line x1="5" y1="10" x2="115" y2="10"/><line x1="15" y1="22" x2="105" y2="22"/><line x1="25" y1="10" x2="25" y2="78"/><line x1="95" y1="10" x2="95" y2="78"/></svg></div></div>
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand"><a href="index.html" class="footer__logo"><span class="navbar__logo-text">Kokoro <span>Academy</span></span></a><p class="footer__description">Kokoro Brașov Academy — academie de Ju-Jitsu fondată în 2008. Formăm campioni și caractere puternice.</p><div class="footer__kanji" aria-hidden="true">武道</div></div>
+      <div><h4 class="footer__heading">Navigare</h4><nav class="footer__links"><a href="discipline.html" class="footer__link">Discipline</a><a href="orar.html" class="footer__link">Orar</a><a href="tarife.html" class="footer__link">Tarife</a><a href="campioni.html" class="footer__link">Campioni</a><a href="galerie.html" class="footer__link">Galerie</a></nav></div>
+      <div><h4 class="footer__heading">Discipline</h4><nav class="footer__links"><a href="#" class="footer__link">Ju-Jitsu Competițional</a><a href="#" class="footer__link">Ju-Jitsu Autoapărare</a><a href="#" class="footer__link">TRX Suspension Training</a><a href="#" class="footer__link">Personal Training</a></nav></div>
+      <div><h4 class="footer__heading">Contact</h4><div class="footer__links"><p class="footer__link">Brașov, România</p><a href="tel:+40740123456" class="footer__link">+40 740 123 456</a><a href="mailto:contact@kokoro.ro" class="footer__link">contact@kokoro.ro</a></div></div>
+    </div>
+    <div class="footer__bottom"><p class="footer__copyright">&copy; 2026 Kokoro Brașov Academy. Toate drepturile rezervate.</p><p class="footer__copyright"><span class="kanji--inline" aria-hidden="true">心</span> Kokoro — Inimă, Spirit, Minte</p></div>
+  </div>
+</footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
