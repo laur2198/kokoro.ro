@@ -11,24 +11,40 @@
      ========================================================================== */
 
   function initMobileMenu() {
-    const hamburger = document.querySelector('.navbar__hamburger');
-    const mobileMenu = document.querySelector('.navbar__mobile-menu');
+    var hamburger = document.querySelector('.navbar__hamburger');
+    var mobileMenu = document.querySelector('.navbar__mobile-menu');
+    var closeBtn = document.querySelector('.navbar__close');
 
     if (!hamburger || !mobileMenu) return;
 
+    function openMenu() {
+      hamburger.classList.add('navbar__hamburger--active');
+      mobileMenu.classList.add('navbar__mobile-menu--active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      hamburger.classList.remove('navbar__hamburger--active');
+      mobileMenu.classList.remove('navbar__mobile-menu--active');
+      document.body.style.overflow = '';
+    }
+
     hamburger.addEventListener('click', function () {
-      hamburger.classList.toggle('navbar__hamburger--active');
-      mobileMenu.classList.toggle('navbar__mobile-menu--active');
-      document.body.style.overflow = mobileMenu.classList.contains('navbar__mobile-menu--active') ? 'hidden' : '';
+      if (mobileMenu.classList.contains('navbar__mobile-menu--active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
+
+    // Close button (X)
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeMenu);
+    }
 
     // Close on link click
     mobileMenu.querySelectorAll('.kokoro-menu__link').forEach(function (link) {
-      link.addEventListener('click', function () {
-        hamburger.classList.remove('navbar__hamburger--active');
-        mobileMenu.classList.remove('navbar__mobile-menu--active');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
     });
   }
 

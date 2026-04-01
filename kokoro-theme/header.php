@@ -61,6 +61,12 @@
 
 <!-- Mobile Menu Overlay -->
 <div class="navbar__mobile-menu" aria-hidden="true">
+  <button class="navbar__close" aria-label="<?php esc_attr_e('Închide meniu', 'kokoro'); ?>">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
   <?php
     wp_nav_menu([
       'theme_location' => 'primary',
