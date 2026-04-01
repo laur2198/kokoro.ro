@@ -114,6 +114,18 @@
   color: var(--color-accent);
 }
 
+.section--blue .hero__subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.section--blue .hero__headline {
+  color: var(--color-white);
+}
+
+.section--blue .section-number {
+  color: var(--color-accent);
+}
+
 .section--accent {
   background-color: var(--color-accent);
 }
