@@ -12,7 +12,7 @@ get_header();
 <!-- ============================================================
      SECTION 1: HERO
      ============================================================ -->
-<section class="hero section--dark">
+<section class="hero section--blue">
   <div class="hero__bg" style="background-image: url('<?php echo esc_url(KOKORO_URI . '/assets/images/hero-placeholder.jpg'); ?>');"></div>
 
   <!-- Kanji Watermark 心 -->
@@ -38,7 +38,7 @@ get_header();
       <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--large">
         Înscrie-te Acum
       </a>
-      <a href="<?php echo esc_url(home_url('/discipline/')); ?>" class="btn btn--outline btn--large">
+      <a href="<?php echo esc_url(home_url('/discipline/')); ?>" class="btn btn--outline-white btn--large">
         Descoperă Disciplinele
       </a>
     </div>
@@ -143,9 +143,9 @@ get_header();
 <section class="section section--accent" id="despre">
   <div class="container">
     <div class="section__header reveal">
-      <div class="section-number" style="color: var(--color-bg);">03 — Filozofie</div>
-      <h2 style="color: var(--color-bg);">CALEA <em>KOKORO</em></h2>
-      <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin-top: var(--space-lg);">
+      <div class="section-number">03 — Filozofie</div>
+      <h2>CALEA <em>KOKORO</em></h2>
+      <p style="max-width: 600px; margin-top: var(--space-lg);">
         „Kokoro" (心) înseamnă Inimă, Spirit, Minte în limba japoneză. Aceste trei principii ne ghidează pe tatami și în viață.
       </p>
     </div>
@@ -153,23 +153,23 @@ get_header();
     <div class="values-grid">
       <!-- Rei -->
       <div class="value-item reveal reveal-delay-1">
-        <div class="value-item__kanji" style="color: var(--color-bg);">礼</div>
-        <div class="value-item__romaji" style="color: var(--color-bg);">Rei</div>
-        <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;">Respect — Începi cu respect, termini cu respect. Fundamentul oricărei arte marțiale.</p>
+        <div class="value-item__kanji" style="color: var(--color-primary-dark);">礼</div>
+        <div class="value-item__romaji" style="color: var(--color-primary-dark);">Rei</div>
+        <p class="value-item__meaning" style="opacity: 0.7;">Respect — Începi cu respect, termini cu respect. Fundamentul oricărei arte marțiale.</p>
       </div>
 
       <!-- Seishin -->
       <div class="value-item reveal reveal-delay-2">
-        <div class="value-item__kanji" style="color: var(--color-bg);">精神</div>
-        <div class="value-item__romaji" style="color: var(--color-bg);">Seishin</div>
-        <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;">Spirit — Determinarea mentală care transformă efortul în performanță.</p>
+        <div class="value-item__kanji" style="color: var(--color-primary-dark);">精神</div>
+        <div class="value-item__romaji" style="color: var(--color-primary-dark);">Seishin</div>
+        <p class="value-item__meaning" style="opacity: 0.7;">Spirit — Determinarea mentală care transformă efortul în performanță.</p>
       </div>
 
       <!-- Shugyo -->
       <div class="value-item reveal reveal-delay-3">
-        <div class="value-item__kanji" style="color: var(--color-bg);">修行</div>
-        <div class="value-item__romaji" style="color: var(--color-bg);">Shugyo</div>
-        <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;">Disciplina Căii — Antrenamentul constant care formează caracterul și corpul.</p>
+        <div class="value-item__kanji" style="color: var(--color-primary-dark);">修行</div>
+        <div class="value-item__romaji" style="color: var(--color-primary-dark);">Shugyo</div>
+        <p class="value-item__meaning" style="opacity: 0.7;">Disciplina Căii — Antrenamentul constant care formează caracterul și corpul.</p>
       </div>
     </div>
   </div>
@@ -179,6 +179,7 @@ get_header();
      SECTION 5: CAMPIONI
      ============================================================ -->
 <section class="section section--dark" id="campioni">
+  <!-- section--dark is now white bg -->
   <!-- Kanji Watermark -->
   <div class="kanji-watermark kanji-watermark--section" aria-hidden="true">勝利</div>
 
@@ -191,7 +192,7 @@ get_header();
     <!-- Featured Champion -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: center; margin-bottom: var(--space-4xl);">
       <div class="reveal reveal--left">
-        <div class="card" style="border-color: var(--color-accent);">
+        <div class="card" style="border-color: var(--color-primary);">
           <div style="width: 100%; height: 350px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-xl);">
             <span style="color: var(--color-gray);">Foto Adrian Bogluț</span>
           </div>
@@ -321,7 +322,7 @@ get_header();
 <!-- ============================================================
      SECTION 7: ORAR (Preview)
      ============================================================ -->
-<section class="section section--dark" id="orar">
+<section class="section section--blue" id="orar">
   <div class="container">
     <div class="section__header reveal">
       <div class="section-number">06 — Program</div>
@@ -416,23 +417,23 @@ get_header();
      ============================================================ -->
 <section class="section section--accent" id="inscriere">
   <!-- Kanji watermark -->
-  <div class="kanji-watermark kanji-watermark--section" style="opacity: 0.05; color: var(--color-bg);" aria-hidden="true">力</div>
+  <div class="kanji-watermark kanji-watermark--section" style="opacity: 0.05;" aria-hidden="true">力</div>
 
   <div class="container" style="text-align: center;">
     <div class="reveal">
-      <div class="section-number" style="color: var(--color-bg);">07 — Început</div>
-      <h2 style="color: var(--color-bg); margin-bottom: var(--space-lg);">
+      <div class="section-number">07 — Început</div>
+      <h2 style="margin-bottom: var(--space-lg);">
         ÎNCEPE<br><em>CĂLĂTORIA</em>
       </h2>
-      <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin: 0 auto var(--space-2xl);">
+      <p style="max-width: 600px; margin: 0 auto var(--space-2xl);">
         Nu contează vârsta, nivelul de experiență sau condiția fizică. Contează să faci primul pas. Înscrierile sunt deschise pentru toate grupele.
       </p>
 
       <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
-        <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">
+        <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--large">
           Înscrie-te Acum
         </a>
-        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--outline btn--large" style="border-color: var(--color-bg); color: var(--color-bg);">
+        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--outline btn--large" style="border-color: var(--color-primary-dark); color: var(--color-primary-dark);">
           Contactează-ne
         </a>
       </div>
@@ -443,7 +444,7 @@ get_header();
 <!-- ============================================================
      JAPANESE QUOTE (pre-footer)
      ============================================================ -->
-<section class="section section--dark">
+<section class="section section--blue">
   <div class="container">
     <div class="jp-quote reveal">
       <div class="jp-quote__kanji">「継続は力なり」</div>
