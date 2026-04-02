@@ -44,27 +44,6 @@ get_header();
     </div>
   </div>
 
-  <!-- Stats Bar -->
-  <div class="hero__stats">
-    <div class="hero__stats-inner">
-      <div class="stat">
-        <div class="stat__number" data-counter="17" data-suffix="+">0</div>
-        <div class="stat__label">Ani de activitate</div>
-      </div>
-      <div class="stat">
-        <div class="stat__number" data-counter="200" data-suffix="+">0</div>
-        <div class="stat__label">Medalii câștigate</div>
-      </div>
-      <div class="stat">
-        <div class="stat__number" data-counter="3">0</div>
-        <div class="stat__label">Campioni mondiali</div>
-      </div>
-      <div class="stat">
-        <div class="stat__number" data-counter="500" data-suffix="+">0</div>
-        <div class="stat__label">Sportivi formați</div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ============================================================
@@ -210,7 +189,25 @@ get_header();
         <p style="color: var(--color-gray); margin-bottom: var(--space-2xl); line-height: 1.8;">
           Academiei noastre i-au fost recunoscute meritele de către Ministerul Tineretului și Sportului și Federația Română de Arte Marțiale.
         </p>
-        <a href="<?php echo esc_url(home_url('/campioni/')); ?>" class="btn btn--outline-accent">Vezi Toți Campionii</a>
+        <div class="grid-2-col--stats" style="margin-top: var(--space-2xl);">
+          <div class="stat">
+            <div class="stat__number" data-counter="17" data-suffix="+">0</div>
+            <div class="stat__label">Ani de activitate</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number" data-counter="200" data-suffix="+">0</div>
+            <div class="stat__label">Medalii câștigate</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number" data-counter="3">0</div>
+            <div class="stat__label">Campioni mondiali</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number" data-counter="500" data-suffix="+">0</div>
+            <div class="stat__label">Sportivi formați</div>
+          </div>
+        </div>
+        <a href="<?php echo esc_url(home_url('/campioni/')); ?>" class="btn btn--outline-accent" style="margin-top: var(--space-2xl);">Vezi Toți Campionii</a>
       </div>
     </div>
 
