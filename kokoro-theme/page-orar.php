@@ -58,94 +58,94 @@ get_header();
           <!-- Luni -->
           <tr>
             <td rowspan="3" style="font-weight: 700; color: var(--color-white); vertical-align: middle;">LUNI</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--copii">Copii</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
           <tr>
-            <td>18:00 – 19:00</td>
+            <td>17:00 – 18:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
           <tr>
             <td>19:00 – 20:30</td>
             <td>Ju-Jitsu Competițional</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
 
           <!-- Marți -->
           <tr>
             <td rowspan="2" style="font-weight: 700; color: var(--color-white); vertical-align: middle;">MARȚI</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu Contact</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
             <td style="color: var(--color-white);">—</td>
           </tr>
           <tr>
-            <td>18:00 – 19:30</td>
+            <td>19:00 – 20:30</td>
             <td>Ju-Jitsu Autoapărare</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
 
           <!-- Miercuri -->
           <tr>
             <td rowspan="3" style="font-weight: 700; color: var(--color-white); vertical-align: middle;">MIERCURI</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--copii">Copii</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
           <tr>
-            <td>18:00 – 19:00</td>
+            <td>17:00 – 18:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
           <tr>
             <td>19:00 – 20:30</td>
             <td>Ju-Jitsu Competițional</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
 
           <!-- Joi -->
           <tr>
             <td rowspan="2" style="font-weight: 700; color: var(--color-white); vertical-align: middle;">JOI</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu Contact</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
             <td style="color: var(--color-white);">—</td>
           </tr>
           <tr>
-            <td>18:00 – 19:30</td>
+            <td>19:00 – 20:30</td>
             <td>Ju-Jitsu Autoapărare</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
 
           <!-- Vineri -->
           <tr>
             <td rowspan="3" style="font-weight: 700; color: var(--color-white); vertical-align: middle;">VINERI</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--copii">Copii</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
           <tr>
-            <td>18:00 – 19:00</td>
+            <td>17:00 – 18:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
           <tr>
             <td>19:00 – 20:30</td>
             <td>Ju-Jitsu Contact</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-            <td style="color: var(--color-white);">Sensei Lucică</td>
+            <td style="color: var(--color-white);">Sensei Lucian Bogluț</td>
           </tr>
 
           <!-- Sâmbătă -->

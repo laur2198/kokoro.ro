@@ -121,12 +121,12 @@ get_header();
       <div class="reveal reveal--left">
         <div class="card" style="border-color: var(--color-primary);">
           <div style="width: 100%; height: 350px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-xl);">
-            <span style="color: var(--color-gray);">Foto Sensei Lucică</span>
+            <span style="color: var(--color-gray);">Foto Sensei Lucian Bogluț</span>
           </div>
           <div class="card__tag">Fondator & Antrenor Principal</div>
-          <h3 class="card__title">Sensei Lucică</h3>
+          <h3 class="card__title">Sensei Lucian Bogluț</h3>
           <p class="card__text">
-            Fondatorul Kokoro Brașov Academy, cu peste 17 ani de experiență în Ju-Jitsu. Antrenor dedicat care a format sute de sportivi și campioni naționali și mondiali. Pasiunea lui pentru artele marțiale și pentru formarea tinerilor este motorul academiei.
+            Fondatorul Kokoro Brașov Academy, 4 Dan Ju-Jitsu, Antrenor Emerit și antrenor al lotului național. Cu peste 17 ani de experiență, a format sute de sportivi și campioni naționali și mondiali.
           </p>
           <div class="belt-progression" style="margin-top: var(--space-lg);">
             <div class="belt belt--black" style="width: 80px; height: 8px;"></div>
@@ -139,10 +139,10 @@ get_header();
       <div class="reveal reveal--right">
         <h3 class="heading-3" style="margin-bottom: var(--space-xl);">O ECHIPĂ<br><em>DEDICATĂ</em></h3>
         <p style="color: var(--color-gray); line-height: 1.8; margin-bottom: var(--space-xl);">
-          Echipa Kokoro Brașov este formată din antrenori experimentați, fiecare cu competențe unice — de la Ju-Jitsu competițional la autoapărare, de la pregătire fizică la lucrul cu copiii.
+          Echipa Kokoro Brașov este coordonată de Sensei Lucian Bogluț (4 Dan, Antrenor Emerit, antrenor lot național), alături de Sempai Dan Stoica și Adrian Bogluț — campion mondial și primul român medaliat la Ju-Jitsu Contact.
         </p>
         <p style="color: var(--color-gray); line-height: 1.8; margin-bottom: var(--space-xl);">
-          Toți antrenorii noștri sunt certificați și participă regulat la cursuri de perfecționare. Ne mândrim cu abordarea personalizată — fiecare sportiv primește atenția de care are nevoie, indiferent de nivel.
+          Toți antrenorii noștri sunt certificați și participă regulat la cursuri de perfecționare. Abordarea personalizată este marca Kokoro — fiecare sportiv primește atenția de care are nevoie.
         </p>
 
         <div class="grid-2-col--stats" style="margin-top: var(--space-xl);">

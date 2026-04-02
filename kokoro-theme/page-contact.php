@@ -61,7 +61,7 @@ get_header();
           </div>
           <div>
             <div class="contact-info__label">Program</div>
-            <p class="contact-info__text">Luni – Vineri: 16:00 – 21:00<br>Sâmbătă: după programare</p>
+            <p class="contact-info__text">Luni, Miercuri: 16:00 – 22:00<br>Marți, Joi: 16:00 – 21:00<br>Vineri: 16:00 – 20:00<br>Sâmbătă – Duminică: Închis</p>
           </div>
         </div>
 

@@ -62,7 +62,7 @@ get_header();
         <div class="card__tag">Campion Mondial Ju-Jitsu</div>
         <h3 class="heading-3" style="margin: var(--space-lg) 0;">MÂNDRIA<br><em>KOKORO</em></h3>
         <p style="color: var(--color-gray); line-height: 1.8; margin-bottom: var(--space-xl);">
-          Adrian Bogluț este cel mai titrat sportiv al academiei Kokoro Brașov. Campion mondial la Ju-Jitsu, el este dovada vie că munca, disciplina și spiritul Kokoro duc la cele mai înalte performanțe.
+          Adrian Bogluț a scris istorie pentru sportul românesc — primul român medaliat la proba de Ju-Jitsu Contact într-un Campionat Mondial (Thailanda, 2025, bronz la -62 kg). Cel mai titrat sportiv al Kokoro Brașov.
         </p>
         <div class="belt-progression" style="margin-bottom: var(--space-lg);">
           <div class="belt belt--black" style="width: 80px; height: 8px;"></div>
@@ -93,22 +93,22 @@ get_header();
         </thead>
         <tbody>
           <tr>
-            <td style="color: var(--color-accent); font-weight: 700;">2024</td>
-            <td>Campionatul Mondial Ju-Jitsu</td>
-            <td><span class="card__tag" style="margin: 0;">Aur</span></td>
-            <td style="color: var(--color-white);">Adrian Bogluț</td>
+            <td style="color: var(--color-primary); font-weight: 700;">2025</td>
+            <td>Campionatul Mondial — Ju-Jitsu Contact</td>
+            <td><span class="card__tag" style="margin: 0;">Bronz -62kg</span></td>
+            <td style="color: var(--color-primary-dark);">Adrian Bogluț</td>
           </tr>
           <tr>
-            <td style="color: var(--color-accent); font-weight: 700;">2024</td>
+            <td style="color: var(--color-primary); font-weight: 700;">2025</td>
+            <td>Cupa Ronin</td>
+            <td><span class="card__tag" style="margin: 0;">Locul 2</span></td>
+            <td style="color: var(--color-primary-dark);">Echipa Kokoro</td>
+          </tr>
+          <tr>
+            <td style="color: var(--color-primary); font-weight: 700;">2024</td>
             <td>Campionatul Național Ju-Jitsu</td>
             <td><span class="card__tag" style="margin: 0;">Multiple medalii</span></td>
-            <td style="color: var(--color-white);">Echipa Kokoro</td>
-          </tr>
-          <tr>
-            <td style="color: var(--color-accent); font-weight: 700;">2023</td>
-            <td>Campionatul European Ju-Jitsu</td>
-            <td><span class="card__tag" style="margin: 0;">Argint</span></td>
-            <td style="color: var(--color-white);">Adrian Bogluț</td>
+            <td style="color: var(--color-primary-dark);">Echipa Kokoro</td>
           </tr>
           <tr>
             <td style="color: var(--color-accent); font-weight: 700;">2023</td>

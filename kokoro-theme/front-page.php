@@ -342,13 +342,13 @@ get_header();
         <tbody>
           <tr>
             <td>Luni</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--copii">Copii</span></td>
           </tr>
           <tr>
             <td>Luni</td>
-            <td>18:00 – 19:00</td>
+            <td>17:00 – 18:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
           </tr>
@@ -360,19 +360,19 @@ get_header();
           </tr>
           <tr>
             <td>Marți</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu Autoapărare</td>
             <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
           </tr>
           <tr>
             <td>Miercuri</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--copii">Copii</span></td>
           </tr>
           <tr>
             <td>Miercuri</td>
-            <td>18:00 – 19:00</td>
+            <td>17:00 – 18:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
           </tr>
@@ -384,13 +384,13 @@ get_header();
           </tr>
           <tr>
             <td>Vineri</td>
-            <td>17:00 – 18:00</td>
+            <td>16:00 – 17:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--copii">Copii</span></td>
           </tr>
           <tr>
             <td>Vineri</td>
-            <td>18:00 – 19:00</td>
+            <td>17:00 – 18:00</td>
             <td>Ju-Jitsu</td>
             <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
           </tr>

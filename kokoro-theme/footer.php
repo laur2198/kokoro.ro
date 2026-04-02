@@ -59,7 +59,7 @@
         <h4 class="footer__heading">Contact</h4>
         <div class="footer__links">
           <p class="footer__link">Brașov, România</p>
-          <a href="tel:+40740123456" class="footer__link">+40 740 123 456</a>
+          <p class="footer__link" style="font-size: 0.8125rem;">L-Mi 16-22 · Ma-Jo 16-21 · Vi 16-20</p>
           <a href="mailto:contact@kokoro.ro" class="footer__link">contact@kokoro.ro</a>
         </div>
 

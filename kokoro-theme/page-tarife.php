@@ -26,33 +26,33 @@ get_header();
     <!-- Pricing Grid -->
     <div class="pricing-grid reveal">
 
-      <!-- Pachet Copii -->
+      <!-- Pachet Copii 2x -->
       <div class="pricing-card">
-        <div class="pricing-card__title">Copii</div>
-        <div class="pricing-card__price">150<span style="font-size: 1.5rem;"> lei</span></div>
+        <div class="pricing-card__title">Copii — 2x / săpt.</div>
+        <div class="pricing-card__price">300<span style="font-size: 1.5rem;"> lei</span></div>
         <div class="pricing-card__period">/ lună</div>
         <div class="pricing-card__features">
-          <div class="pricing-card__feature">3 antrenamente / săptămână</div>
-          <div class="pricing-card__feature">Grupa 4-7 ani sau 8-12 ani</div>
+          <div class="pricing-card__feature">2 antrenamente / săptămână</div>
+          <div class="pricing-card__feature">Grupe pe vârstă (4-7, 8-12 ani)</div>
           <div class="pricing-card__feature">Ju-Jitsu adaptat vârstei</div>
-          <div class="pricing-card__feature">Dezvoltare motricitate</div>
-          <div class="pricing-card__feature">Disciplină și respect</div>
+          <div class="pricing-card__feature">Dezvoltare motricitate și disciplină</div>
+          <div class="pricing-card__feature">Echipament inclus la început</div>
         </div>
         <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--outline-accent btn--block">Înscrie-te</a>
       </div>
 
-      <!-- Pachet Juniori / Adulți (Featured) -->
+      <!-- Pachet Copii 3x (Featured) -->
       <div class="pricing-card pricing-card--featured">
-        <div class="pricing-card__title">Juniori & Adulți</div>
-        <div class="pricing-card__price">200<span style="font-size: 1.5rem;"> lei</span></div>
+        <div class="pricing-card__title">Copii — 3x / săpt.</div>
+        <div class="pricing-card__price">350<span style="font-size: 1.5rem;"> lei</span></div>
         <div class="pricing-card__period">/ lună</div>
         <div class="pricing-card__features">
-          <div class="pricing-card__feature">3-5 antrenamente / săptămână</div>
-          <div class="pricing-card__feature">Ju-Jitsu competițional</div>
-          <div class="pricing-card__feature">Autoapărare</div>
-          <div class="pricing-card__feature">Pregătire fizică inclusă</div>
-          <div class="pricing-card__feature">Participare competiții</div>
-          <div class="pricing-card__feature">Ju-Jitsu Contact</div>
+          <div class="pricing-card__feature">3 antrenamente / săptămână</div>
+          <div class="pricing-card__feature">Grupe pe vârstă (4-7, 8-12 ani)</div>
+          <div class="pricing-card__feature">Ju-Jitsu competițional + autoapărare</div>
+          <div class="pricing-card__feature">Pregătire pentru competiții</div>
+          <div class="pricing-card__feature">Participare la grade (centuri)</div>
+          <div class="pricing-card__feature">Progres accelerat</div>
         </div>
         <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--block">Înscrie-te</a>
       </div>
@@ -64,9 +64,9 @@ get_header();
         <div class="pricing-card__period">/ ședință</div>
         <div class="pricing-card__features">
           <div class="pricing-card__feature">1-on-1 cu antrenorul</div>
+          <div class="pricing-card__feature">Ju-Jitsu, tonifiere, cardio</div>
           <div class="pricing-card__feature">Program personalizat</div>
-          <div class="pricing-card__feature">Pregătire Ju-Jitsu Contact</div>
-          <div class="pricing-card__feature">Pregătire specifică competiții</div>
+          <div class="pricing-card__feature">Pregătire competiții</div>
           <div class="pricing-card__feature">Orar flexibil</div>
         </div>
         <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--outline-accent btn--block">Înscrie-te</a>
@@ -77,7 +77,7 @@ get_header();
     <!-- Note -->
     <div class="reveal" style="text-align: center; margin-top: var(--space-3xl); padding: var(--space-2xl); background: var(--color-bg-card); border: 1px solid var(--color-gray-dark);">
       <p style="color: var(--color-gray); font-size: 0.9375rem;">
-        <strong style="color: var(--color-white);">Notă:</strong> Prețurile sunt orientative și pot varia. Pentru tarife actualizate și oferte speciale pentru frați sau grupe, contactează-ne direct.
+        <strong style="color: var(--color-primary-dark);">Notă:</strong> Prețurile sunt valabile pentru sezonul 2025-2026. Oferte speciale pentru frați și grupe disponibile. Contactează-ne pentru detalii.
       </p>
       <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--outline btn--small" style="margin-top: var(--space-lg);">
         Solicită Ofertă
