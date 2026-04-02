@@ -174,10 +174,11 @@
 /* ---------- Belt Colors (Progress/Ranks) ---------- */
 
 .belt {
-  display: inline-block;
-  height: 6px;
+  display: block;
+  height: 8px;
   border-radius: var(--radius-full);
-  width: 40px;
+  width: 50px;
+  margin: 0 auto var(--space-xs);
 }
 
 .belt--white   { background: #FFFFFF; }
