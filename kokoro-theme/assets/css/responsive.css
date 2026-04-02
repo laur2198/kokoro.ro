@@ -112,7 +112,7 @@
   .hero {
     min-height: auto;
     padding-top: 100px;
-    padding-bottom: 120px;
+    padding-bottom: var(--space-2xl);
   }
 
   .hero__headline {
