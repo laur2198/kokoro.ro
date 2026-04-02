@@ -79,7 +79,7 @@ function kokoro_enqueue_assets() {
     );
 
     // CSS Modules (loaded individually for performance)
-    $css_modules = ['reset', 'typography', 'components', 'japanese', 'responsive'];
+    $css_modules = ['reset', 'typography', 'components', 'japanese', 'responsive', 'effects'];
     foreach ($css_modules as $module) {
         wp_enqueue_style(
             'kokoro-' . $module,

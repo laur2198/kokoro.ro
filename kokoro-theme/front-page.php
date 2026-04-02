@@ -117,6 +117,31 @@ get_header();
 </section>
 
 <!-- ============================================================
+     SECTION: VIDEO
+     ============================================================ -->
+<section class="section section--blue video-section">
+  <div class="container" style="text-align: center;">
+    <div class="section__header reveal">
+      <div class="section-number">03 — Descoperă</div>
+      <h2>KOKORO ÎN <em>ACȚIUNE</em></h2>
+    </div>
+
+    <div class="video-section__player reveal">
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%); display: flex; align-items: center; justify-content: center;">
+        <span style="color: rgba(255,255,255,0.5);">Video Antrenament Kokoro</span>
+      </div>
+      <div class="video-section__play">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+    </div>
+
+    <p style="color: rgba(255,255,255,0.9); margin-top: var(--space-xl); max-width: 500px; margin-left: auto; margin-right: auto;">
+      Antrenamente, competiții și momente din viața de zi cu zi la Kokoro Brașov Academy.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
      SECTION 4: ABOUT / VALORI JAPONEZE
      ============================================================ -->
 <section class="section section--accent" id="despre">

@@ -11,6 +11,13 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<!-- Page Loader -->
+<div class="page-loader">
+  <div class="page-loader__kanji">心</div>
+  <div class="page-loader__logo">Kokoro <span>Academy</span></div>
+  <div class="page-loader__bar"><div class="page-loader__progress"></div></div>
+</div>
+
 <!-- Sakura Petals Container -->
 <div class="sakura-container" aria-hidden="true"></div>
 

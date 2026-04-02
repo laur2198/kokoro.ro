@@ -254,8 +254,169 @@
   }
 
   /* ==========================================================================
+     8. Parallax Scroll
+     ========================================================================== */
+
+  function initParallax() {
+    var parallaxElements = document.querySelectorAll('.parallax-bg');
+    if (!parallaxElements.length || window.innerWidth < 768) return;
+
+    var ticking = false;
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          var scrollY = window.scrollY;
+          parallaxElements.forEach(function (el) {
+            var rect = el.parentElement.getBoundingClientRect();
+            var speed = 0.3;
+            var yPos = (rect.top * speed);
+            el.style.transform = 'translateY(' + yPos + 'px)';
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+
+  /* ==========================================================================
+     9. Testimonial Carousel
+     ========================================================================== */
+
+  function initCarousel() {
+    var carousel = document.querySelector('.testimonial-carousel');
+    if (!carousel) return;
+
+    var track = carousel.querySelector('.testimonial-carousel__track');
+    var slides = carousel.querySelectorAll('.testimonial-carousel__slide');
+    var prevBtn = carousel.querySelector('.testimonial-carousel__btn--prev');
+    var nextBtn = carousel.querySelector('.testimonial-carousel__btn--next');
+    var dots = carousel.querySelectorAll('.testimonial-carousel__dot');
+
+    if (!track || !slides.length) return;
+
+    var currentIndex = 0;
+    var slidesPerView = 1;
+
+    function updateSlidesPerView() {
+      if (window.innerWidth >= 1024) slidesPerView = 3;
+      else if (window.innerWidth >= 768) slidesPerView = 2;
+      else slidesPerView = 1;
+    }
+
+    function goToSlide(index) {
+      var maxIndex = Math.max(0, slides.length - slidesPerView);
+      currentIndex = Math.max(0, Math.min(index, maxIndex));
+      var offset = -(currentIndex * (100 / slidesPerView));
+      track.style.transform = 'translateX(' + offset + '%)';
+
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('testimonial-carousel__dot--active', i === currentIndex);
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        goToSlide(currentIndex - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        goToSlide(currentIndex + 1);
+      });
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        goToSlide(i);
+      });
+    });
+
+    updateSlidesPerView();
+    window.addEventListener('resize', function () {
+      updateSlidesPerView();
+      goToSlide(currentIndex);
+    });
+
+    // Auto-play every 5 seconds
+    setInterval(function () {
+      var maxIndex = Math.max(0, slides.length - slidesPerView);
+      if (currentIndex >= maxIndex) goToSlide(0);
+      else goToSlide(currentIndex + 1);
+    }, 5000);
+  }
+
+  /* ==========================================================================
+     10. Button Ripple Effect
+     ========================================================================== */
+
+  function initRipple() {
+    document.querySelectorAll('.btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var ripple = document.createElement('span');
+        ripple.className = 'btn__ripple';
+        var size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(function () {
+          ripple.remove();
+        }, 600);
+      });
+    });
+  }
+
+  /* ==========================================================================
+     11. Page Loader
+     ========================================================================== */
+
+  function initPageLoader() {
+    var loader = document.querySelector('.page-loader');
+    if (!loader) return;
+
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        loader.classList.add('page-loader--hidden');
+        document.body.classList.add('page-transition');
+      }, 1500);
+    });
+  }
+
+  /* ==========================================================================
+     12. Card 3D Tilt
+     ========================================================================== */
+
+  function initCardTilt() {
+    if (window.innerWidth < 1024) return;
+
+    document.querySelectorAll('.card-tilt').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var rotateX = (y - centerY) / 20;
+        var rotateY = (centerX - x) / 20;
+        card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+      });
+    });
+  }
+
+  /* ==========================================================================
      Initialize All
      ========================================================================== */
+
+  // Page loader runs immediately
+  initPageLoader();
 
   document.addEventListener('DOMContentLoaded', function () {
     initMobileMenu();
@@ -265,5 +426,9 @@
     initSakuraPetals();
     initSmoothScroll();
     initMarquee();
+    initParallax();
+    initCarousel();
+    initRipple();
+    initCardTilt();
   });
 })();
