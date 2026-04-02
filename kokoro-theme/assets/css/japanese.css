@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: var(--space-3xl) 0;
+  margin: var(--space-xl) 0 var(--space-2xl);
 }
 
 .torii-separator::before {
@@ -41,8 +41,16 @@
   opacity: 0.3;
 }
 
+.torii-separator--alt::before {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .torii-separator--alt .torii-separator__icon {
   background: var(--color-dark);
+}
+
+.torii-separator--alt .torii-separator__icon svg {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 /* ---------- Shoji Screen Pattern ---------- */
