@@ -204,37 +204,16 @@ get_header();
 
       <div class="reveal reveal--right">
         <h3 class="heading-3" style="margin-bottom: var(--space-xl);">REZULTATE DE<br><em>EXCEPȚIE</em></h3>
-        <p style="color: var(--color-gray); margin-bottom: var(--space-2xl); line-height: 1.8;">
-          De la înființarea în 2008, sportivii Kokoro au câștigat sute de medalii la competiții naționale și internaționale. Academiei noastre i-au fost recunoscute meritele de către Ministerul Tineretului și Sportului și Federația Română de Arte Marțiale.
+        <p style="color: var(--color-gray); margin-bottom: var(--space-lg); line-height: 1.8;">
+          De la înființarea în 2008, sportivii Kokoro au câștigat sute de medalii la competiții naționale și internaționale. Adrian Bogluț a scris istorie — primul român medaliat la Ju-Jitsu Contact la un Campionat Mondial.
         </p>
-
-        <!-- Stats -->
-        <div class="grid-2-col--stats">
-          <div class="stat">
-            <div class="stat__number" data-counter="200" data-suffix="+">0</div>
-            <div class="stat__label">Medalii</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number" data-counter="3">0</div>
-            <div class="stat__label">Campioni Mondiali</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number" data-counter="50" data-suffix="+">0</div>
-            <div class="stat__label">Medalii Internaționale</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number" data-counter="100" data-suffix="+">0</div>
-            <div class="stat__label">Medalii Naționale</div>
-          </div>
-        </div>
+        <p style="color: var(--color-gray); margin-bottom: var(--space-2xl); line-height: 1.8;">
+          Academiei noastre i-au fost recunoscute meritele de către Ministerul Tineretului și Sportului și Federația Română de Arte Marțiale.
+        </p>
+        <a href="<?php echo esc_url(home_url('/campioni/')); ?>" class="btn btn--outline-accent">Vezi Toți Campionii</a>
       </div>
     </div>
 
-    <div style="text-align: center;" class="reveal">
-      <a href="<?php echo esc_url(home_url('/campioni/')); ?>" class="btn btn--outline-accent">
-        Vezi Toți Campionii
-      </a>
-    </div>
   </div>
 </section>
 
