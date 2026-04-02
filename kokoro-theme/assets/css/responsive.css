@@ -299,6 +299,57 @@
     width: 26px;
     height: 26px;
   }
+
+  /* Footer social icons wrap */
+  .footer__social {
+    flex-wrap: wrap;
+  }
+
+  /* Pricing card text align left on mobile */
+  .pricing-card {
+    text-align: left;
+  }
+
+  .pricing-card__title,
+  .pricing-card__price,
+  .pricing-card__period {
+    text-align: center;
+  }
+
+  /* Navbar close button bigger on mobile */
+  .navbar__close {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .navbar__close svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Page header description on mobile */
+  .page-header p {
+    font-size: 0.9375rem;
+  }
+
+  /* Discipline card subtitle visible */
+  .discipline-card__subtitle {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  /* Section blue schedule wrapper */
+  .section--blue .schedule-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  /* Belt progression wrap */
+  .belt-progression {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 /* ---------- Small Mobile (max 480px) ---------- */
@@ -317,6 +368,17 @@
   }
 
   .hero__cta .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* All flex button groups stack on small mobile */
+  div[style*="display: flex"][style*="gap"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  div[style*="display: flex"][style*="gap"] .btn {
     width: 100%;
     text-align: center;
   }
