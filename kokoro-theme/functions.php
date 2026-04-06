@@ -14,6 +14,7 @@ define('KOKORO_URI', get_template_directory_uri());
 
 // Load ACF field definitions
 require_once KOKORO_DIR . '/inc/acf-fields.php';
+require_once KOKORO_DIR . '/inc/acf-page-builder.php';
 
 /* ==========================================================================
    1. Theme Setup
