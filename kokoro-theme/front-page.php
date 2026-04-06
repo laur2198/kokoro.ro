@@ -13,7 +13,8 @@ get_header();
      SECTION 1: HERO
      ============================================================ -->
 <section class="hero section--blue">
-  <div class="hero__bg" style="background-image: url('<?php echo esc_url(KOKORO_URI . '/assets/images/hero-placeholder.jpg'); ?>');"></div>
+  <?php $hero_img = kokoro_field('hero_image'); ?>
+  <div class="hero__bg" style="<?php if ($hero_img) echo 'background-image: url(\'' . esc_url($hero_img) . '\');'; ?>"></div>
 
   <!-- Kanji Watermark 心 -->
   <div class="kanji-watermark kanji-watermark--hero" aria-hidden="true">心</div>
@@ -31,7 +32,7 @@ get_header();
     </h1>
 
     <p class="hero__subtitle reveal">
-      Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută MTS și FRAM, cu campioni mondiali în palmares.
+      <?php echo esc_html(kokoro_field('hero_subtitle', 'Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută MTS și FRAM, cu campioni mondiali în palmares.')); ?>
     </p>
 
     <div class="hero__cta reveal">
@@ -216,19 +217,19 @@ get_header();
         </p>
         <div class="grid-2-col--stats" style="margin-top: var(--space-2xl);">
           <div class="stat">
-            <div class="stat__number" data-counter="17" data-suffix="+">0</div>
+            <div class="stat__number" data-counter="<?php echo esc_attr(kokoro_field('stat_years', 17)); ?>" data-suffix="+">0</div>
             <div class="stat__label">Ani de activitate</div>
           </div>
           <div class="stat">
-            <div class="stat__number" data-counter="200" data-suffix="+">0</div>
+            <div class="stat__number" data-counter="<?php echo esc_attr(kokoro_field('stat_medals', 200)); ?>" data-suffix="+">0</div>
             <div class="stat__label">Medalii câștigate</div>
           </div>
           <div class="stat">
-            <div class="stat__number" data-counter="3">0</div>
+            <div class="stat__number" data-counter="<?php echo esc_attr(kokoro_field('stat_champions', 3)); ?>">0</div>
             <div class="stat__label">Campioni mondiali</div>
           </div>
           <div class="stat">
-            <div class="stat__number" data-counter="500" data-suffix="+">0</div>
+            <div class="stat__number" data-counter="<?php echo esc_attr(kokoro_field('stat_athletes', 500)); ?>" data-suffix="+">0</div>
             <div class="stat__label">Sportivi formați</div>
           </div>
         </div>

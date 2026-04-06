@@ -26,51 +26,62 @@ get_header();
     <!-- Pricing Grid -->
     <div class="pricing-grid reveal">
 
-      <!-- Pachet Copii 2x -->
-      <div class="pricing-card">
-        <div class="pricing-card__title">Copii — 2x / săpt.</div>
-        <div class="pricing-card__price">300<span style="font-size: 1.5rem;"> lei</span></div>
-        <div class="pricing-card__period">/ lună</div>
-        <div class="pricing-card__features">
-          <div class="pricing-card__feature">2 antrenamente / săptămână</div>
-          <div class="pricing-card__feature">Grupe pe vârstă (4-7, 8-12 ani)</div>
-          <div class="pricing-card__feature">Ju-Jitsu adaptat vârstei</div>
-          <div class="pricing-card__feature">Dezvoltare motricitate și disciplină</div>
-          <div class="pricing-card__feature">Echipament inclus la început</div>
-        </div>
-        <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--outline-accent btn--block">Înscrie-te</a>
-      </div>
+      <?php if (have_rows('tarife_packages')) : ?>
+        <?php while (have_rows('tarife_packages')) : the_row(); ?>
+          <div class="pricing-card <?php echo get_sub_field('featured') ? 'pricing-card--featured' : ''; ?>">
+            <div class="pricing-card__title"><?php echo esc_html(get_sub_field('name')); ?></div>
+            <div class="pricing-card__price"><?php echo esc_html(get_sub_field('price')); ?><span style="font-size: 1.5rem;"> lei</span></div>
+            <div class="pricing-card__period"><?php echo esc_html(get_sub_field('period')); ?></div>
+            <div class="pricing-card__features">
+              <?php
+                $features = explode("\n", get_sub_field('features'));
+                foreach ($features as $feature) :
+                  $feature = trim($feature);
+                  if ($feature) :
+              ?>
+                <div class="pricing-card__feature"><?php echo esc_html($feature); ?></div>
+              <?php endif; endforeach; ?>
+            </div>
+            <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn <?php echo get_sub_field('featured') ? 'btn--primary' : 'btn--outline-accent'; ?> btn--block">Înscrie-te</a>
+          </div>
+        <?php endwhile; ?>
 
-      <!-- Pachet Copii 3x (Featured) -->
-      <div class="pricing-card pricing-card--featured">
-        <div class="pricing-card__title">Copii — 3x / săpt.</div>
-        <div class="pricing-card__price">350<span style="font-size: 1.5rem;"> lei</span></div>
-        <div class="pricing-card__period">/ lună</div>
-        <div class="pricing-card__features">
-          <div class="pricing-card__feature">3 antrenamente / săptămână</div>
-          <div class="pricing-card__feature">Grupe pe vârstă (4-7, 8-12 ani)</div>
-          <div class="pricing-card__feature">Ju-Jitsu competițional + autoapărare</div>
-          <div class="pricing-card__feature">Pregătire pentru competiții</div>
-          <div class="pricing-card__feature">Participare la grade (centuri)</div>
-          <div class="pricing-card__feature">Progres accelerat</div>
+      <?php else : ?>
+        <!-- Fallback hardcodat dacă ACF nu e activ -->
+        <div class="pricing-card">
+          <div class="pricing-card__title">Copii — 2x / săpt.</div>
+          <div class="pricing-card__price">300<span style="font-size: 1.5rem;"> lei</span></div>
+          <div class="pricing-card__period">/ lună</div>
+          <div class="pricing-card__features">
+            <div class="pricing-card__feature">2 antrenamente / săptămână</div>
+            <div class="pricing-card__feature">Grupe pe vârstă (4-7, 8-12 ani)</div>
+            <div class="pricing-card__feature">Ju-Jitsu adaptat vârstei</div>
+          </div>
+          <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--outline-accent btn--block">Înscrie-te</a>
         </div>
-        <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--block">Înscrie-te</a>
-      </div>
-
-      <!-- Personal Training -->
-      <div class="pricing-card">
-        <div class="pricing-card__title">Personal Training</div>
-        <div class="pricing-card__price">100<span style="font-size: 1.5rem;"> lei</span></div>
-        <div class="pricing-card__period">/ ședință</div>
-        <div class="pricing-card__features">
-          <div class="pricing-card__feature">1-on-1 cu antrenorul</div>
-          <div class="pricing-card__feature">Ju-Jitsu, tonifiere, cardio</div>
-          <div class="pricing-card__feature">Program personalizat</div>
-          <div class="pricing-card__feature">Pregătire competiții</div>
-          <div class="pricing-card__feature">Orar flexibil</div>
+        <div class="pricing-card pricing-card--featured">
+          <div class="pricing-card__title">Copii — 3x / săpt.</div>
+          <div class="pricing-card__price">350<span style="font-size: 1.5rem;"> lei</span></div>
+          <div class="pricing-card__period">/ lună</div>
+          <div class="pricing-card__features">
+            <div class="pricing-card__feature">3 antrenamente / săptămână</div>
+            <div class="pricing-card__feature">Ju-Jitsu competițional + autoapărare</div>
+            <div class="pricing-card__feature">Pregătire pentru competiții</div>
+          </div>
+          <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--block">Înscrie-te</a>
         </div>
-        <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--outline-accent btn--block">Înscrie-te</a>
-      </div>
+        <div class="pricing-card">
+          <div class="pricing-card__title">Personal Training</div>
+          <div class="pricing-card__price">100<span style="font-size: 1.5rem;"> lei</span></div>
+          <div class="pricing-card__period">/ ședință</div>
+          <div class="pricing-card__features">
+            <div class="pricing-card__feature">1-on-1 cu antrenorul</div>
+            <div class="pricing-card__feature">Program personalizat</div>
+            <div class="pricing-card__feature">Orar flexibil</div>
+          </div>
+          <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--outline-accent btn--block">Înscrie-te</a>
+        </div>
+      <?php endif; ?>
 
     </div><!-- /.pricing-grid -->
 

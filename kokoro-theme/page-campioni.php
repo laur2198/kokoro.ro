@@ -52,21 +52,30 @@ get_header();
       <h2>ADRIAN <em>BOGLUȚ</em></h2>
     </div>
 
+    <?php
+      $champ_name = kokoro_field('champion_name', 'Adrian Bogluț');
+      $champ_photo = kokoro_field('champion_photo');
+      $champ_desc = kokoro_field('champion_description', 'Adrian Bogluț a scris istorie pentru sportul românesc — primul român medaliat la proba de Ju-Jitsu Contact într-un Campionat Mondial (Thailanda, 2025, bronz la -62 kg).');
+    ?>
     <div class="grid-2-col reveal">
       <div>
-        <div style="width: 100%; height: 450px; background: var(--color-bg-card); border: 1px solid var(--color-gray-dark); display: flex; align-items: center; justify-content: center;">
-          <span style="color: var(--color-gray);">Foto Adrian Bogluț — Campion Mondial</span>
-        </div>
+        <?php if ($champ_photo) : ?>
+          <img src="<?php echo esc_url($champ_photo); ?>" alt="<?php echo esc_attr($champ_name); ?>" style="width: 100%; height: 450px; object-fit: cover; border: 1px solid var(--color-gray-dark);">
+        <?php else : ?>
+          <div style="width: 100%; height: 450px; background: var(--color-bg-card); border: 1px solid var(--color-gray-dark); display: flex; align-items: center; justify-content: center;">
+            <span style="color: var(--color-gray);">Foto <?php echo esc_html($champ_name); ?></span>
+          </div>
+        <?php endif; ?>
       </div>
       <div>
         <div class="card__tag">Campion Mondial Ju-Jitsu</div>
         <h3 class="heading-3" style="margin: var(--space-lg) 0;">MÂNDRIA<br><em>KOKORO</em></h3>
         <p style="color: var(--color-gray); line-height: 1.8; margin-bottom: var(--space-xl);">
-          Adrian Bogluț a scris istorie pentru sportul românesc — primul român medaliat la proba de Ju-Jitsu Contact într-un Campionat Mondial (Thailanda, 2025, bronz la -62 kg). Cel mai titrat sportiv al Kokoro Brașov.
+          <?php echo esc_html($champ_desc); ?>
         </p>
         <div class="belt-progression" style="margin-bottom: var(--space-lg);">
           <div class="belt belt--black" style="width: 80px; height: 8px;"></div>
-          <span class="text-sm" style="color: var(--color-white);">Centură Neagră</span>
+          <span class="text-sm" style="color: var(--color-primary-dark);">Centură Neagră</span>
         </div>
       </div>
     </div>
@@ -82,6 +91,29 @@ get_header();
     </div>
 
     <div class="schedule-wrapper reveal">
+      <?php if (have_rows('palmares')) : ?>
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th>An</th>
+            <th>Competiție</th>
+            <th>Rezultat</th>
+            <th>Sportiv</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php while (have_rows('palmares')) : the_row(); ?>
+          <tr>
+            <td style="color: var(--color-primary); font-weight: 700;"><?php echo esc_html(get_sub_field('year')); ?></td>
+            <td><?php echo esc_html(get_sub_field('competition')); ?></td>
+            <td><span class="card__tag" style="margin: 0;"><?php echo esc_html(get_sub_field('medal')); ?></span></td>
+            <td style="color: var(--color-primary-dark);"><?php echo esc_html(get_sub_field('athlete')); ?></td>
+          </tr>
+          <?php endwhile; ?>
+        </tbody>
+      </table>
+      <?php else : ?>
+      <!-- Fallback -->
       <table class="schedule">
         <thead>
           <tr>
@@ -124,6 +156,7 @@ get_header();
           </tr>
         </tbody>
       </table>
+      <?php endif; ?>
     </div>
 
     <p style="color: var(--color-gray); text-align: center; margin-top: var(--space-xl); font-size: 0.875rem;">

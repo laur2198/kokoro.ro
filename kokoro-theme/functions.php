@@ -12,6 +12,9 @@ define('KOKORO_VERSION', '1.0.0');
 define('KOKORO_DIR', get_template_directory());
 define('KOKORO_URI', get_template_directory_uri());
 
+// Load ACF field definitions
+require_once KOKORO_DIR . '/inc/acf-fields.php';
+
 /* ==========================================================================
    1. Theme Setup
    ========================================================================== */

@@ -44,6 +44,31 @@ get_header();
 <section class="section section--dark">
   <div class="container">
     <div class="schedule-wrapper reveal">
+      <?php if (have_rows('orar_entries')) : ?>
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th>Zi</th>
+            <th>Oră</th>
+            <th>Disciplină</th>
+            <th>Grupă</th>
+            <th>Antrenor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php while (have_rows('orar_entries')) : the_row(); ?>
+            <tr>
+              <td style="font-weight: 700;"><?php echo esc_html(get_sub_field('day')); ?></td>
+              <td><?php echo esc_html(get_sub_field('time')); ?></td>
+              <td><?php echo esc_html(get_sub_field('discipline')); ?></td>
+              <td><span class="schedule__group schedule__group--<?php echo esc_attr(get_sub_field('group')); ?>"><?php echo esc_html(ucfirst(get_sub_field('group'))); ?></span></td>
+              <td><?php echo esc_html(get_sub_field('trainer')); ?></td>
+            </tr>
+          <?php endwhile; ?>
+        </tbody>
+      </table>
+      <?php else : ?>
+      <!-- Fallback hardcodat -->
       <table class="schedule">
         <thead>
           <tr>
@@ -158,6 +183,7 @@ get_header();
           </tr>
         </tbody>
       </table>
+      <?php endif; ?>
     </div>
 
     <div class="reveal" style="margin-top: var(--space-2xl); padding: var(--space-xl); background: var(--color-bg-card); border: 1px solid var(--color-gray-dark);">
