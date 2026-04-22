@@ -45,3 +45,39 @@ function kokoro_register_campion_cpt() {
     register_post_type('campion', $args);
 }
 add_action('init', 'kokoro_register_campion_cpt');
+
+/**
+ * Disciplină — sport/activitate predată la academie (Ju-Jitsu, TRX, etc.)
+ */
+function kokoro_register_disciplina_cpt() {
+    $labels = [
+        'name'               => __('Discipline', 'kokoro'),
+        'singular_name'      => __('Disciplină', 'kokoro'),
+        'menu_name'          => __('Discipline', 'kokoro'),
+        'add_new'            => __('Adaugă Disciplină', 'kokoro'),
+        'add_new_item'       => __('Adaugă Disciplină Nouă', 'kokoro'),
+        'new_item'           => __('Disciplină Nouă', 'kokoro'),
+        'edit_item'          => __('Editează Disciplina', 'kokoro'),
+        'view_item'          => __('Vezi Disciplina', 'kokoro'),
+        'all_items'          => __('Toate Disciplinele', 'kokoro'),
+        'search_items'       => __('Caută Disciplină', 'kokoro'),
+        'not_found'          => __('Nicio disciplină găsită.', 'kokoro'),
+    ];
+
+    $args = [
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-editor-expand',
+        'menu_position'      => 21,
+        'has_archive'        => false,
+        'rewrite'            => ['slug' => 'disciplina'],
+        'supports'           => ['title', 'editor', 'thumbnail', 'page-attributes'],
+    ];
+
+    register_post_type('disciplina', $args);
+}
+add_action('init', 'kokoro_register_disciplina_cpt');

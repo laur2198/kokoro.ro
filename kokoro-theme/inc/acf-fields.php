@@ -121,6 +121,49 @@ function kokoro_register_acf_field_groups() {
     ]);
 
     /* ------------------------------------------------------------------
+       1b. Detalii Disciplină (pe CPT `disciplina`)
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_disciplina',
+        'title'  => 'Detalii Disciplină',
+        'fields' => [
+            [
+                'key'           => 'field_disciplina_descriere_scurta',
+                'label'         => 'Descriere scurtă (pentru card)',
+                'name'          => 'disciplina_descriere_scurta',
+                'type'          => 'textarea',
+                'rows'          => 4,
+                'instructions'  => 'Apare pe pagina /discipline ca subtitlu al card-ului. 2-3 fraze.',
+                'new_lines'     => 'br',
+            ],
+            [
+                'key'           => 'field_disciplina_cta_label',
+                'label'         => 'Text buton card',
+                'name'          => 'disciplina_cta_label',
+                'type'          => 'text',
+                'default_value' => 'Află Mai Mult',
+            ],
+            [
+                'key'           => 'field_disciplina_link',
+                'label'         => 'Link custom (opțional)',
+                'name'          => 'disciplina_link',
+                'type'          => 'url',
+                'instructions'  => 'Dacă e gol, folosește pagina automată generată de WordPress pentru disciplină.',
+            ],
+        ],
+        'location' => [
+            [
+                ['param' => 'post_type', 'operator' => '==', 'value' => 'disciplina'],
+            ],
+        ],
+        'menu_order'      => 0,
+        'position'        => 'normal',
+        'style'           => 'default',
+        'label_placement' => 'top',
+        'active'          => true,
+    ]);
+
+    /* ------------------------------------------------------------------
        2. Conținut pagina Campioni (template page-campioni.php)
        ------------------------------------------------------------------ */
     acf_add_local_field_group([
@@ -197,8 +240,528 @@ function kokoro_register_acf_field_groups() {
         'label_placement' => 'top',
         'active'          => true,
     ]);
+
+    /* ------------------------------------------------------------------
+       3. Conținut pagina Orar (template page-orar.php)
+       ------------------------------------------------------------------ */
+    $zile_choices = [
+        'Luni'     => 'Luni',
+        'Marți'    => 'Marți',
+        'Miercuri' => 'Miercuri',
+        'Joi'      => 'Joi',
+        'Vineri'   => 'Vineri',
+        'Sâmbătă'  => 'Sâmbătă',
+        'Duminică' => 'Duminică',
+    ];
+    $grupa_choices = [
+        'copii'    => 'Copii (4-12 ani)',
+        'juniori'  => 'Juniori (13-17 ani)',
+        'adulti'   => 'Adulți (18+ ani)',
+    ];
+
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_pagina_orar',
+        'title'  => 'Conținut pagina Orar',
+        'fields' => [
+            [
+                'key'           => 'field_orar_hero_titlu',
+                'label'         => 'Titlu hero',
+                'name'          => 'orar_hero_titlu',
+                'type'          => 'text',
+                'default_value' => 'PROGRAMUL|ANTRENAMENTELOR',
+                'instructions'  => 'Foloseste pipe "|" pentru a separa pe linii. Linia 2, 4, ... apare cu italic.',
+            ],
+            [
+                'key'           => 'field_orar_hero_subtitlu',
+                'label'         => 'Subtitlu hero',
+                'name'          => 'orar_hero_subtitlu',
+                'type'          => 'textarea',
+                'rows'          => 3,
+                'default_value' => 'Alege grupa și orele care ți se potrivesc. Antrenamentele au loc în sala Kokoro din Brașov.',
+            ],
+            [
+                'key'           => 'field_orar_legenda',
+                'label'         => 'Legendă grupe',
+                'name'          => 'orar_legenda',
+                'type'          => 'repeater',
+                'instructions'  => 'Afișată deasupra tabelului. Recomandat 3 grupe.',
+                'button_label'  => 'Adaugă grupă',
+                'layout'        => 'table',
+                'sub_fields'    => [
+                    [
+                        'key'      => 'field_legenda_slug',
+                        'label'    => 'Slug CSS',
+                        'name'     => 'slug',
+                        'type'     => 'select',
+                        'choices'  => $grupa_choices,
+                        'required' => 1,
+                        'default_value' => 'copii',
+                    ],
+                    [
+                        'key'      => 'field_legenda_nume',
+                        'label'    => 'Nume afișat',
+                        'name'     => 'nume',
+                        'type'     => 'text',
+                        'required' => 1,
+                    ],
+                    [
+                        'key'   => 'field_legenda_varsta',
+                        'label' => 'Vârstă / descriere',
+                        'name'  => 'varsta',
+                        'type'  => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key'           => 'field_orar_program',
+                'label'         => 'Program săptămânal',
+                'name'          => 'orar_program',
+                'type'          => 'repeater',
+                'instructions'  => 'Un rând = un antrenament. Sistemul grupează automat intrările după zi (indiferent de ordine).',
+                'button_label'  => 'Adaugă antrenament',
+                'layout'        => 'row',
+                'sub_fields'    => [
+                    [
+                        'key'      => 'field_program_zi',
+                        'label'    => 'Zi',
+                        'name'     => 'zi',
+                        'type'     => 'select',
+                        'choices'  => $zile_choices,
+                        'required' => 1,
+                        'default_value' => 'Luni',
+                    ],
+                    [
+                        'key'      => 'field_program_ora',
+                        'label'    => 'Oră',
+                        'name'     => 'ora',
+                        'type'     => 'text',
+                        'required' => 1,
+                        'instructions' => 'Ex: "17:00 – 18:00"',
+                    ],
+                    [
+                        'key'      => 'field_program_disciplina',
+                        'label'    => 'Disciplină',
+                        'name'     => 'disciplina',
+                        'type'     => 'text',
+                        'required' => 1,
+                        'instructions' => 'Ex: "Ju-Jitsu", "TRX Suspension", "Ju-Jitsu Autoapărare"',
+                    ],
+                    [
+                        'key'      => 'field_program_grupa',
+                        'label'    => 'Grupă',
+                        'name'     => 'grupa',
+                        'type'     => 'select',
+                        'choices'  => $grupa_choices,
+                        'default_value' => 'adulti',
+                    ],
+                    [
+                        'key'   => 'field_program_antrenor',
+                        'label' => 'Antrenor',
+                        'name'  => 'antrenor',
+                        'type'  => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key'           => 'field_orar_nota',
+                'label'         => 'Notă sub tabel',
+                'name'          => 'orar_nota',
+                'type'          => 'textarea',
+                'rows'          => 3,
+                'default_value' => 'Programul poate suferi modificări în perioada competițiilor sau vacanțelor. Verifică pagina de Facebook sau contactează-ne pentru confirmarea orelor.',
+            ],
+            [
+                'key'           => 'field_orar_cta_titlu',
+                'label'         => 'Titlu CTA (jos de tot)',
+                'name'          => 'orar_cta_titlu',
+                'type'          => 'text',
+                'default_value' => 'ALEGE|GRUPA|TA',
+                'instructions'  => 'Pipe "|" împarte în segmente; segmentele pare (2, 4, ...) apar italic. "ALEGE|GRUPA|TA" → ALEGE *GRUPA* TA.',
+            ],
+            [
+                'key'           => 'field_orar_cta_text',
+                'label'         => 'Text CTA',
+                'name'          => 'orar_cta_text',
+                'type'          => 'textarea',
+                'rows'          => 2,
+                'default_value' => 'Prima lecție este gratuită. Vino și descoperă Ju-Jitsu la Kokoro!',
+            ],
+        ],
+        'location' => [
+            [
+                ['param' => 'page_template', 'operator' => '==', 'value' => 'page-orar.php'],
+            ],
+        ],
+        'menu_order'      => 0,
+        'position'        => 'normal',
+        'style'           => 'default',
+        'label_placement' => 'top',
+        'active'          => true,
+    ]);
+    /* ------------------------------------------------------------------
+       4. Conținut pagina Tarife (template page-tarife.php)
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_pagina_tarife',
+        'title'  => 'Conținut pagina Tarife',
+        'fields' => [
+            [
+                'key'           => 'field_tarife_hero_titlu',
+                'label'         => 'Titlu hero',
+                'name'          => 'tarife_hero_titlu',
+                'type'          => 'text',
+                'default_value' => 'INVESTIȚIA ÎN|PERFORMANȚĂ',
+            ],
+            [
+                'key'           => 'field_tarife_hero_subtitlu',
+                'label'         => 'Subtitlu hero',
+                'name'          => 'tarife_hero_subtitlu',
+                'type'          => 'textarea',
+                'rows'          => 3,
+                'default_value' => 'Alege pachetul potrivit pentru tine sau copilul tău. Toate abonamentele includ acces la echipament și ghidare personalizată.',
+            ],
+            [
+                'key'           => 'field_tarife_pachete',
+                'label'         => 'Pachete',
+                'name'          => 'tarife_pachete',
+                'type'          => 'repeater',
+                'instructions'  => 'Recomandat 3 pachete.',
+                'button_label'  => 'Adaugă pachet',
+                'layout'        => 'block',
+                'sub_fields'    => [
+                    [
+                        'key'      => 'field_pachet_titlu',
+                        'label'    => 'Titlu pachet',
+                        'name'     => 'titlu',
+                        'type'     => 'text',
+                        'required' => 1,
+                        'instructions' => 'Ex: „Copii", „Juniori & Adulți", „Personal Training"',
+                    ],
+                    [
+                        'key'      => 'field_pachet_pret',
+                        'label'    => 'Preț (doar numărul)',
+                        'name'     => 'pret',
+                        'type'     => 'number',
+                        'required' => 1,
+                    ],
+                    [
+                        'key'           => 'field_pachet_moneda',
+                        'label'         => 'Moneda',
+                        'name'          => 'moneda',
+                        'type'          => 'text',
+                        'default_value' => 'lei',
+                    ],
+                    [
+                        'key'           => 'field_pachet_perioada',
+                        'label'         => 'Perioadă',
+                        'name'          => 'perioada',
+                        'type'          => 'text',
+                        'default_value' => '/ lună',
+                        'instructions'  => 'Ex: „/ lună", „/ ședință", „/ an"',
+                    ],
+                    [
+                        'key'          => 'field_pachet_featured',
+                        'label'        => 'Pachet recomandat (evidențiat)',
+                        'name'         => 'featured',
+                        'type'         => 'true_false',
+                        'ui'           => 1,
+                        'ui_on_text'   => 'Da',
+                        'ui_off_text'  => 'Nu',
+                        'instructions' => 'Bifează maxim unul. Va fi evidențiat cu style-ul „featured".',
+                    ],
+                    [
+                        'key'          => 'field_pachet_beneficii',
+                        'label'        => 'Beneficii (listă)',
+                        'name'         => 'beneficii',
+                        'type'         => 'repeater',
+                        'button_label' => 'Adaugă beneficiu',
+                        'layout'       => 'table',
+                        'sub_fields'   => [
+                            [
+                                'key'      => 'field_beneficiu_text',
+                                'label'    => 'Text',
+                                'name'     => 'text',
+                                'type'     => 'text',
+                                'required' => 1,
+                            ],
+                        ],
+                    ],
+                    [
+                        'key'           => 'field_pachet_buton_text',
+                        'label'         => 'Text buton',
+                        'name'          => 'buton_text',
+                        'type'          => 'text',
+                        'default_value' => 'Înscrie-te',
+                    ],
+                    [
+                        'key'           => 'field_pachet_buton_url',
+                        'label'         => 'URL buton',
+                        'name'          => 'buton_url',
+                        'type'          => 'url',
+                        'instructions'  => 'Lasă gol pentru a folosi /inscriere/ automat.',
+                    ],
+                ],
+            ],
+            [
+                'key'           => 'field_tarife_nota',
+                'label'         => 'Notă sub pachete',
+                'name'          => 'tarife_nota',
+                'type'          => 'textarea',
+                'rows'          => 3,
+                'default_value' => 'Prețurile sunt orientative și pot varia. Pentru tarife actualizate și oferte speciale pentru frați sau grupe, contactează-ne direct.',
+            ],
+            [
+                'key'           => 'field_tarife_cta_titlu',
+                'label'         => 'Titlu CTA (jos)',
+                'name'          => 'tarife_cta_titlu',
+                'type'          => 'text',
+                'default_value' => 'PRIMA LECȚIE|E GRATUITĂ',
+            ],
+            [
+                'key'           => 'field_tarife_cta_text',
+                'label'         => 'Text CTA',
+                'name'          => 'tarife_cta_text',
+                'type'          => 'textarea',
+                'rows'          => 2,
+                'default_value' => 'Vino la o lecție demonstrativă gratuită ca să vezi cum decurge un antrenament Kokoro.',
+            ],
+            [
+                'key'           => 'field_tarife_cta_buton',
+                'label'         => 'Text buton CTA',
+                'name'          => 'tarife_cta_buton',
+                'type'          => 'text',
+                'default_value' => 'Programează Lecția Gratuită',
+            ],
+        ],
+        'location' => [
+            [
+                ['param' => 'page_template', 'operator' => '==', 'value' => 'page-tarife.php'],
+            ],
+        ],
+        'menu_order'      => 0,
+        'position'        => 'normal',
+        'style'           => 'default',
+        'label_placement' => 'top',
+        'active'          => true,
+    ]);
+
+    /* ------------------------------------------------------------------
+       4b. Conținut pagina Discipline (template page-discipline.php)
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_pagina_discipline',
+        'title'  => 'Conținut pagina Discipline',
+        'fields' => [
+            [
+                'key'           => 'field_discipline_hero_titlu',
+                'label'         => 'Titlu hero',
+                'name'          => 'discipline_hero_titlu',
+                'type'          => 'text',
+                'default_value' => 'ARTA|LUPTEI|NOBILE',
+            ],
+            [
+                'key'           => 'field_discipline_hero_subtitlu',
+                'label'         => 'Subtitlu hero',
+                'name'          => 'discipline_hero_subtitlu',
+                'type'          => 'textarea',
+                'rows'          => 3,
+                'default_value' => 'De la Ju-Jitsu competițional la autoapărare și pregătire fizică — descoperă disciplinele Kokoro Brașov Academy.',
+            ],
+            [
+                'key'           => 'field_discipline_jp_kanji',
+                'label'         => 'Citat japonez - kanji',
+                'name'          => 'discipline_jp_kanji',
+                'type'          => 'text',
+                'default_value' => '「柔よく剛を制す」',
+            ],
+            [
+                'key'           => 'field_discipline_jp_romaji',
+                'label'         => 'Citat japonez - romaji',
+                'name'          => 'discipline_jp_romaji',
+                'type'          => 'text',
+                'default_value' => 'Ju yoku go wo seisu',
+            ],
+            [
+                'key'           => 'field_discipline_jp_traducere',
+                'label'         => 'Citat japonez - traducere',
+                'name'          => 'discipline_jp_traducere',
+                'type'          => 'text',
+                'default_value' => 'Blândețea controlează duritatea — filozofia Ju-Jitsu',
+            ],
+            [
+                'key'           => 'field_discipline_arata_centuri',
+                'label'         => 'Arată secțiunea Centuri',
+                'name'          => 'discipline_arata_centuri',
+                'type'          => 'true_false',
+                'ui'            => 1,
+                'ui_on_text'    => 'Da',
+                'ui_off_text'   => 'Nu',
+                'default_value' => 1,
+            ],
+            [
+                'key'           => 'field_discipline_cta_titlu',
+                'label'         => 'Titlu CTA',
+                'name'          => 'discipline_cta_titlu',
+                'type'          => 'text',
+                'default_value' => 'ALEGE|DISCIPLINA|TA',
+            ],
+            [
+                'key'           => 'field_discipline_cta_text',
+                'label'         => 'Text CTA',
+                'name'          => 'discipline_cta_text',
+                'type'          => 'textarea',
+                'rows'          => 2,
+                'default_value' => 'Nu știi ce ți se potrivește? Vino la o lecție demonstrativă gratuită și descoperă!',
+            ],
+            [
+                'key'           => 'field_discipline_cta_buton',
+                'label'         => 'Text buton CTA',
+                'name'          => 'discipline_cta_buton',
+                'type'          => 'text',
+                'default_value' => 'Programează Lecția Gratuită',
+            ],
+        ],
+        'location' => [
+            [
+                ['param' => 'page_template', 'operator' => '==', 'value' => 'page-discipline.php'],
+            ],
+        ],
+        'menu_order'      => 0,
+        'position'        => 'normal',
+        'style'           => 'default',
+        'label_placement' => 'top',
+        'active'          => true,
+    ]);
+
+    /* ------------------------------------------------------------------
+       5. Conținut pagina Galerie (template page-galerie.php)
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_pagina_galerie',
+        'title'  => 'Conținut pagina Galerie',
+        'fields' => [
+            [
+                'key'           => 'field_galerie_hero_titlu',
+                'label'         => 'Titlu hero',
+                'name'          => 'galerie_hero_titlu',
+                'type'          => 'text',
+                'default_value' => 'MOMENTE|KOKORO',
+            ],
+            [
+                'key'           => 'field_galerie_hero_subtitlu',
+                'label'         => 'Subtitlu hero',
+                'name'          => 'galerie_hero_subtitlu',
+                'type'          => 'textarea',
+                'rows'          => 3,
+                'default_value' => 'Antrenamente, competiții, tabere și momente de bucurie — viața la Kokoro Brașov Academy în imagini.',
+            ],
+            [
+                'key'           => 'field_galerie_imagini',
+                'label'         => 'Imagini',
+                'name'          => 'galerie_imagini',
+                'type'          => 'repeater',
+                'instructions'  => 'Adaugă imagini una câte una. Folosește „Add Row" sau trage-le în ordine.',
+                'button_label'  => 'Adaugă imagine',
+                'layout'        => 'block',
+                'sub_fields'    => [
+                    [
+                        'key'           => 'field_galerie_imagine',
+                        'label'         => 'Imagine',
+                        'name'          => 'imagine',
+                        'type'          => 'image',
+                        'return_format' => 'array',
+                        'preview_size'  => 'medium',
+                        'required'      => 1,
+                    ],
+                    [
+                        'key'   => 'field_galerie_caption',
+                        'label' => 'Caption (opțional)',
+                        'name'  => 'caption',
+                        'type'  => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key'           => 'field_galerie_cta_text',
+                'label'         => 'Text sub galerie',
+                'name'          => 'galerie_cta_text',
+                'type'          => 'textarea',
+                'rows'          => 2,
+                'default_value' => 'Mai multe fotografii și videoclipuri pe pagina noastră de Facebook.',
+            ],
+            [
+                'key'           => 'field_galerie_cta_buton',
+                'label'         => 'Text buton',
+                'name'          => 'galerie_cta_buton',
+                'type'          => 'text',
+                'default_value' => 'Vezi pe Facebook',
+            ],
+            [
+                'key'           => 'field_galerie_cta_url',
+                'label'         => 'URL buton',
+                'name'          => 'galerie_cta_url',
+                'type'          => 'url',
+                'default_value' => 'https://www.facebook.com/kokorobrasovacademy',
+            ],
+        ],
+        'location' => [
+            [
+                ['param' => 'page_template', 'operator' => '==', 'value' => 'page-galerie.php'],
+            ],
+        ],
+        'menu_order'      => 0,
+        'position'        => 'normal',
+        'style'           => 'default',
+        'label_placement' => 'top',
+        'active'          => true,
+    ]);
 }
 add_action('acf/init', 'kokoro_register_acf_field_groups');
+
+/**
+ * Helper: randează un titlu de tip "FOO|BAR|BAZ" cu segmentele impare (1, 3, ...)
+ * în <em>. Separator între segmente, configurabil.
+ *
+ * @param string $text      Textul cu | ca separator.
+ * @param string $separator Ce inserezi între segmente (ex: "<br>" sau " ").
+ * @return string HTML escape-uit.
+ */
+function kokoro_render_italic_title($text, $separator = '<br>') {
+    $parts = explode('|', $text);
+    $out   = '';
+    foreach ($parts as $i => $part) {
+        if ($i > 0) {
+            $out .= $separator;
+        }
+        $escaped = esc_html($part);
+        $out   .= ($i % 2 === 1) ? "<em>{$escaped}</em>" : $escaped;
+    }
+    return $out;
+}
+
+/**
+ * Helper: ordonează rândurile din program după ziua săptămânii.
+ *
+ * @param array $program Repeater orar_program.
+ * @return array Sortat, preserving ordinea user-ului în cadrul aceleiași zile (stable sort).
+ */
+function kokoro_sort_program_by_day($program) {
+    if (!is_array($program)) {
+        return [];
+    }
+    $day_order = [
+        'Luni' => 1, 'Marți' => 2, 'Miercuri' => 3, 'Joi' => 4,
+        'Vineri' => 5, 'Sâmbătă' => 6, 'Duminică' => 7,
+    ];
+    $indexed = [];
+    foreach ($program as $i => $row) {
+        $indexed[] = [$i, $day_order[$row['zi'] ?? ''] ?? 99, $row];
+    }
+    usort($indexed, function ($a, $b) {
+        return $a[1] <=> $b[1] ?: $a[0] <=> $b[0];
+    });
+    return array_map(fn($entry) => $entry[2], $indexed);
+}
 
 /**
  * Helper: întoarce toate rezultatele (an, competiție, medalie, sportiv)
