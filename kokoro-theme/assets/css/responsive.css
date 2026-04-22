@@ -41,12 +41,42 @@
   }
 
   .values-grid {
+    grid-template-columns: 1fr;
     gap: var(--space-lg);
   }
 
   .contact-grid {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
+  }
+
+  /* Inline 2-col grids */
+  .grid-2-col {
+    grid-template-columns: 1fr !important;
+  }
+
+  .grid-3-col {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .grid-2-col--stats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .marquee__item {
+    font-size: 0.9375rem;
+    padding: 0 var(--space-lg);
+  }
+
+  /* Section spacing */
+  .section {
+    padding: var(--space-4xl) 0;
+  }
+
+  /* Testimonial badge wrap */
+  .testimonial__badge {
+    flex-wrap: wrap;
+    font-size: 2rem;
   }
 }
 
@@ -80,22 +110,41 @@
 
   /* Hero mobile */
   .hero {
-    min-height: 85vh;
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: var(--space-2xl);
   }
 
   .hero__headline {
-    font-size: clamp(3rem, 14vw, 5rem);
+    font-size: clamp(2.75rem, 12vw, 4.5rem);
+  }
+
+  .hero__subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .hero__stats {
+    position: relative;
   }
 
   .hero__stats-inner {
     flex-wrap: wrap;
-    gap: var(--space-lg);
-    justify-content: space-around;
+    gap: var(--space-md);
+    justify-content: center;
     padding: var(--space-lg) var(--container-padding);
   }
 
   .stat {
     flex: 0 0 calc(50% - var(--space-md));
+    text-align: center;
+  }
+
+  .stat__number {
+    font-size: 2rem;
+  }
+
+  .stat__label {
+    font-size: 0.6875rem;
   }
 
   /* Grids to single column */
@@ -126,6 +175,60 @@
 
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* All inline grids to single column */
+  .grid-2-col,
+  .grid-3-col,
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Card and post images responsive */
+  .card__image {
+    height: 180px;
+  }
+
+  .post-card__image {
+    height: 150px;
+  }
+
+  /* Contact icon smaller */
+  .contact-info__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Section accent — values need more space */
+  .section--accent .values-grid {
+    gap: var(--space-md);
+  }
+
+  .section--accent .value-item {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  /* Testimonial grid spacing */
+  .testimonial {
+    padding: var(--space-xl);
+  }
+
+  /* Section headers */
+  .section__header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Grid 2 col stats on mobile — still 2 columns */
+  .grid-2-col--stats {
+    grid-template-columns: 1fr 1fr !important;
+    gap: var(--space-md) !important;
+  }
+
+  /* CTA buttons stack on mobile */
+  .section--accent .hero__cta,
+  .section--blue .hero__cta {
+    flex-direction: column;
+    align-items: center;
   }
 
   /* Footer */
@@ -196,6 +299,57 @@
     width: 26px;
     height: 26px;
   }
+
+  /* Footer social icons wrap */
+  .footer__social {
+    flex-wrap: wrap;
+  }
+
+  /* Pricing card text align left on mobile */
+  .pricing-card {
+    text-align: left;
+  }
+
+  .pricing-card__title,
+  .pricing-card__price,
+  .pricing-card__period {
+    text-align: center;
+  }
+
+  /* Navbar close button bigger on mobile */
+  .navbar__close {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .navbar__close svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Page header description on mobile */
+  .page-header p {
+    font-size: 0.9375rem;
+  }
+
+  /* Discipline card subtitle visible */
+  .discipline-card__subtitle {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  /* Section blue schedule wrapper */
+  .section--blue .schedule-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  /* Belt progression wrap */
+  .belt-progression {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 /* ---------- Small Mobile (max 480px) ---------- */
@@ -218,12 +372,34 @@
     text-align: center;
   }
 
+  /* All flex button groups stack on small mobile */
+  div[style*="display: flex"][style*="gap"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  div[style*="display: flex"][style*="gap"] .btn {
+    width: 100%;
+    text-align: center;
+  }
+
   .gallery-grid {
     grid-template-columns: 1fr;
   }
 
   .navbar__mobile-menu .kokoro-menu__link {
     font-size: 1.5rem;
+  }
+
+  /* Schedule table smaller on tiny screens */
+  .schedule {
+    min-width: 420px;
+  }
+
+  .schedule th,
+  .schedule td {
+    padding: var(--space-sm) 0.5rem;
+    font-size: 0.8rem;
   }
 
   .value-item {

@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: var(--space-3xl) 0;
+  margin: var(--space-xl) 0 var(--space-2xl);
 }
 
 .torii-separator::before {
@@ -28,7 +28,7 @@
 .torii-separator__icon {
   position: relative;
   z-index: 1;
-  background: var(--color-bg);
+  background: var(--color-white);
   padding: 0 var(--space-xl);
   display: flex;
   align-items: center;
@@ -41,8 +41,16 @@
   opacity: 0.3;
 }
 
+.torii-separator--alt::before {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .torii-separator--alt .torii-separator__icon {
-  background: var(--color-bg-alt);
+  background: var(--color-dark);
+}
+
+.torii-separator--alt .torii-separator__icon svg {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 /* ---------- Shoji Screen Pattern ---------- */
@@ -84,7 +92,7 @@
   top: -20px;
   width: 12px;
   height: 12px;
-  background: var(--color-accent);
+  background: var(--color-primary);
   opacity: 0;
   border-radius: 50% 0 50% 50%;
   animation: sakura-fall linear forwards;
@@ -114,8 +122,8 @@
   position: absolute;
   font-family: 'Noto Serif JP', serif;
   font-weight: 900;
-  color: var(--color-white);
-  opacity: 0.03;
+  color: var(--color-primary);
+  opacity: 0.06;
   pointer-events: none;
   user-select: none;
   line-height: 1;
@@ -166,10 +174,11 @@
 /* ---------- Belt Colors (Progress/Ranks) ---------- */
 
 .belt {
-  display: inline-block;
-  height: 6px;
+  display: block;
+  height: 8px;
   border-radius: var(--radius-full);
-  width: 40px;
+  width: 50px;
+  margin: 0 auto var(--space-xs);
 }
 
 .belt--white   { background: #FFFFFF; }
@@ -204,7 +213,7 @@
   font-family: 'Noto Serif JP', serif;
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 700;
-  color: var(--color-accent);
+  color: var(--color-primary);
   line-height: 1;
   margin-bottom: var(--space-md);
 }
@@ -215,7 +224,7 @@
   font-size: 1.25rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--color-white);
+  color: var(--color-primary-dark);
   margin-bottom: var(--space-sm);
 }
 
@@ -244,7 +253,7 @@
 .jp-line__text {
   font-family: 'Noto Serif JP', serif;
   font-size: 0.875rem;
-  color: var(--color-accent);
+  color: var(--color-primary);
   opacity: 0.5;
   white-space: nowrap;
 }
