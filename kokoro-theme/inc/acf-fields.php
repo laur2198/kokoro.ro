@@ -255,6 +255,165 @@ function kokoro_register_acf_field_groups() {
     ]);
 
     /* ------------------------------------------------------------------
+       1c. Detalii Antrenor (pe CPT `antrenor`)
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_antrenor',
+        'title'  => 'Detalii Antrenor',
+        'fields' => [
+            [
+                'key'           => 'field_antrenor_rol',
+                'label'         => 'Rol / Funcție',
+                'name'          => 'antrenor_rol',
+                'type'          => 'text',
+                'default_value' => 'Antrenor',
+                'instructions'  => 'Ex: „Sensei principal", „Antrenor copii", „Preparator fizic". Apare ca tag pe card.',
+            ],
+            [
+                'key'   => 'field_antrenor_specializare',
+                'label' => 'Specializare',
+                'name'  => 'antrenor_specializare',
+                'type'  => 'text',
+                'instructions' => 'Ex: „Ju-Jitsu Competițional, Autoapărare". Lasă gol dacă nu vrei.',
+            ],
+            [
+                'key'   => 'field_antrenor_bio_scurt',
+                'label' => 'Bio scurt (pentru card)',
+                'name'  => 'antrenor_bio_scurt',
+                'type'  => 'textarea',
+                'rows'  => 3,
+                'instructions' => '1-2 fraze afișate sub nume pe card. Bio-ul lung îl pui în editorul principal.',
+                'new_lines'    => 'br',
+            ],
+            [
+                'key'     => 'field_antrenor_centura',
+                'label'   => 'Centură',
+                'name'    => 'antrenor_centura',
+                'type'    => 'select',
+                'choices' => [
+                    'alba'       => 'Albă',
+                    'galbena'    => 'Galbenă',
+                    'portocalie' => 'Portocalie',
+                    'verde'      => 'Verde',
+                    'albastra'   => 'Albastră',
+                    'maro'       => 'Maro',
+                    'neagra'     => 'Neagră',
+                ],
+                'default_value' => 'neagra',
+            ],
+            [
+                'key'   => 'field_antrenor_ani_experienta',
+                'label' => 'Ani de experiență',
+                'name'  => 'antrenor_ani_experienta',
+                'type'  => 'number',
+                'min'   => 0,
+                'max'   => 80,
+            ],
+            [
+                'key'   => 'field_antrenor_email',
+                'label' => 'Email (opțional)',
+                'name'  => 'antrenor_email',
+                'type'  => 'email',
+            ],
+            [
+                'key'   => 'field_antrenor_telefon',
+                'label' => 'Telefon (opțional)',
+                'name'  => 'antrenor_telefon',
+                'type'  => 'text',
+            ],
+            [
+                'key'   => 'field_antrenor_facebook',
+                'label' => 'Facebook URL (opțional)',
+                'name'  => 'antrenor_facebook',
+                'type'  => 'url',
+            ],
+            [
+                'key'   => 'field_antrenor_instagram',
+                'label' => 'Instagram URL (opțional)',
+                'name'  => 'antrenor_instagram',
+                'type'  => 'url',
+            ],
+        ],
+        'location' => [
+            [['param' => 'post_type', 'operator' => '==', 'value' => 'antrenor']],
+        ],
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'style'      => 'default',
+        'label_placement' => 'top',
+        'active'     => true,
+    ]);
+
+    /* ------------------------------------------------------------------
+       2a. Conținut pagina Antrenori (template page-antrenori.php)
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_pagina_antrenori',
+        'title'  => 'Conținut pagina Antrenori',
+        'fields' => [
+            [
+                'key'           => 'field_antr_hero_titlu',
+                'label'         => 'Titlu hero',
+                'name'          => 'antr_hero_titlu',
+                'type'          => 'text',
+                'default_value' => 'ECHIPA|KOKORO',
+            ],
+            [
+                'key'           => 'field_antr_hero_subtitlu',
+                'label'         => 'Subtitlu hero',
+                'name'          => 'antr_hero_subtitlu',
+                'type'          => 'textarea',
+                'rows'          => 3,
+                'default_value' => 'Antrenori cu zeci de ani de experiență, dedicați să formeze caractere puternice și sportivi de top.',
+            ],
+            [
+                'key'           => 'field_antr_jp_kanji',
+                'label'         => 'Citat — kanji',
+                'name'          => 'antr_jp_kanji',
+                'type'          => 'text',
+                'default_value' => '「先生」',
+            ],
+            [
+                'key'           => 'field_antr_jp_romaji',
+                'label'         => 'Citat — romaji',
+                'name'          => 'antr_jp_romaji',
+                'type'          => 'text',
+                'default_value' => 'Sensei',
+            ],
+            [
+                'key'           => 'field_antr_jp_traducere',
+                'label'         => 'Citat — traducere',
+                'name'          => 'antr_jp_traducere',
+                'type'          => 'text',
+                'default_value' => 'Cel care a mers înaintea ta — învățătorul, mentorul.',
+            ],
+            [
+                'key'           => 'field_antr_cta_titlu',
+                'label'         => 'Titlu CTA jos',
+                'name'          => 'antr_cta_titlu',
+                'type'          => 'text',
+                'default_value' => 'ANTRENEAZĂ-TE CU|CEI MAI BUNI',
+            ],
+            [
+                'key'           => 'field_antr_cta_text',
+                'label'         => 'Text CTA',
+                'name'          => 'antr_cta_text',
+                'type'          => 'textarea',
+                'rows'          => 2,
+                'default_value' => 'Vino la o lecție demonstrativă gratuită și cunoaște echipa Kokoro.',
+            ],
+        ],
+        'location' => [
+            [['param' => 'page_template', 'operator' => '==', 'value' => 'page-antrenori.php']],
+        ],
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'style'      => 'default',
+        'label_placement' => 'top',
+        'active'     => true,
+    ]);
+
+    /* ------------------------------------------------------------------
        2. Conținut pagina Campioni (template page-campioni.php)
        ------------------------------------------------------------------ */
     acf_add_local_field_group([

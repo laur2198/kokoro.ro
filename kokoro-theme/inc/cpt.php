@@ -81,3 +81,37 @@ function kokoro_register_disciplina_cpt() {
     register_post_type('disciplina', $args);
 }
 add_action('init', 'kokoro_register_disciplina_cpt');
+
+/**
+ * Antrenor — membru al echipei tehnice (sensei, antrenor, preparator).
+ */
+function kokoro_register_antrenor_cpt() {
+    $labels = [
+        'name'               => __('Antrenori', 'kokoro'),
+        'singular_name'      => __('Antrenor', 'kokoro'),
+        'menu_name'          => __('Antrenori', 'kokoro'),
+        'add_new'            => __('Adaugă Antrenor', 'kokoro'),
+        'add_new_item'       => __('Adaugă Antrenor Nou', 'kokoro'),
+        'new_item'           => __('Antrenor Nou', 'kokoro'),
+        'edit_item'          => __('Editează Antrenor', 'kokoro'),
+        'view_item'          => __('Vezi Antrenor', 'kokoro'),
+        'all_items'          => __('Toți Antrenorii', 'kokoro'),
+        'search_items'       => __('Caută Antrenor', 'kokoro'),
+        'not_found'          => __('Niciun antrenor găsit.', 'kokoro'),
+    ];
+
+    register_post_type('antrenor', [
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-businessperson',
+        'menu_position'      => 22,
+        'has_archive'        => false,
+        'rewrite'            => ['slug' => 'antrenor'],
+        'supports'           => ['title', 'editor', 'thumbnail', 'page-attributes'],
+    ]);
+}
+add_action('init', 'kokoro_register_antrenor_cpt');
