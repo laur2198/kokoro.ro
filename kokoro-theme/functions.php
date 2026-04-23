@@ -171,6 +171,27 @@ class Kokoro_Nav_Walker extends Walker_Nav_Menu {
     }
 }
 
+/**
+ * Walker simplu pentru meniul din footer: emite doar <a class="footer__link">,
+ * fără <li>/<ul>. Folosit în footer.php cu items_wrap = '%3$s'.
+ */
+class Kokoro_Footer_Link_Walker extends Walker_Nav_Menu {
+
+    public function start_lvl(&$output, $depth = 0, $args = null) { /* no submenu */ }
+    public function end_lvl(&$output, $depth = 0, $args = null)   { /* no submenu */ }
+    public function end_el(&$output, $item, $depth = 0, $args = null) { /* no </li> */ }
+
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $url   = !empty($item->url) ? $item->url : '';
+        $title = apply_filters('the_title', $item->title, $item->ID);
+        $output .= sprintf(
+            '<a href="%s" class="footer__link">%s</a>',
+            esc_url($url),
+            esc_html($title)
+        );
+    }
+}
+
 /* ==========================================================================
    4. Widget Areas
    ========================================================================== */

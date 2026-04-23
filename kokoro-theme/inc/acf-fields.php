@@ -11,10 +11,87 @@
 
 defined('ABSPATH') || exit;
 
+/**
+ * Înregistrează „Setări Kokoro" ca options page (date globale: contact,
+ * social, etc.). Necesită ACF 6.2+ (Free) sau ACF Pro pentru
+ * acf_add_options_page().
+ */
+function kokoro_register_options_page() {
+    if (!function_exists('acf_add_options_page')) {
+        return;
+    }
+    acf_add_options_page([
+        'page_title' => __('Setări Kokoro', 'kokoro'),
+        'menu_title' => __('Setări Kokoro', 'kokoro'),
+        'menu_slug'  => 'kokoro-settings',
+        'icon_url'   => 'dashicons-admin-customizer',
+        'position'   => 22,
+        'capability' => 'edit_theme_options',
+        'redirect'   => false,
+    ]);
+}
+add_action('acf/init', 'kokoro_register_options_page');
+
 function kokoro_register_acf_field_groups() {
     if (!function_exists('acf_add_local_field_group')) {
         return;
     }
+
+    /* ------------------------------------------------------------------
+       0. Setări Globale (options page „Setări Kokoro")
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_settings',
+        'title'  => 'Setări Globale Site',
+        'fields' => [
+            // Contact
+            ['key' => 'field_set_tab_contact', 'label' => 'CONTACT',     'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_set_telefon',     'label' => 'Telefon',     'name' => 'set_telefon',     'type' => 'text',     'default_value' => '+40 740 123 456', 'instructions' => 'Format internațional cu spații e ok pentru afișare; e folosit și ca link tel:'],
+            ['key' => 'field_set_email',       'label' => 'Email',       'name' => 'set_email',       'type' => 'email',    'default_value' => 'contact@kokoro.ro'],
+            ['key' => 'field_set_adresa',      'label' => 'Adresă',      'name' => 'set_adresa',      'type' => 'textarea', 'rows' => 2, 'default_value' => 'Brașov, România', 'new_lines' => 'br'],
+            ['key' => 'field_set_oras',        'label' => 'Oraș (label scurt)', 'name' => 'set_oras', 'type' => 'text', 'default_value' => 'Brașov, România'],
+            ['key' => 'field_set_maps_url',    'label' => 'Link Google Maps (opțional)', 'name' => 'set_maps_url', 'type' => 'url'],
+
+            // Social
+            ['key' => 'field_set_tab_social', 'label' => 'SOCIAL', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_set_facebook',  'label' => 'Facebook URL',  'name' => 'set_facebook',  'type' => 'url', 'default_value' => 'https://www.facebook.com/kokorobrasovacademy'],
+            ['key' => 'field_set_instagram', 'label' => 'Instagram URL', 'name' => 'set_instagram', 'type' => 'url', 'default_value' => 'https://www.instagram.com/kokorobrasov'],
+            ['key' => 'field_set_youtube',   'label' => 'YouTube URL',   'name' => 'set_youtube',   'type' => 'url', 'instructions' => 'Lasă gol dacă nu folosești.'],
+            ['key' => 'field_set_tiktok',    'label' => 'TikTok URL',    'name' => 'set_tiktok',    'type' => 'url', 'instructions' => 'Lasă gol dacă nu folosești.'],
+            ['key' => 'field_set_google_url','label' => 'Google Reviews URL', 'name' => 'set_google_url','type' => 'url', 'instructions' => 'Linkul pentru recenzii Google.'],
+
+            // WhatsApp
+            ['key' => 'field_set_tab_whatsapp', 'label' => 'WHATSAPP', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_set_whatsapp_numar',  'label' => 'Număr WhatsApp', 'name' => 'set_whatsapp_numar',  'type' => 'text', 'default_value' => '40740123456', 'instructions' => 'Doar cifrele cu prefixul țării, fără +. Ex: 40740123456 (pentru +40 740 123 456). Lasă gol pentru a ascunde butonul WhatsApp.'],
+            ['key' => 'field_set_whatsapp_arata',  'label' => 'Arată butonul flotant',  'name' => 'set_whatsapp_arata',  'type' => 'true_false', 'ui' => 1, 'ui_on_text' => 'Da', 'ui_off_text' => 'Nu', 'default_value' => 1],
+
+            // Header
+            ['key' => 'field_set_tab_header', 'label' => 'HEADER', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_set_header_cta_text', 'label' => 'Text buton CTA navbar', 'name' => 'set_header_cta_text', 'type' => 'text', 'default_value' => 'Înscrie-te'],
+            ['key' => 'field_set_header_cta_url',  'label' => 'URL buton CTA navbar',  'name' => 'set_header_cta_url',  'type' => 'url',  'instructions' => 'Gol → /inscriere/'],
+            ['key' => 'field_set_meta_descriere', 'label' => 'Meta descriere site', 'name' => 'set_meta_descriere', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Kokoro Brașov Academy — Ju-Jitsu pentru copii, juniori și adulți din 2008. Campioni mondiali, antrenori dedicați.', 'instructions' => 'Folosit în <meta name="description"> când nu există un SEO plugin.'],
+
+            // Footer
+            ['key' => 'field_set_tab_footer', 'label' => 'FOOTER', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_set_footer_descriere', 'label' => 'Descriere brand (footer coloana 1)', 'name' => 'set_footer_descriere', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Kokoro Brașov Academy — academie de Ju-Jitsu fondată în 2008. Recunoscută MTS și FRAM. Formăm campioni și caractere puternice prin disciplină, respect și perseverență.'],
+            ['key' => 'field_set_footer_kanji', 'label' => 'Kanji decorativ (footer coloana 1)', 'name' => 'set_footer_kanji', 'type' => 'text', 'default_value' => '武道'],
+            ['key' => 'field_set_footer_disc_titlu', 'label' => 'Titlu coloana Discipline', 'name' => 'set_footer_disc_titlu', 'type' => 'text', 'default_value' => 'Discipline'],
+            ['key' => 'field_set_footer_disc_limit', 'label' => 'Câte discipline în footer', 'name' => 'set_footer_disc_limit', 'type' => 'number', 'default_value' => 4, 'min' => 1, 'max' => 10],
+            ['key' => 'field_set_footer_nav_titlu', 'label' => 'Titlu coloana Navigare', 'name' => 'set_footer_nav_titlu', 'type' => 'text', 'default_value' => 'Navigare', 'instructions' => 'Link-urile vin din meniul WP cu locația „Meniu Footer" (Appearance → Menus).'],
+            ['key' => 'field_set_footer_contact_titlu', 'label' => 'Titlu coloana Contact', 'name' => 'set_footer_contact_titlu', 'type' => 'text', 'default_value' => 'Contact'],
+            ['key' => 'field_set_footer_copyright', 'label' => 'Text copyright', 'name' => 'set_footer_copyright', 'type' => 'text', 'default_value' => 'Kokoro Brașov Academy. Toate drepturile rezervate.', 'instructions' => 'Anul curent + © sunt adăugate automat la început.'],
+            ['key' => 'field_set_footer_tagline', 'label' => 'Tagline final', 'name' => 'set_footer_tagline', 'type' => 'text', 'default_value' => 'Kokoro — Inimă, Spirit, Minte', 'instructions' => 'Apare lângă kanji-ul 心 sub copyright.'],
+        ],
+        'location' => [
+            [['param' => 'options_page', 'operator' => '==', 'value' => 'kokoro-settings']],
+        ],
+        'menu_order'      => 0,
+        'position'        => 'normal',
+        'style'           => 'default',
+        'label_placement' => 'top',
+        'active'          => true,
+    ]);
+
 
     /* ------------------------------------------------------------------
        1. Detalii Campion (pe CPT `campion`)
@@ -1156,6 +1233,22 @@ function kokoro_register_acf_field_groups() {
     ]);
 }
 add_action('acf/init', 'kokoro_register_acf_field_groups');
+
+/**
+ * Helper: întoarce o setare globală din pagina ACF „Setări Kokoro".
+ * Fallback la $default dacă ACF nu e activ sau câmpul e gol.
+ *
+ * @param string $name    Numele câmpului ACF (fără prefixul „set_" — îl adaugă funcția).
+ * @param string $default Valoare default.
+ * @return string
+ */
+function kokoro_setting($name, $default = '') {
+    if (!function_exists('get_field')) {
+        return $default;
+    }
+    $val = get_field('set_' . $name, 'option');
+    return ($val === null || $val === false || $val === '') ? $default : $val;
+}
 
 /**
  * Helper: întoarce pagina care folosește un template anume.
