@@ -28,6 +28,20 @@ $disc_titlu      = $acf ? (string) get_field('home_disc_titlu')     : '';
 $disc_limit      = $acf ? (int)    get_field('home_disc_limit')     : 4;
 if ($disc_limit < 1) $disc_limit = 4;
 
+// Valori
+$valori_eyebrow  = $acf ? (string) get_field('home_valori_eyebrow')  : '';
+$valori_titlu    = $acf ? (string) get_field('home_valori_titlu')    : '';
+$valori_subtitlu = $acf ? (string) get_field('home_valori_subtitlu') : '';
+$valori          = $acf ? get_field('home_valori')                   : [];
+
+// Campioni preview
+$camp_eyebrow    = $acf ? (string) get_field('home_camp_eyebrow')    : '';
+$camp_titlu      = $acf ? (string) get_field('home_camp_titlu')      : '';
+$camp_subtitlu   = $acf ? (string) get_field('home_camp_subtitlu')   : '';
+$camp_text       = $acf ? (string) get_field('home_camp_text')       : '';
+$camp_stats      = $acf ? get_field('home_camp_stats')               : [];
+$camp_cta        = $acf ? (string) get_field('home_camp_cta')        : '';
+
 // Fallbacks (first-run, când ACF n-are date)
 if ($hero_image === '')     $hero_image     = KOKORO_URI . '/assets/images/hero-placeholder.jpg';
 if ($hero_eyebrow === '')   $hero_eyebrow   = '01 — Academia';
@@ -39,6 +53,44 @@ if ($hero_btn1_url === '')  $hero_btn1_url  = home_url('/inscriere/');
 if ($hero_btn2_url === '')  $hero_btn2_url  = home_url('/discipline/');
 if ($disc_eyebrow === '')   $disc_eyebrow   = '02 — Discipline';
 if ($disc_titlu === '')     $disc_titlu     = 'CE|ANTRENĂM';
+
+if ($valori_eyebrow === '')  $valori_eyebrow  = '03 — Filozofie';
+if ($valori_titlu === '')    $valori_titlu    = 'CALEA|KOKORO';
+if ($valori_subtitlu === '') $valori_subtitlu = '„Kokoro" (心) înseamnă Inimă, Spirit, Minte în limba japoneză. Aceste trei principii ne ghidează pe tatami și în viață.';
+
+if ($camp_eyebrow === '')    $camp_eyebrow    = '04 — Campioni';
+if ($camp_titlu === '')      $camp_titlu      = 'PERFORMANȚĂ|MONDIALĂ';
+if ($camp_subtitlu === '')   $camp_subtitlu   = 'REZULTATE DE|EXCEPȚIE';
+if ($camp_text === '')       $camp_text       = 'De la înființarea în 2008, sportivii Kokoro au câștigat sute de medalii la competiții naționale și internaționale. Academiei noastre i-au fost recunoscute meritele de către Ministerul Tineretului și Sportului și Federația Română de Arte Marțiale.';
+if ($camp_cta === '')        $camp_cta        = 'Vezi Toți Campionii';
+
+if (!is_array($valori) || empty($valori)) {
+    $valori = [
+        ['kanji' => '礼',     'romaji' => 'Rei',     'meaning' => 'Respect — Începi cu respect, termini cu respect. Fundamentul oricărei arte marțiale.'],
+        ['kanji' => '精神',   'romaji' => 'Seishin', 'meaning' => 'Spirit — Determinarea mentală care transformă efortul în performanță.'],
+        ['kanji' => '修行',   'romaji' => 'Shugyo',  'meaning' => 'Disciplina Căii — Antrenamentul constant care formează caracterul și corpul.'],
+    ];
+}
+if (!is_array($camp_stats) || empty($camp_stats)) {
+    $camp_stats = [
+        ['numar' => 200, 'sufix' => '+', 'label' => 'Medalii'],
+        ['numar' => 3,   'sufix' => '',  'label' => 'Campioni Mondiali'],
+        ['numar' => 50,  'sufix' => '+', 'label' => 'Medalii Internaționale'],
+        ['numar' => 100, 'sufix' => '+', 'label' => 'Medalii Naționale'],
+    ];
+}
+
+// Featured champion — din CPT `campion` cu flag `campion_is_featured`
+$featured_q = new WP_Query([
+    'post_type'      => 'campion',
+    'posts_per_page' => 1,
+    'meta_query'     => [
+        ['key' => 'campion_is_featured', 'value' => '1'],
+    ],
+    'post_status'    => 'publish',
+]);
+$home_featured = $featured_q->have_posts() ? $featured_q->posts[0] : null;
+wp_reset_postdata();
 
 if (!is_array($hero_stats) || empty($hero_stats)) {
     $hero_stats = [
@@ -198,34 +250,29 @@ $discipline_fallback = [
 <section class="section section--accent" id="despre">
   <div class="container">
     <div class="section__header reveal">
-      <div class="section-number" style="color: var(--color-bg);">03 — Filozofie</div>
-      <h2 style="color: var(--color-bg);">CALEA <em>KOKORO</em></h2>
-      <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin-top: var(--space-lg);">
-        „Kokoro" (心) înseamnă Inimă, Spirit, Minte în limba japoneză. Aceste trei principii ne ghidează pe tatami și în viață.
-      </p>
+      <div class="section-number" style="color: var(--color-bg);"><?php echo esc_html($valori_eyebrow); ?></div>
+      <h2 style="color: var(--color-bg);">
+        <?php echo kokoro_render_italic_title($valori_titlu, ' '); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+      </h2>
+      <?php if ($valori_subtitlu !== '') : ?>
+        <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin-top: var(--space-lg);">
+          <?php echo esc_html($valori_subtitlu); ?>
+        </p>
+      <?php endif; ?>
     </div>
 
     <div class="values-grid">
-      <!-- Rei -->
-      <div class="value-item reveal reveal-delay-1">
-        <div class="value-item__kanji" style="color: var(--color-bg);">礼</div>
-        <div class="value-item__romaji" style="color: var(--color-bg);">Rei</div>
-        <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;">Respect — Începi cu respect, termini cu respect. Fundamentul oricărei arte marțiale.</p>
-      </div>
-
-      <!-- Seishin -->
-      <div class="value-item reveal reveal-delay-2">
-        <div class="value-item__kanji" style="color: var(--color-bg);">精神</div>
-        <div class="value-item__romaji" style="color: var(--color-bg);">Seishin</div>
-        <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;">Spirit — Determinarea mentală care transformă efortul în performanță.</p>
-      </div>
-
-      <!-- Shugyo -->
-      <div class="value-item reveal reveal-delay-3">
-        <div class="value-item__kanji" style="color: var(--color-bg);">修行</div>
-        <div class="value-item__romaji" style="color: var(--color-bg);">Shugyo</div>
-        <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;">Disciplina Căii — Antrenamentul constant care formează caracterul și corpul.</p>
-      </div>
+      <?php foreach ($valori as $i => $v) :
+          $delay = 'reveal-delay-' . min($i + 1, 4);
+      ?>
+        <div class="value-item reveal <?php echo esc_attr($delay); ?>">
+          <div class="value-item__kanji"  style="color: var(--color-bg);"><?php echo esc_html($v['kanji']  ?? ''); ?></div>
+          <div class="value-item__romaji" style="color: var(--color-bg);"><?php echo esc_html($v['romaji'] ?? ''); ?></div>
+          <?php if (!empty($v['meaning'])) : ?>
+            <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;"><?php echo esc_html($v['meaning']); ?></p>
+          <?php endif; ?>
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -239,56 +286,85 @@ $discipline_fallback = [
 
   <div class="container">
     <div class="section__header reveal">
-      <div class="section-number">04 — Campioni</div>
-      <h2>PERFORMANȚĂ<br><em>MONDIALĂ</em></h2>
+      <div class="section-number"><?php echo esc_html($camp_eyebrow); ?></div>
+      <h2><?php echo kokoro_render_italic_title($camp_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
     </div>
 
     <!-- Featured Champion -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: center; margin-bottom: var(--space-4xl);">
       <div class="reveal reveal--left">
         <div class="card" style="border-color: var(--color-accent);">
-          <div style="width: 100%; height: 350px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-xl);">
-            <span style="color: var(--color-gray);">Foto Adrian Bogluț</span>
-          </div>
-          <div class="card__tag">Campion Mondial</div>
-          <h3 class="card__title">Adrian Bogluț</h3>
-          <p class="card__text">Campion mondial Ju-Jitsu — mândria Kokoro Brașov Academy și dovada vie că antrenamentul dedicat duce la rezultate de excepție.</p>
+          <?php if ($home_featured) :
+              $fid       = $home_featured->ID;
+              $f_title   = get_the_title($fid);
+              $f_bio     = $acf ? (string) get_field('campion_bio_scurt', $fid) : '';
+              $f_centura = $acf ? (string) get_field('campion_centura', $fid) : '';
+              $centura_label_map = [
+                  'alba' => 'Albă', 'galbena' => 'Galbenă', 'portocalie' => 'Portocalie',
+                  'verde' => 'Verde', 'albastra' => 'Albastră', 'maro' => 'Maro', 'neagra' => 'Neagră',
+              ];
+              $f_centura_label = $centura_label_map[$f_centura] ?? '';
+          ?>
+            <?php if (has_post_thumbnail($fid)) : ?>
+              <?php echo get_the_post_thumbnail($fid, 'kokoro-square', [
+                  'style' => 'width: 100%; height: 350px; object-fit: cover; display: block; margin-bottom: var(--space-xl);',
+                  'alt'   => esc_attr($f_title),
+              ]); ?>
+            <?php else : ?>
+              <div style="width: 100%; height: 350px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-xl);">
+                <span style="color: var(--color-gray);">Foto <?php echo esc_html($f_title); ?></span>
+              </div>
+            <?php endif; ?>
+            <?php if ($f_centura_label !== '') : ?>
+              <div class="card__tag">Centură <?php echo esc_html($f_centura_label); ?></div>
+            <?php endif; ?>
+            <h3 class="card__title"><?php echo esc_html($f_title); ?></h3>
+            <?php if ($f_bio !== '') : ?>
+              <p class="card__text"><?php echo wp_kses_post($f_bio); ?></p>
+            <?php endif; ?>
+          <?php else : ?>
+            <!-- Fallback static când nu există încă vreun campion featured -->
+            <div style="width: 100%; height: 350px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-xl);">
+              <span style="color: var(--color-gray);">Foto Campion Featured</span>
+            </div>
+            <div class="card__tag">Campion Mondial</div>
+            <h3 class="card__title">Adrian Bogluț</h3>
+            <p class="card__text">Campion mondial Ju-Jitsu — mândria Kokoro Brașov Academy și dovada vie că antrenamentul dedicat duce la rezultate de excepție.</p>
+          <?php endif; ?>
         </div>
       </div>
 
       <div class="reveal reveal--right">
-        <h3 class="heading-3" style="margin-bottom: var(--space-xl);">REZULTATE DE<br><em>EXCEPȚIE</em></h3>
-        <p style="color: var(--color-gray); margin-bottom: var(--space-2xl); line-height: 1.8;">
-          De la înființarea în 2008, sportivii Kokoro au câștigat sute de medalii la competiții naționale și internaționale. Academiei noastre i-au fost recunoscute meritele de către Ministerul Tineretului și Sportului și Federația Română de Arte Marțiale.
-        </p>
+        <h3 class="heading-3" style="margin-bottom: var(--space-xl);">
+          <?php echo kokoro_render_italic_title($camp_subtitlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+        </h3>
+        <?php if ($camp_text !== '') : ?>
+          <p style="color: var(--color-gray); margin-bottom: var(--space-2xl); line-height: 1.8;">
+            <?php echo esc_html($camp_text); ?>
+          </p>
+        <?php endif; ?>
 
         <!-- Stats -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
-          <div class="stat">
-            <div class="stat__number" data-counter="200" data-suffix="+">0</div>
-            <div class="stat__label">Medalii</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number" data-counter="3">0</div>
-            <div class="stat__label">Campioni Mondiali</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number" data-counter="50" data-suffix="+">0</div>
-            <div class="stat__label">Medalii Internaționale</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number" data-counter="100" data-suffix="+">0</div>
-            <div class="stat__label">Medalii Naționale</div>
-          </div>
+          <?php foreach ($camp_stats as $s) : ?>
+            <div class="stat">
+              <div class="stat__number"
+                   data-counter="<?php echo esc_attr($s['numar'] ?? 0); ?>"
+                   <?php if (!empty($s['sufix'])) : ?>data-suffix="<?php echo esc_attr($s['sufix']); ?>"<?php endif; ?>>0</div>
+              <div class="stat__label"><?php echo esc_html($s['label'] ?? ''); ?></div>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
 
-    <div style="text-align: center;" class="reveal">
-      <a href="<?php echo esc_url(home_url('/campioni/')); ?>" class="btn btn--outline-accent">
-        Vezi Toți Campionii
-      </a>
-    </div>
+    <?php if ($camp_cta !== '') : ?>
+      <div style="text-align: center;" class="reveal">
+        <a href="<?php echo esc_url(home_url('/campioni/')); ?>" class="btn btn--outline-accent">
+          <?php echo esc_html($camp_cta); ?>
+        </a>
+      </div>
+    <?php endif; ?>
   </div>
 </section>
 
