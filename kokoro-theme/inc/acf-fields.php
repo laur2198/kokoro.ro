@@ -414,6 +414,74 @@ function kokoro_register_acf_field_groups() {
     ]);
 
     /* ------------------------------------------------------------------
+       2b. Conținut pagina Despre Noi (template page-despre-noi.php)
+       ------------------------------------------------------------------ */
+    acf_add_local_field_group([
+        'key'    => 'group_kokoro_pagina_despre',
+        'title'  => 'Conținut pagina Despre Noi',
+        'fields' => [
+            ['key' => 'field_d_tab_hero', 'label' => 'HERO', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_hero_titlu',    'name' => 'despre_hero_titlu',    'label' => 'Titlu hero',    'type' => 'text',     'default_value' => 'DESPRE|KOKORO'],
+            ['key' => 'field_d_hero_subtitlu', 'name' => 'despre_hero_subtitlu', 'label' => 'Subtitlu hero', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'O academie de Ju-Jitsu fondată din pasiune. Fiecare antrenament e un pas spre versiunea ta mai bună.'],
+            ['key' => 'field_d_hero_imagine',  'name' => 'despre_hero_imagine',  'label' => 'Imagine hero (opțional)', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+
+            ['key' => 'field_d_tab_poveste', 'label' => 'POVESTEA', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_poveste_titlu',   'name' => 'despre_poveste_titlu',   'label' => 'Titlu',    'type' => 'text', 'default_value' => 'POVESTEA|NOASTRĂ'],
+            ['key' => 'field_d_poveste_text',    'name' => 'despre_poveste_text',    'label' => 'Text',     'type' => 'wysiwyg', 'tabs' => 'visual', 'toolbar' => 'basic', 'media_upload' => 0, 'default_value' => 'În 2008, Sensei Lucică a deschis primul dojo Kokoro Brașov cu ambiția de a forma sportivi de elită și caractere puternice. De atunci, sute de copii, juniori și adulți au trecut prin sala noastră, iar zeci au cucerit medalii la competiții naționale și internaționale.'],
+            ['key' => 'field_d_poveste_imagine', 'name' => 'despre_poveste_imagine', 'label' => 'Imagine',  'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+
+            ['key' => 'field_d_tab_mv', 'label' => 'MISIUNE & VIZIUNE', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_misiune_titlu', 'name' => 'despre_misiune_titlu', 'label' => 'Titlu Misiune',  'type' => 'text',     'default_value' => 'MISIUNE'],
+            ['key' => 'field_d_misiune_text',  'name' => 'despre_misiune_text',  'label' => 'Text Misiune',   'type' => 'textarea', 'rows' => 4, 'default_value' => 'Să formăm sportivi puternici, disciplinați și respectuoși, transmițând tradiția Ju-Jitsu prin antrenamente de calitate.'],
+            ['key' => 'field_d_viziune_titlu', 'name' => 'despre_viziune_titlu', 'label' => 'Titlu Viziune',  'type' => 'text',     'default_value' => 'VIZIUNE'],
+            ['key' => 'field_d_viziune_text',  'name' => 'despre_viziune_text',  'label' => 'Text Viziune',   'type' => 'textarea', 'rows' => 4, 'default_value' => 'Să devenim cea mai respectată academie de Ju-Jitsu din România, formând următorii campioni mondiali.'],
+
+            ['key' => 'field_d_tab_stats', 'label' => 'STATISTICI', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_stats', 'name' => 'despre_stats', 'label' => 'Statistici (bara galbenă)', 'type' => 'repeater', 'button_label' => 'Adaugă', 'layout' => 'table', 'sub_fields' => [
+                ['key' => 'field_d_stat_numar', 'label' => 'Număr',    'name' => 'numar', 'type' => 'number', 'required' => 1],
+                ['key' => 'field_d_stat_sufix', 'label' => 'Sufix',    'name' => 'sufix', 'type' => 'text'],
+                ['key' => 'field_d_stat_label', 'label' => 'Etichetă', 'name' => 'label', 'type' => 'text', 'required' => 1],
+            ]],
+
+            ['key' => 'field_d_tab_valori', 'label' => 'VALORI', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_valori_titlu',    'name' => 'despre_valori_titlu',    'label' => 'Titlu',    'type' => 'text',     'default_value' => 'VALORI|FUNDAMENTALE'],
+            ['key' => 'field_d_valori_subtitlu', 'name' => 'despre_valori_subtitlu', 'label' => 'Subtitlu', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Principiile care ne ghidează în fiecare antrenament și competiție.'],
+            ['key' => 'field_d_valori', 'name' => 'despre_valori', 'label' => 'Valori', 'type' => 'repeater', 'button_label' => 'Adaugă valoare', 'layout' => 'block', 'sub_fields' => [
+                ['key' => 'field_d_val_kanji',     'label' => 'Kanji',     'name' => 'kanji',     'type' => 'text', 'required' => 1],
+                ['key' => 'field_d_val_romaji',    'label' => 'Romaji',    'name' => 'romaji',    'type' => 'text', 'required' => 1],
+                ['key' => 'field_d_val_nume',     'label' => 'Nume',     'name' => 'nume',     'type' => 'text'],
+                ['key' => 'field_d_val_descriere', 'label' => 'Descriere', 'name' => 'descriere', 'type' => 'textarea', 'rows' => 3, 'required' => 1],
+            ]],
+
+            ['key' => 'field_d_tab_timeline', 'label' => 'MOMENTE CHEIE', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_timeline_titlu', 'name' => 'despre_timeline_titlu', 'label' => 'Titlu', 'type' => 'text', 'default_value' => 'MOMENTE|CHEIE'],
+            ['key' => 'field_d_timeline', 'name' => 'despre_timeline', 'label' => 'Etape', 'type' => 'repeater', 'button_label' => 'Adaugă moment', 'layout' => 'row', 'sub_fields' => [
+                ['key' => 'field_d_tl_an',         'label' => 'An',         'name' => 'an',         'type' => 'text', 'required' => 1, 'instructions' => 'Ex: „2008", „2008-2010"'],
+                ['key' => 'field_d_tl_eveniment',  'label' => 'Eveniment',  'name' => 'eveniment',  'type' => 'text', 'required' => 1],
+                ['key' => 'field_d_tl_descriere',  'label' => 'Descriere',  'name' => 'descriere',  'type' => 'textarea', 'rows' => 2],
+            ]],
+
+            ['key' => 'field_d_tab_echipa', 'label' => 'ECHIPA', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_echipa_titlu',  'name' => 'despre_echipa_titlu',  'label' => 'Titlu',  'type' => 'text', 'default_value' => 'ECHIPA|KOKORO'],
+            ['key' => 'field_d_echipa_text',   'name' => 'despre_echipa_text',   'label' => 'Text introductiv', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Antrenori dedicați, cu zeci de ani de experiență combinată.'],
+            ['key' => 'field_d_echipa_limit',  'name' => 'despre_echipa_limit',  'label' => 'Câți antrenori', 'type' => 'number', 'default_value' => 4, 'min' => 0, 'max' => 12, 'instructions' => '0 = ascunde secțiunea. Antrenorii vin din CPT, sortați după menu_order.'],
+
+            ['key' => 'field_d_tab_cta', 'label' => 'CTA', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_d_cta_titlu', 'name' => 'despre_cta_titlu', 'label' => 'Titlu',         'type' => 'text', 'default_value' => 'ALĂTURĂ-TE|FAMILIEI KOKORO'],
+            ['key' => 'field_d_cta_text',  'name' => 'despre_cta_text',  'label' => 'Text',          'type' => 'textarea', 'rows' => 2, 'default_value' => 'Vino la o lecție demonstrativă gratuită și descoperă spiritul Kokoro.'],
+            ['key' => 'field_d_cta_buton', 'name' => 'despre_cta_buton', 'label' => 'Text buton',    'type' => 'text', 'default_value' => 'Înscrie-te Acum'],
+        ],
+        'location' => [
+            [['param' => 'page_template', 'operator' => '==', 'value' => 'page-despre-noi.php']],
+        ],
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'style'      => 'default',
+        'label_placement' => 'top',
+        'active'     => true,
+    ]);
+
+    /* ------------------------------------------------------------------
        2. Conținut pagina Campioni (template page-campioni.php)
        ------------------------------------------------------------------ */
     acf_add_local_field_group([
