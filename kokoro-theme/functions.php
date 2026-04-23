@@ -18,6 +18,7 @@ define('KOKORO_URI', get_template_directory_uri());
 
 require_once KOKORO_DIR . '/inc/cpt.php';
 require_once KOKORO_DIR . '/inc/acf-fields.php';
+require_once KOKORO_DIR . '/inc/forms.php';
 
 /* ==========================================================================
    1. Theme Setup
