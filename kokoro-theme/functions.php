@@ -251,33 +251,36 @@ add_filter('excerpt_more', 'kokoro_excerpt_more');
    ========================================================================== */
 
 function kokoro_activate() {
+    // [slug => [title, template_filename or null]]
     $pages = [
-        'despre-noi'          => 'Despre Noi',
-        'antrenori'           => 'Antrenori',
-        'membri'              => 'Membri & Campioni',
-        'campioni'            => 'Campioni',
-        'discipline'          => 'Discipline',
-        'orar'                => 'Orar',
-        'tarife'              => 'Tarife',
-        'inscriere'           => 'Înscriere',
-        'galerie'             => 'Galerie',
-        'contact'             => 'Contact',
+        'despre-noi' => ['Despre Noi',         'page-despre-noi.php'],
+        'antrenori'  => ['Antrenori',          'page-antrenori.php'],
+        'campioni'   => ['Campioni',           'page-campioni.php'],
+        'discipline' => ['Discipline',         'page-discipline.php'],
+        'orar'       => ['Orar',               'page-orar.php'],
+        'tarife'     => ['Tarife',             'page-tarife.php'],
+        'inscriere'  => ['Înscriere',          'page-inscriere.php'],
+        'galerie'    => ['Galerie',            'page-galerie.php'],
+        'contact'    => ['Contact',            'page-contact.php'],
     ];
 
-    foreach ($pages as $slug => $title) {
+    foreach ($pages as $slug => [$title, $template]) {
         if (!get_page_by_path($slug)) {
-            wp_insert_post([
+            $page_id = wp_insert_post([
                 'post_title'   => $title,
                 'post_name'    => $slug,
                 'post_status'  => 'publish',
                 'post_type'    => 'page',
                 'post_content' => '',
             ]);
+            if ($page_id && !is_wp_error($page_id) && $template) {
+                update_post_meta($page_id, '_wp_page_template', $template);
+            }
         }
     }
 
-    // Set front page to static
-    $front = get_page_by_path('front-page');
+    // Front page: creează „Acasă" doar dacă nu există deja, apoi setează ca front static.
+    $front = get_page_by_path('acasa');
     if (!$front) {
         $front_id = wp_insert_post([
             'post_title'  => 'Acasă',
@@ -285,9 +288,16 @@ function kokoro_activate() {
             'post_status' => 'publish',
             'post_type'   => 'page',
         ]);
+    } else {
+        $front_id = $front->ID;
+    }
+    if ($front_id && !is_wp_error($front_id)) {
         update_option('page_on_front', $front_id);
         update_option('show_on_front', 'page');
     }
+
+    // Permalinks rewrite — necesar pentru CPT-urile noi (campion/disciplina/antrenor)
+    flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'kokoro_activate');
 

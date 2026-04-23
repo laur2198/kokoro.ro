@@ -98,8 +98,12 @@ function kokoro_handle_form_submit() {
         kokoro_form_redirect_back('spam');
     }
 
-    $form_type = sanitize_key($_POST['form_type'] ?? 'contact');
-    $referer   = wp_get_referer() ?: home_url('/');
+    // Whitelist form_type — orice altă valoare cade pe „contact"
+    $allowed_types = ['contact', 'inscriere'];
+    $form_type     = in_array($_POST['form_type'] ?? '', $allowed_types, true)
+        ? sanitize_key($_POST['form_type'])
+        : 'contact';
+    $referer       = wp_get_referer() ?: home_url('/');
 
     if ($form_type === 'inscriere') {
         $data = [

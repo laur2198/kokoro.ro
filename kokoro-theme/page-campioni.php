@@ -74,7 +74,12 @@ $palmares = kokoro_get_palmares_rows();
         'alba' => 'Albă', 'galbena' => 'Galbenă', 'portocalie' => 'Portocalie',
         'verde' => 'Verde', 'albastra' => 'Albastră', 'maro' => 'Maro', 'neagra' => 'Neagră',
     ];
+    $centura_belts = [
+        'alba' => 'white', 'galbena' => 'yellow', 'portocalie' => 'orange',
+        'verde' => 'green', 'albastra' => 'blue', 'maro' => 'brown', 'neagra' => 'black',
+    ];
     $centura_label = $centura_labels[$featured_centura] ?? '';
+    $belt_class    = $centura_belts[$featured_centura]  ?? '';
 ?>
 <!-- Featured Champion -->
 <section class="section section--dark">
@@ -111,7 +116,7 @@ $palmares = kokoro_get_palmares_rows();
         <?php endif; ?>
         <?php if ($featured_centura !== '') : ?>
           <div class="belt-progression" style="margin-bottom: var(--space-lg);">
-            <div class="belt belt--<?php echo esc_attr($featured_centura === 'neagra' ? 'black' : ($featured_centura === 'alba' ? 'white' : ($featured_centura === 'galbena' ? 'yellow' : ($featured_centura === 'portocalie' ? 'orange' : ($featured_centura === 'verde' ? 'green' : ($featured_centura === 'albastra' ? 'blue' : 'brown')))))); ?>" style="width: 80px; height: 8px;"></div>
+            <div class="belt belt--<?php echo esc_attr($belt_class); ?>" style="width: 80px; height: 8px;"></div>
             <?php if ($centura_label !== '') : ?>
               <span class="text-sm" style="color: var(--color-white);">Centură <?php echo esc_html($centura_label); ?></span>
             <?php endif; ?>

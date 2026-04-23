@@ -1474,7 +1474,11 @@ function kokoro_setting($name, $default = '') {
         return $default;
     }
     $val = get_field('set_' . $name, 'option');
-    return ($val === null || $val === false || $val === '') ? $default : $val;
+    if ($val === null || $val === false || $val === '' || (is_array($val) && empty($val))) {
+        return $default;
+    }
+    // Defaultul indică tipul așteptat — păstrează tipul când default e string
+    return is_string($default) ? (string) $val : $val;
 }
 
 /**
