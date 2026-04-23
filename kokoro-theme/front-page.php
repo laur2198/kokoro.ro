@@ -42,6 +42,34 @@ $camp_text       = $acf ? (string) get_field('home_camp_text')       : '';
 $camp_stats      = $acf ? get_field('home_camp_stats')               : [];
 $camp_cta        = $acf ? (string) get_field('home_camp_cta')        : '';
 
+// Testimoniale
+$test_eyebrow      = $acf ? (string) get_field('home_test_eyebrow')       : '';
+$test_titlu        = $acf ? (string) get_field('home_test_titlu')         : '';
+$test_rating       = $acf ? (string) get_field('home_test_rating')        : '';
+$test_rating_label = $acf ? (string) get_field('home_test_rating_label')  : '';
+$testimoniale      = $acf ? get_field('home_test')                        : [];
+
+// Orar preview
+$orar_eyebrow = $acf ? (string) get_field('home_orar_eyebrow') : '';
+$orar_titlu   = $acf ? (string) get_field('home_orar_titlu')   : '';
+$orar_limit   = $acf ? (int)    get_field('home_orar_limit')   : 10;
+$orar_cta     = $acf ? (string) get_field('home_orar_cta')     : '';
+if ($orar_limit < 1) $orar_limit = 10;
+
+// CTA înscriere
+$cta_eyebrow   = $acf ? (string) get_field('home_cta_eyebrow')   : '';
+$cta_titlu     = $acf ? (string) get_field('home_cta_titlu')     : '';
+$cta_text      = $acf ? (string) get_field('home_cta_text')      : '';
+$cta_btn1_text = $acf ? (string) get_field('home_cta_btn1_text') : '';
+$cta_btn1_url  = $acf ? (string) get_field('home_cta_btn1_url')  : '';
+$cta_btn2_text = $acf ? (string) get_field('home_cta_btn2_text') : '';
+$cta_btn2_url  = $acf ? (string) get_field('home_cta_btn2_url')  : '';
+
+// JP Quote
+$jp_kanji     = $acf ? (string) get_field('home_jp_kanji')     : '';
+$jp_romaji    = $acf ? (string) get_field('home_jp_romaji')    : '';
+$jp_traducere = $acf ? (string) get_field('home_jp_traducere') : '';
+
 // Fallbacks (first-run, când ACF n-are date)
 if ($hero_image === '')     $hero_image     = KOKORO_URI . '/assets/images/hero-placeholder.jpg';
 if ($hero_eyebrow === '')   $hero_eyebrow   = '01 — Academia';
@@ -79,6 +107,65 @@ if (!is_array($camp_stats) || empty($camp_stats)) {
         ['numar' => 100, 'sufix' => '+', 'label' => 'Medalii Naționale'],
     ];
 }
+
+if ($test_eyebrow === '')      $test_eyebrow      = '05 — Recenzii';
+if ($test_titlu === '')        $test_titlu        = 'CE SPUN|DESPRE NOI';
+if ($test_rating === '')       $test_rating       = '4.8';
+if ($test_rating_label === '') $test_rating_label = '96 recenzii Google';
+
+if (!is_array($testimoniale) || empty($testimoniale)) {
+    $testimoniale = [
+        ['text' => '„Am ales Academia de Ju Jitsu KOKORO Brașov pentru fetița mea de 5 ani și pot spune sincer că a fost una dintre cele mai bune decizii."',                                                                                              'autor' => 'Razvan Bineata',        'sursa' => 'Google Review'],
+        ['text' => '„Recomand cu toată încrederea Kokoro Brașov Academy Ju-Jitsu, un loc unde profesionalismul, disciplina și pasiunea pentru acest sport sunt duse la cel mai înalt nivel."',                                                         'autor' => 'Romina Moldovanu',       'sursa' => 'Google Review'],
+        ['text' => '„Onoare, Iubire, Datorie... iată ce fiul meu învață, iată ce eu simt... Academia Kokoro Brașov!"',                                                                                                                                 'autor' => 'Eugen-Alexandru Roșca',  'sursa' => 'Google Review'],
+        ['text' => '„FELICITĂRI Sensei Lucică, FELICITĂRI sportiviilor KOKORO, BRAVO grupului + familiei KOKORO! Bravo Lucică pentru munca depusă și rezultatele obținute."',                                                                          'autor' => 'Corysan Club Sportiv',   'sursa' => 'Facebook'],
+        ['text' => '„Recomand cu toată inima Kokoro Brașov Academy! Fiul meu a început să practice Ju Jitsu la acest club de la 4 ani și jumătate, iar acum, la 12 ani, pot spune că a fost cea mai bună decizie."',                                   'autor' => 'Antonela Stan',          'sursa' => 'Google Review'],
+        ['text' => '„Am făcut cea mai bună alegere de a-mi înscrie fetița la acest club... recomand tuturor părinților... este sănătate, sport și disciplină."',                                                                                       'autor' => 'Cristina Ratiu',         'sursa' => 'Facebook'],
+    ];
+}
+
+if ($orar_eyebrow === '') $orar_eyebrow = '06 — Program';
+if ($orar_titlu === '')   $orar_titlu   = 'ORARUL|ANTRENAMENTELOR';
+if ($orar_cta === '')     $orar_cta     = 'Vezi Orarul Complet';
+
+// Trage primele N rânduri din pagina Orar (dacă există)
+$orar_page = kokoro_get_page_by_template('page-orar.php');
+$orar_rows = [];
+if ($orar_page && $acf) {
+    $program = get_field('orar_program', $orar_page->ID);
+    if (is_array($program)) {
+        $program_sorted = kokoro_sort_program_by_day($program);
+        $orar_rows      = array_slice($program_sorted, 0, $orar_limit);
+    }
+}
+// Fallback când nu e configurat încă Orar
+$orar_fallback = [
+    ['zi' => 'Luni',     'ora' => '17:00 – 18:00', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'copii'],
+    ['zi' => 'Luni',     'ora' => '18:00 – 19:00', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'juniori'],
+    ['zi' => 'Luni',     'ora' => '19:00 – 20:30', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'adulti'],
+    ['zi' => 'Marți',    'ora' => '17:00 – 18:00', 'disciplina' => 'Ju-Jitsu Autoapărare', 'grupa' => 'adulti'],
+    ['zi' => 'Miercuri', 'ora' => '17:00 – 18:00', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'copii'],
+    ['zi' => 'Miercuri', 'ora' => '18:00 – 19:00', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'juniori'],
+    ['zi' => 'Miercuri', 'ora' => '19:00 – 20:30', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'adulti'],
+    ['zi' => 'Vineri',   'ora' => '17:00 – 18:00', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'copii'],
+    ['zi' => 'Vineri',   'ora' => '18:00 – 19:00', 'disciplina' => 'Ju-Jitsu',         'grupa' => 'juniori'],
+    ['zi' => 'Vineri',   'ora' => '19:00 – 20:30', 'disciplina' => 'TRX + Ju-Jitsu',   'grupa' => 'adulti'],
+];
+if (empty($orar_rows)) {
+    $orar_rows = array_slice($orar_fallback, 0, $orar_limit);
+}
+
+if ($cta_eyebrow === '')   $cta_eyebrow   = '07 — Început';
+if ($cta_titlu === '')     $cta_titlu     = 'ÎNCEPE|CĂLĂTORIA';
+if ($cta_text === '')      $cta_text      = 'Nu contează vârsta, nivelul de experiență sau condiția fizică. Contează să faci primul pas. Înscrierile sunt deschise pentru toate grupele.';
+if ($cta_btn1_text === '') $cta_btn1_text = 'Înscrie-te Acum';
+if ($cta_btn2_text === '') $cta_btn2_text = 'Contactează-ne';
+if ($cta_btn1_url === '')  $cta_btn1_url  = home_url('/inscriere/');
+if ($cta_btn2_url === '')  $cta_btn2_url  = home_url('/contact/');
+
+if ($jp_kanji === '')     $jp_kanji     = '「継続は力なり」';
+if ($jp_romaji === '')    $jp_romaji    = 'Keizoku wa chikara nari';
+if ($jp_traducere === '') $jp_traducere = 'Perseverența este forță';
 
 // Featured champion — din CPT `campion` cu flag `campion_is_featured`
 $featured_q = new WP_Query([
@@ -374,77 +461,36 @@ $discipline_fallback = [
 <section class="section section--alt" id="testimoniale">
   <div class="container">
     <div class="section__header reveal">
-      <div class="section-number">05 — Recenzii</div>
-      <h2>CE SPUN<br><em>DESPRE NOI</em></h2>
-      <div class="testimonial__badge" style="margin-top: var(--space-lg);">
-        <span>4.8</span>
-        <span style="font-size: 1rem; color: var(--color-accent);">★★★★★</span>
-        <span style="font-size: 0.875rem; color: var(--color-gray); font-weight: 400;">96 recenzii Google</span>
-      </div>
+      <div class="section-number"><?php echo esc_html($test_eyebrow); ?></div>
+      <h2><?php echo kokoro_render_italic_title($test_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
+      <?php if ($test_rating !== '' || $test_rating_label !== '') : ?>
+        <div class="testimonial__badge" style="margin-top: var(--space-lg);">
+          <?php if ($test_rating !== '') : ?><span><?php echo esc_html($test_rating); ?></span><?php endif; ?>
+          <span style="font-size: 1rem; color: var(--color-accent);">★★★★★</span>
+          <?php if ($test_rating_label !== '') : ?>
+            <span style="font-size: 0.875rem; color: var(--color-gray); font-weight: 400;"><?php echo esc_html($test_rating_label); ?></span>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
     </div>
 
     <div class="testimonial-grid">
-
-      <!-- Review 1 -->
-      <div class="testimonial reveal reveal-delay-1">
-        <div class="testimonial__stars">★★★★★</div>
-        <p class="testimonial__text">
-          „Am ales Academia de Ju Jitsu KOKORO Brașov pentru fetița mea de 5 ani și pot spune sincer că a fost una dintre cele mai bune decizii."
-        </p>
-        <div class="testimonial__author">Razvan Bineata</div>
-        <div class="testimonial__source">Google Review</div>
-      </div>
-
-      <!-- Review 2 -->
-      <div class="testimonial reveal reveal-delay-2">
-        <div class="testimonial__stars">★★★★★</div>
-        <p class="testimonial__text">
-          „Recomand cu toată încrederea Kokoro Brașov Academy Ju-Jitsu, un loc unde profesionalismul, disciplina și pasiunea pentru acest sport sunt duse la cel mai înalt nivel."
-        </p>
-        <div class="testimonial__author">Romina Moldovanu</div>
-        <div class="testimonial__source">Google Review</div>
-      </div>
-
-      <!-- Review 3 -->
-      <div class="testimonial reveal reveal-delay-3">
-        <div class="testimonial__stars">★★★★★</div>
-        <p class="testimonial__text">
-          „Onoare, Iubire, Datorie... iată ce fiul meu învață, iată ce eu simt... Academia Kokoro Brașov!"
-        </p>
-        <div class="testimonial__author">Eugen-Alexandru Roșca</div>
-        <div class="testimonial__source">Google Review</div>
-      </div>
-
-      <!-- Review 4 - Facebook -->
-      <div class="testimonial reveal reveal-delay-4">
-        <div class="testimonial__stars">★★★★★</div>
-        <p class="testimonial__text">
-          „FELICITĂRI Sensei Lucică, FELICITĂRI sportiviilor KOKORO, BRAVO grupului + familiei KOKORO! Bravo Lucică pentru munca depusă și rezultatele obținute."
-        </p>
-        <div class="testimonial__author">Corysan Club Sportiv</div>
-        <div class="testimonial__source">Facebook</div>
-      </div>
-
-      <!-- Review 5 -->
-      <div class="testimonial reveal reveal-delay-5">
-        <div class="testimonial__stars">★★★★★</div>
-        <p class="testimonial__text">
-          „Recomand cu toată inima Kokoro Brașov Academy! Fiul meu a început să practice Ju Jitsu la acest club de la 4 ani și jumătate, iar acum, la 12 ani, pot spune că a fost cea mai bună decizie."
-        </p>
-        <div class="testimonial__author">Antonela Stan</div>
-        <div class="testimonial__source">Google Review</div>
-      </div>
-
-      <!-- Review 6 -->
-      <div class="testimonial reveal reveal-delay-6">
-        <div class="testimonial__stars">★★★★★</div>
-        <p class="testimonial__text">
-          „Am făcut cea mai bună alegere de a-mi înscrie fetița la acest club... recomand tuturor părinților... este sănătate, sport și disciplină."
-        </p>
-        <div class="testimonial__author">Cristina Ratiu</div>
-        <div class="testimonial__source">Facebook</div>
-      </div>
-
+      <?php foreach ($testimoniale as $i => $t) :
+          $delay = 'reveal-delay-' . min($i + 1, 6);
+      ?>
+        <div class="testimonial reveal <?php echo esc_attr($delay); ?>">
+          <div class="testimonial__stars">★★★★★</div>
+          <?php if (!empty($t['text'])) : ?>
+            <p class="testimonial__text"><?php echo esc_html($t['text']); ?></p>
+          <?php endif; ?>
+          <?php if (!empty($t['autor'])) : ?>
+            <div class="testimonial__author"><?php echo esc_html($t['autor']); ?></div>
+          <?php endif; ?>
+          <?php if (!empty($t['sursa'])) : ?>
+            <div class="testimonial__source"><?php echo esc_html($t['sursa']); ?></div>
+          <?php endif; ?>
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -455,8 +501,8 @@ $discipline_fallback = [
 <section class="section section--dark" id="orar">
   <div class="container">
     <div class="section__header reveal">
-      <div class="section-number">06 — Program</div>
-      <h2>ORARUL<br><em>ANTRENAMENTELOR</em></h2>
+      <div class="section-number"><?php echo esc_html($orar_eyebrow); ?></div>
+      <h2><?php echo kokoro_render_italic_title($orar_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
     </div>
 
     <div class="schedule-wrapper reveal">
@@ -470,75 +516,35 @@ $discipline_fallback = [
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Luni</td>
-            <td>17:00 – 18:00</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--copii">Copii</span></td>
-          </tr>
-          <tr>
-            <td>Luni</td>
-            <td>18:00 – 19:00</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
-          </tr>
-          <tr>
-            <td>Luni</td>
-            <td>19:00 – 20:30</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-          </tr>
-          <tr>
-            <td>Marți</td>
-            <td>17:00 – 18:00</td>
-            <td>Ju-Jitsu Autoapărare</td>
-            <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-          </tr>
-          <tr>
-            <td>Miercuri</td>
-            <td>17:00 – 18:00</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--copii">Copii</span></td>
-          </tr>
-          <tr>
-            <td>Miercuri</td>
-            <td>18:00 – 19:00</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
-          </tr>
-          <tr>
-            <td>Miercuri</td>
-            <td>19:00 – 20:30</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-          </tr>
-          <tr>
-            <td>Vineri</td>
-            <td>17:00 – 18:00</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--copii">Copii</span></td>
-          </tr>
-          <tr>
-            <td>Vineri</td>
-            <td>18:00 – 19:00</td>
-            <td>Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--juniori">Juniori</span></td>
-          </tr>
-          <tr>
-            <td>Vineri</td>
-            <td>19:00 – 20:30</td>
-            <td>TRX + Ju-Jitsu</td>
-            <td><span class="schedule__group schedule__group--adulti">Adulți</span></td>
-          </tr>
+          <?php foreach ($orar_rows as $row) :
+              $grupa_slug   = $row['grupa'] ?? '';
+              $grupa_labels = ['copii' => 'Copii', 'juniori' => 'Juniori', 'adulti' => 'Adulți'];
+              $grupa_label  = $grupa_labels[$grupa_slug] ?? ucfirst((string) $grupa_slug);
+          ?>
+            <tr>
+              <td><?php echo esc_html($row['zi']         ?? ''); ?></td>
+              <td><?php echo esc_html($row['ora']        ?? ''); ?></td>
+              <td><?php echo esc_html($row['disciplina'] ?? ''); ?></td>
+              <td>
+                <?php if ($grupa_slug !== '') : ?>
+                  <span class="schedule__group schedule__group--<?php echo esc_attr($grupa_slug); ?>">
+                    <?php echo esc_html($grupa_label); ?>
+                  </span>
+                <?php endif; ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
         </tbody>
       </table>
     </div>
 
-    <div style="text-align: center; margin-top: var(--space-2xl);" class="reveal">
-      <a href="<?php echo esc_url(home_url('/orar/')); ?>" class="btn btn--outline-accent">
-        Vezi Orarul Complet
-      </a>
-    </div>
+    <?php if ($orar_cta !== '') : ?>
+      <div style="text-align: center; margin-top: var(--space-2xl);" class="reveal">
+        <a href="<?php echo esc_url(home_url('/orar/')); ?>" class="btn btn--outline-accent">
+          <?php echo esc_html($orar_cta); ?>
+        </a>
+      </div>
+    <?php endif; ?>
   </div>
 </section>
 
@@ -551,21 +557,27 @@ $discipline_fallback = [
 
   <div class="container" style="text-align: center;">
     <div class="reveal">
-      <div class="section-number" style="color: var(--color-bg);">07 — Început</div>
+      <div class="section-number" style="color: var(--color-bg);"><?php echo esc_html($cta_eyebrow); ?></div>
       <h2 style="color: var(--color-bg); margin-bottom: var(--space-lg);">
-        ÎNCEPE<br><em>CĂLĂTORIA</em>
+        <?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
-      <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin: 0 auto var(--space-2xl);">
-        Nu contează vârsta, nivelul de experiență sau condiția fizică. Contează să faci primul pas. Înscrierile sunt deschise pentru toate grupele.
-      </p>
+      <?php if ($cta_text !== '') : ?>
+        <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin: 0 auto var(--space-2xl);">
+          <?php echo esc_html($cta_text); ?>
+        </p>
+      <?php endif; ?>
 
       <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
-        <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">
-          Înscrie-te Acum
-        </a>
-        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--outline btn--large" style="border-color: var(--color-bg); color: var(--color-bg);">
-          Contactează-ne
-        </a>
+        <?php if ($cta_btn1_text !== '') : ?>
+          <a href="<?php echo esc_url($cta_btn1_url); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">
+            <?php echo esc_html($cta_btn1_text); ?>
+          </a>
+        <?php endif; ?>
+        <?php if ($cta_btn2_text !== '') : ?>
+          <a href="<?php echo esc_url($cta_btn2_url); ?>" class="btn btn--outline btn--large" style="border-color: var(--color-bg); color: var(--color-bg);">
+            <?php echo esc_html($cta_btn2_text); ?>
+          </a>
+        <?php endif; ?>
       </div>
     </div>
   </div>
@@ -574,14 +586,16 @@ $discipline_fallback = [
 <!-- ============================================================
      JAPANESE QUOTE (pre-footer)
      ============================================================ -->
+<?php if ($jp_kanji !== '' || $jp_romaji !== '' || $jp_traducere !== '') : ?>
 <section class="section section--dark">
   <div class="container">
     <div class="jp-quote reveal">
-      <div class="jp-quote__kanji">「継続は力なり」</div>
-      <div class="jp-quote__romaji">Keizoku wa chikara nari</div>
-      <div class="jp-quote__translation">Perseverența este forță</div>
+      <?php if ($jp_kanji !== '')     : ?><div class="jp-quote__kanji"><?php       echo esc_html($jp_kanji);     ?></div><?php endif; ?>
+      <?php if ($jp_romaji !== '')    : ?><div class="jp-quote__romaji"><?php      echo esc_html($jp_romaji);    ?></div><?php endif; ?>
+      <?php if ($jp_traducere !== '') : ?><div class="jp-quote__translation"><?php echo esc_html($jp_traducere); ?></div><?php endif; ?>
     </div>
   </div>
 </section>
+<?php endif; ?>
 
 <?php get_footer(); ?>
