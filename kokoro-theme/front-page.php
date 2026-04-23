@@ -7,13 +7,82 @@
  */
 
 get_header();
+
+// -------------------------------------------------------------------
+// Read all ACF fields (front-page). Empty → fall back to defaults in markup.
+// -------------------------------------------------------------------
+$acf = function_exists('get_field');
+
+$hero_image      = $acf ? (string) get_field('home_hero_imagine')   : '';
+$hero_eyebrow    = $acf ? (string) get_field('home_hero_eyebrow')   : '';
+$hero_titlu      = $acf ? (string) get_field('home_hero_titlu')     : '';
+$hero_subtitlu   = $acf ? (string) get_field('home_hero_subtitlu')  : '';
+$hero_btn1_text  = $acf ? (string) get_field('home_hero_btn1_text') : '';
+$hero_btn1_url   = $acf ? (string) get_field('home_hero_btn1_url')  : '';
+$hero_btn2_text  = $acf ? (string) get_field('home_hero_btn2_text') : '';
+$hero_btn2_url   = $acf ? (string) get_field('home_hero_btn2_url')  : '';
+$hero_stats      = $acf ? get_field('home_hero_stats')              : [];
+$marquee_items   = $acf ? get_field('home_marquee')                 : [];
+$disc_eyebrow    = $acf ? (string) get_field('home_disc_eyebrow')   : '';
+$disc_titlu      = $acf ? (string) get_field('home_disc_titlu')     : '';
+$disc_limit      = $acf ? (int)    get_field('home_disc_limit')     : 4;
+if ($disc_limit < 1) $disc_limit = 4;
+
+// Fallbacks (first-run, când ACF n-are date)
+if ($hero_image === '')     $hero_image     = KOKORO_URI . '/assets/images/hero-placeholder.jpg';
+if ($hero_eyebrow === '')   $hero_eyebrow   = '01 — Academia';
+if ($hero_titlu === '')     $hero_titlu     = 'DEVINO|CAMPION|LA KOKORO';
+if ($hero_subtitlu === '')  $hero_subtitlu  = 'Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută MTS și FRAM, cu campioni mondiali în palmares.';
+if ($hero_btn1_text === '') $hero_btn1_text = 'Înscrie-te Acum';
+if ($hero_btn2_text === '') $hero_btn2_text = 'Descoperă Disciplinele';
+if ($hero_btn1_url === '')  $hero_btn1_url  = home_url('/inscriere/');
+if ($hero_btn2_url === '')  $hero_btn2_url  = home_url('/discipline/');
+if ($disc_eyebrow === '')   $disc_eyebrow   = '02 — Discipline';
+if ($disc_titlu === '')     $disc_titlu     = 'CE|ANTRENĂM';
+
+if (!is_array($hero_stats) || empty($hero_stats)) {
+    $hero_stats = [
+        ['numar' => 17,  'sufix' => '+', 'label' => 'Ani de activitate'],
+        ['numar' => 200, 'sufix' => '+', 'label' => 'Medalii câștigate'],
+        ['numar' => 3,   'sufix' => '',  'label' => 'Campioni mondiali'],
+        ['numar' => 500, 'sufix' => '+', 'label' => 'Sportivi formați'],
+    ];
+}
+if (!is_array($marquee_items) || empty($marquee_items)) {
+    $marquee_items = array_map(fn($t) => ['text' => $t], [
+        'Campioni Mondiali Ju-Jitsu',
+        'Fondată în 2008',
+        'Recunoscută MTS & FRAM',
+        'Copii, Juniori & Adulți',
+        '4.8★ pe Google — 96 recenzii',
+        'Brașov, România',
+        'Spirit, Minte, Trup',
+        '柔よく剛を制す — Blândețea controlează duritatea',
+    ]);
+}
+
+// Query discipline CPT (for preview cards)
+$discipline_cpt = get_posts([
+    'post_type'      => 'disciplina',
+    'posts_per_page' => $disc_limit,
+    'post_status'    => 'publish',
+    'orderby'        => 'menu_order title',
+    'order'          => 'ASC',
+]);
+// Fallback când nu există încă CPT-uri — folosim cele 4 carduri hardcodate originale
+$discipline_fallback = [
+    ['titlu' => 'Ju-Jitsu|Competițional', 'teaser' => 'Fighting, Ne-Waza, Duo System',              'url' => home_url('/ju-jitsu-competitional/')],
+    ['titlu' => 'Ju-Jitsu|Autoapărare',   'teaser' => 'Tehnici practice de self-defense',           'url' => home_url('/autoaparare/')],
+    ['titlu' => 'TRX|Suspension',         'teaser' => 'Antrenament funcțional cu greutatea corpului', 'url' => home_url('/trx-suspension-training/')],
+    ['titlu' => 'Personal|Training',      'teaser' => 'Preparare fizică individualizată',           'url' => home_url('/preparator-fizic/')],
+];
 ?>
 
 <!-- ============================================================
      SECTION 1: HERO
      ============================================================ -->
 <section class="hero section--dark">
-  <div class="hero__bg" style="background-image: url('<?php echo esc_url(KOKORO_URI . '/assets/images/hero-placeholder.jpg'); ?>');"></div>
+  <div class="hero__bg" style="background-image: url('<?php echo esc_url($hero_image); ?>');"></div>
 
   <!-- Kanji Watermark 心 -->
   <div class="kanji-watermark kanji-watermark--hero" aria-hidden="true">心</div>
@@ -22,24 +91,22 @@ get_header();
   <div class="shoji-pattern" aria-hidden="true"></div>
 
   <div class="hero__content">
-    <div class="section-number reveal">01 — Academia</div>
+    <div class="section-number reveal"><?php echo esc_html($hero_eyebrow); ?></div>
 
     <h1 class="hero__headline reveal">
-      DEVINO<br>
-      <em>CAMPION</em><br>
-      LA KOKORO
+      <?php echo kokoro_render_italic_title($hero_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
     </h1>
 
     <p class="hero__subtitle reveal">
-      Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută MTS și FRAM, cu campioni mondiali în palmares.
+      <?php echo esc_html($hero_subtitlu); ?>
     </p>
 
     <div class="hero__cta reveal">
-      <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--large">
-        Înscrie-te Acum
+      <a href="<?php echo esc_url($hero_btn1_url); ?>" class="btn btn--primary btn--large">
+        <?php echo esc_html($hero_btn1_text); ?>
       </a>
-      <a href="<?php echo esc_url(home_url('/discipline/')); ?>" class="btn btn--outline btn--large">
-        Descoperă Disciplinele
+      <a href="<?php echo esc_url($hero_btn2_url); ?>" class="btn btn--outline btn--large">
+        <?php echo esc_html($hero_btn2_text); ?>
       </a>
     </div>
   </div>
@@ -47,22 +114,14 @@ get_header();
   <!-- Stats Bar -->
   <div class="hero__stats">
     <div class="hero__stats-inner">
-      <div class="stat">
-        <div class="stat__number" data-counter="17" data-suffix="+">0</div>
-        <div class="stat__label">Ani de activitate</div>
-      </div>
-      <div class="stat">
-        <div class="stat__number" data-counter="200" data-suffix="+">0</div>
-        <div class="stat__label">Medalii câștigate</div>
-      </div>
-      <div class="stat">
-        <div class="stat__number" data-counter="3">0</div>
-        <div class="stat__label">Campioni mondiali</div>
-      </div>
-      <div class="stat">
-        <div class="stat__number" data-counter="500" data-suffix="+">0</div>
-        <div class="stat__label">Sportivi formați</div>
-      </div>
+      <?php foreach ($hero_stats as $stat) : ?>
+        <div class="stat">
+          <div class="stat__number"
+               data-counter="<?php echo esc_attr($stat['numar'] ?? 0); ?>"
+               <?php if (!empty($stat['sufix'])) : ?>data-suffix="<?php echo esc_attr($stat['sufix']); ?>"<?php endif; ?>>0</div>
+          <div class="stat__label"><?php echo esc_html($stat['label'] ?? ''); ?></div>
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -72,14 +131,9 @@ get_header();
      ============================================================ -->
 <div class="marquee">
   <div class="marquee__track">
-    <span class="marquee__item">Campioni Mondiali Ju-Jitsu</span>
-    <span class="marquee__item">Fondată în 2008</span>
-    <span class="marquee__item">Recunoscută MTS & FRAM</span>
-    <span class="marquee__item">Copii, Juniori & Adulți</span>
-    <span class="marquee__item">4.8★ pe Google — 96 recenzii</span>
-    <span class="marquee__item">Brașov, România</span>
-    <span class="marquee__item">Spirit, Minte, Trup</span>
-    <span class="marquee__item">柔よく剛を制す — Blândețea controlează duritatea</span>
+    <?php foreach ($marquee_items as $item) : ?>
+      <span class="marquee__item"><?php echo esc_html($item['text'] ?? ''); ?></span>
+    <?php endforeach; ?>
   </div>
 </div>
 
@@ -89,50 +143,51 @@ get_header();
 <section class="section section--alt" id="discipline">
   <div class="container">
     <div class="section__header reveal">
-      <div class="section-number">02 — Discipline</div>
-      <h2>CE <em>ANTRENĂM</em></h2>
+      <div class="section-number"><?php echo esc_html($disc_eyebrow); ?></div>
+      <h2><?php echo kokoro_render_italic_title($disc_titlu, ' '); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
     </div>
 
     <div class="discipline-grid">
-      <!-- Ju-Jitsu Competițional -->
-      <a href="<?php echo esc_url(home_url('/ju-jitsu-competitional/')); ?>" class="discipline-card reveal reveal-delay-1">
-        <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
-        <div class="discipline-card__content">
-          <div class="discipline-card__number">01</div>
-          <h3 class="discipline-card__title">Ju-Jitsu<br>Competițional</h3>
-          <p class="discipline-card__subtitle">Fighting, Ne-Waza, Duo System</p>
-        </div>
-      </a>
+      <?php if (!empty($discipline_cpt)) : ?>
+        <?php foreach ($discipline_cpt as $i => $d) :
+            $did           = $d->ID;
+            $titlu_home    = $acf ? (string) get_field('disciplina_titlu_home', $did)    : '';
+            $teaser_home   = $acf ? (string) get_field('disciplina_teaser_home', $did)   : '';
+            $desc_scurta   = $acf ? (string) get_field('disciplina_descriere_scurta', $did) : '';
+            $link_custom   = $acf ? (string) get_field('disciplina_link', $did)          : '';
+            $card_url      = $link_custom !== '' ? $link_custom : get_permalink($did);
+            $numar         = str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT);
+            $delay_class   = 'reveal-delay-' . min($i + 1, 4);
 
-      <!-- Autoapărare -->
-      <a href="<?php echo esc_url(home_url('/autoaparare/')); ?>" class="discipline-card reveal reveal-delay-2">
-        <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
-        <div class="discipline-card__content">
-          <div class="discipline-card__number">02</div>
-          <h3 class="discipline-card__title">Ju-Jitsu<br>Autoapărare</h3>
-          <p class="discipline-card__subtitle">Tehnici practice de self-defense</p>
-        </div>
-      </a>
-
-      <!-- TRX -->
-      <a href="<?php echo esc_url(home_url('/trx-suspension-training/')); ?>" class="discipline-card reveal reveal-delay-3">
-        <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
-        <div class="discipline-card__content">
-          <div class="discipline-card__number">03</div>
-          <h3 class="discipline-card__title">TRX<br>Suspension</h3>
-          <p class="discipline-card__subtitle">Antrenament funcțional cu greutatea corpului</p>
-        </div>
-      </a>
-
-      <!-- Personal Training -->
-      <a href="<?php echo esc_url(home_url('/preparator-fizic/')); ?>" class="discipline-card reveal reveal-delay-4">
-        <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
-        <div class="discipline-card__content">
-          <div class="discipline-card__number">04</div>
-          <h3 class="discipline-card__title">Personal<br>Training</h3>
-          <p class="discipline-card__subtitle">Preparare fizică individualizată</p>
-        </div>
-      </a>
+            $card_titlu    = $titlu_home !== '' ? $titlu_home : get_the_title($did);
+            $card_sub      = $teaser_home !== '' ? $teaser_home : wp_trim_words($desc_scurta, 8, '…');
+        ?>
+          <a href="<?php echo esc_url($card_url); ?>" class="discipline-card reveal <?php echo esc_attr($delay_class); ?>">
+            <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
+            <div class="discipline-card__content">
+              <div class="discipline-card__number"><?php echo esc_html($numar); ?></div>
+              <h3 class="discipline-card__title"><?php echo kokoro_render_italic_title($card_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h3>
+              <?php if ($card_sub !== '') : ?>
+                <p class="discipline-card__subtitle"><?php echo esc_html($card_sub); ?></p>
+              <?php endif; ?>
+            </div>
+          </a>
+        <?php endforeach; ?>
+      <?php else : ?>
+        <?php foreach ($discipline_fallback as $i => $d) :
+            $numar       = str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT);
+            $delay_class = 'reveal-delay-' . ($i + 1);
+        ?>
+          <a href="<?php echo esc_url($d['url']); ?>" class="discipline-card reveal <?php echo esc_attr($delay_class); ?>">
+            <div class="discipline-card__bg" style="background-color: var(--color-bg-card);"></div>
+            <div class="discipline-card__content">
+              <div class="discipline-card__number"><?php echo esc_html($numar); ?></div>
+              <h3 class="discipline-card__title"><?php echo kokoro_render_italic_title($d['titlu'], '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h3>
+              <p class="discipline-card__subtitle"><?php echo esc_html($d['teaser']); ?></p>
+            </div>
+          </a>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </div>
   </div>
 </section>
