@@ -168,4 +168,6 @@ $maps_url = kokoro_setting('maps_url', '');
 </section>
 <?php endif; ?>
 
+<?php kokoro_render_faq_section(); ?>
+
 <?php get_footer(); ?>

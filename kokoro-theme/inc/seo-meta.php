@@ -346,12 +346,291 @@ function kokoro_render_jsonld_breadcrumb() {
     echo "\n</script>\n";
 }
 
+/* ==========================================================================
+   JSON-LD: Person (Campion / Antrenor — context-dependent)
+   ========================================================================== */
+
+function kokoro_render_jsonld_person_campion() {
+    if (!is_singular('campion')) return;
+    $cid = get_queried_object_id();
+    if (!$cid) return;
+
+    $bio        = function_exists('get_field') ? (string) get_field('campion_bio_scurt', $cid)   : '';
+    $rezultate  = function_exists('get_field') ? get_field('campion_rezultate', $cid)            : [];
+    $centura    = function_exists('get_field') ? (string) get_field('campion_centura', $cid)     : '';
+    $thumb      = has_post_thumbnail($cid) ? get_the_post_thumbnail_url($cid, 'kokoro-square') : '';
+
+    $awards = [];
+    if (is_array($rezultate)) {
+        foreach ($rezultate as $r) {
+            $an   = $r['an']         ?? '';
+            $comp = $r['competitie'] ?? '';
+            $med  = $r['medalie']    ?? '';
+            if ($comp) {
+                $awards[] = trim(($an ? "$an: " : '') . $comp . ($med ? ' (' . kokoro_medalie_label($med) . ')' : ''));
+            }
+        }
+    }
+
+    $data = [
+        '@context'    => 'https://schema.org',
+        '@type'       => 'Person',
+        '@id'         => get_permalink($cid) . '#person',
+        'name'        => get_the_title($cid),
+        'url'         => get_permalink($cid),
+        'jobTitle'    => 'Sportiv Kokoro Brașov',
+        'affiliation' => [
+            '@type' => 'SportsOrganization',
+            'name'  => get_bloginfo('name'),
+            'url'   => home_url('/'),
+        ],
+        'worksFor'    => [
+            '@type' => 'Organization',
+            'name'  => get_bloginfo('name'),
+            '@id'   => home_url('/') . '#organization',
+        ],
+        'knowsAbout'  => ['Ju-Jitsu', 'Arte marțiale'],
+    ];
+    if ($thumb)   $data['image']       = $thumb;
+    if ($bio)     $data['description'] = wp_strip_all_tags($bio);
+    if (!empty($awards)) $data['award'] = $awards;
+
+    echo "\n<script type=\"application/ld+json\">\n";
+    echo wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    echo "\n</script>\n";
+}
+
+function kokoro_render_jsonld_person_antrenor() {
+    if (!is_singular('antrenor')) return;
+    $aid = get_queried_object_id();
+    if (!$aid) return;
+
+    $rol          = function_exists('get_field') ? (string) get_field('antrenor_rol', $aid)          : '';
+    $bio          = function_exists('get_field') ? (string) get_field('antrenor_bio_scurt', $aid)    : '';
+    $specializare = function_exists('get_field') ? (string) get_field('antrenor_specializare', $aid) : '';
+    $email_a      = function_exists('get_field') ? (string) get_field('antrenor_email', $aid)        : '';
+    $tel_a        = function_exists('get_field') ? (string) get_field('antrenor_telefon', $aid)      : '';
+    $facebook_a   = function_exists('get_field') ? (string) get_field('antrenor_facebook', $aid)     : '';
+    $instagram_a  = function_exists('get_field') ? (string) get_field('antrenor_instagram', $aid)    : '';
+    $thumb        = has_post_thumbnail($aid) ? get_the_post_thumbnail_url($aid, 'kokoro-square') : '';
+
+    $data = [
+        '@context'    => 'https://schema.org',
+        '@type'       => 'Person',
+        '@id'         => get_permalink($aid) . '#person',
+        'name'        => get_the_title($aid),
+        'url'         => get_permalink($aid),
+        'jobTitle'    => $rol !== '' ? $rol : 'Antrenor',
+        'worksFor'    => [
+            '@type' => 'Organization',
+            'name'  => get_bloginfo('name'),
+            '@id'   => home_url('/') . '#organization',
+        ],
+    ];
+    if ($specializare !== '') $data['knowsAbout'] = array_map('trim', explode(',', $specializare));
+    if ($bio)     $data['description'] = wp_strip_all_tags($bio);
+    if ($thumb)   $data['image']       = $thumb;
+    if ($email_a) $data['email']       = $email_a;
+    if ($tel_a)   $data['telephone']   = kokoro_phone_to_e164($tel_a) ?: $tel_a;
+    $sames = array_filter([$facebook_a, $instagram_a]);
+    if (!empty($sames)) $data['sameAs'] = array_values($sames);
+
+    echo "\n<script type=\"application/ld+json\">\n";
+    echo wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    echo "\n</script>\n";
+}
+
+/* ==========================================================================
+   JSON-LD: Course (pe single-disciplina + paginile pilon)
+   ========================================================================== */
+
+function kokoro_render_jsonld_course_disciplina() {
+    if (!is_singular('disciplina')) return;
+    $did = get_queried_object_id();
+    if (!$did) return;
+
+    $desc       = function_exists('get_field') ? (string) get_field('disciplina_descriere_scurta', $did) : '';
+    $thumb      = has_post_thumbnail($did) ? get_the_post_thumbnail_url($did, 'kokoro-hero') : '';
+    $localitate = kokoro_setting('localitate', 'Brașov');
+    $strada     = kokoro_setting('strada', '');
+    $tara       = kokoro_setting('tara', 'RO');
+
+    $data = [
+        '@context'         => 'https://schema.org',
+        '@type'            => 'Course',
+        'name'             => get_the_title($did),
+        'description'      => $desc !== '' ? wp_strip_all_tags($desc) : wp_trim_words(wp_strip_all_tags(get_post_field('post_content', $did)), 30, '…'),
+        'provider'         => [
+            '@type' => 'Organization',
+            'name'  => get_bloginfo('name'),
+            '@id'   => home_url('/') . '#organization',
+            'url'   => home_url('/'),
+        ],
+        'inLanguage'       => 'ro',
+        'courseMode'       => 'in-person',
+        'educationalLevel' => 'Beginner to Advanced',
+        'hasCourseInstance'=> [
+            '@type'     => 'CourseInstance',
+            'courseMode'=> 'in-person',
+            'location'  => [
+                '@type'   => 'Place',
+                'name'    => get_bloginfo('name'),
+                'address' => [
+                    '@type'           => 'PostalAddress',
+                    'streetAddress'   => $strada,
+                    'addressLocality' => $localitate,
+                    'addressCountry'  => $tara,
+                ],
+            ],
+        ],
+    ];
+    if ($thumb) $data['image'] = $thumb;
+    $url = get_permalink($did);
+    if ($url) $data['url'] = $url;
+
+    echo "\n<script type=\"application/ld+json\">\n";
+    echo wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    echo "\n</script>\n";
+}
+
+/* ==========================================================================
+   JSON-LD: FAQPage — apare când pagina/postul are ACF câmp kokoro_faq populat
+   ========================================================================== */
+
+function kokoro_render_jsonld_faqpage() {
+    if (!is_singular()) return;
+    if (!function_exists('get_field')) return;
+    $faq = get_field('kokoro_faq');
+    if (!is_array($faq) || empty($faq)) return;
+
+    $entities = [];
+    foreach ($faq as $row) {
+        $q = $row['intrebare'] ?? '';
+        $a = $row['raspuns']   ?? '';
+        if ($q === '' || $a === '') continue;
+        $entities[] = [
+            '@type'          => 'Question',
+            'name'           => wp_strip_all_tags($q),
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text'  => wp_strip_all_tags($a),
+            ],
+        ];
+    }
+    if (empty($entities)) return;
+
+    echo "\n<script type=\"application/ld+json\">\n";
+    echo wp_json_encode([
+        '@context'   => 'https://schema.org',
+        '@type'      => 'FAQPage',
+        'mainEntity' => $entities,
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    echo "\n</script>\n";
+}
+
+/* ==========================================================================
+   JSON-LD: Article (pe post-uri normale)
+   ========================================================================== */
+
+function kokoro_render_jsonld_article() {
+    if (!is_singular('post')) return;
+    $pid = get_queried_object_id();
+    if (!$pid) return;
+
+    $author_id   = (int) get_post_field('post_author', $pid);
+    $author_name = get_the_author_meta('display_name', $author_id) ?: get_bloginfo('name');
+    $thumb       = has_post_thumbnail($pid) ? get_the_post_thumbnail_url($pid, 'kokoro-hero') : '';
+    $logo_id     = (int) get_theme_mod('custom_logo');
+    $logo_url    = $logo_id ? wp_get_attachment_image_url($logo_id, 'full') : '';
+    $excerpt     = wp_strip_all_tags(get_the_excerpt($pid)) ?: wp_trim_words(wp_strip_all_tags(get_post_field('post_content', $pid)), 30, '…');
+
+    $data = [
+        '@context'         => 'https://schema.org',
+        '@type'            => 'Article',
+        'headline'         => get_the_title($pid),
+        'description'      => $excerpt,
+        'datePublished'    => get_post_time('c', true, $pid),
+        'dateModified'     => get_post_modified_time('c', true, $pid),
+        'inLanguage'       => 'ro',
+        'mainEntityOfPage' => get_permalink($pid),
+        'author'           => [
+            '@type' => 'Person',
+            'name'  => $author_name,
+        ],
+        'publisher'        => [
+            '@type' => 'Organization',
+            'name'  => get_bloginfo('name'),
+            '@id'   => home_url('/') . '#organization',
+            'url'   => home_url('/'),
+        ],
+    ];
+    if ($logo_url) {
+        $data['publisher']['logo'] = [
+            '@type' => 'ImageObject',
+            'url'   => $logo_url,
+        ];
+    }
+    if ($thumb) $data['image'] = $thumb;
+
+    echo "\n<script type=\"application/ld+json\">\n";
+    echo wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    echo "\n</script>\n";
+}
+
+/**
+ * Helper: randează vizual FAQ-ul (același conținut care intră în FAQPage schema).
+ * Folosit în template-uri: dacă pagina/postul curent are kokoro_faq populat,
+ * apare ca secțiune pe ecran. Apel: <?php kokoro_render_faq_section(); ?>
+ *
+ * @param int|null $post_id Post-ul curent dacă e null.
+ * @return void
+ */
+function kokoro_render_faq_section($post_id = null) {
+    if (!function_exists('get_field')) return;
+    $faq = get_field('kokoro_faq', $post_id);
+    if (!is_array($faq) || empty($faq)) return;
+    ?>
+    <section class="section section--alt" id="faq">
+      <div class="container container--narrow">
+        <div class="section__header reveal">
+          <div class="section-number">FAQ</div>
+          <h2>ÎNTREBĂRI<br><em>FRECVENTE</em></h2>
+        </div>
+
+        <div class="kokoro-faq" style="display: flex; flex-direction: column; gap: var(--space-md);">
+          <?php foreach ($faq as $i => $row) :
+              $q = $row['intrebare'] ?? '';
+              $a = $row['raspuns']   ?? '';
+              if ($q === '' || $a === '') continue;
+              $delay = 'reveal-delay-' . min($i + 1, 4);
+          ?>
+            <details class="reveal <?php echo esc_attr($delay); ?>" style="background: var(--color-bg-card); border: 1px solid var(--color-gray-dark); border-radius: 4px; padding: var(--space-md) var(--space-lg);">
+              <summary style="cursor: pointer; font-weight: 700; color: var(--color-white); font-size: 1.0625rem; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: var(--space-md);">
+                <span><?php echo esc_html($q); ?></span>
+                <span aria-hidden="true" style="color: var(--color-accent); font-family: var(--font-heading); font-size: 1.5rem;">+</span>
+              </summary>
+              <div style="color: var(--color-gray); line-height: 1.8; margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--color-gray-dark);">
+                <?php echo wp_kses_post(wpautop($a)); ?>
+              </div>
+            </details>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </section>
+    <?php
+}
+
 /**
  * Hook footer: outputează schema-urile.
  */
 function kokoro_print_jsonld_schemas() {
     kokoro_render_jsonld_organization();
     kokoro_render_jsonld_breadcrumb();
+    kokoro_render_jsonld_person_campion();
+    kokoro_render_jsonld_person_antrenor();
+    kokoro_render_jsonld_course_disciplina();
+    kokoro_render_jsonld_faqpage();
+    kokoro_render_jsonld_article();
 }
 add_action('wp_footer', 'kokoro_print_jsonld_schemas', 100);
 

@@ -128,4 +128,6 @@ $antrenori = get_posts([
   </div>
 </section>
 
+<?php kokoro_render_faq_section(); ?>
+
 <?php get_footer(); ?>

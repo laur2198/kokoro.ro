@@ -201,4 +201,6 @@ if ($prev_post || $next_post) :
   </div>
 </section>
 
+<?php kokoro_render_faq_section(); ?>
+
 <?php get_footer(); ?>

@@ -84,4 +84,6 @@ if ($hero_subtitlu === '') { $hero_subtitlu = 'Antrenamente, competiții, tabere
   </div>
 </section>
 
+<?php kokoro_render_faq_section(); ?>
+
 <?php get_footer(); ?>

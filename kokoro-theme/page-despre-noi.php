@@ -274,4 +274,6 @@ $antrenori = ($echipa_limit > 0) ? get_posts([
   </div>
 </section>
 
+<?php kokoro_render_faq_section(); ?>
+
 <?php get_footer(); ?>

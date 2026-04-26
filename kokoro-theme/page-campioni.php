@@ -203,4 +203,6 @@ $palmares = kokoro_get_palmares_rows();
   </div>
 </section>
 
+<?php kokoro_render_faq_section(); ?>
+
 <?php get_footer(); ?>
