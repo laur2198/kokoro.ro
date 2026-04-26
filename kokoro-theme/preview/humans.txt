@@ -1,0 +1,16 @@
+/* TEAM */
+Antrenor principal: Adrian Boglut
+Vicecampion European U21 -62kg, Creta
+Locație: Str. Carpaților 60, 500269 Brașov, România
+
+/* CONTACT */
+Telefon: 0742 037 973
+Email: contact@kokoro.ro
+Site: https://kokoro.ro
+
+/* SITE */
+Standards: HTML5, CSS3
+Components: Schema.org JSON-LD, Open Graph, Twitter Cards
+Limba: Română
+Doctype: HTML5
+Last update: 2026/04
