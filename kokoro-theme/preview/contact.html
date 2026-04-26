@@ -118,7 +118,7 @@
           </div>
           <div>
             <div class="contact-info__label">Adresă</div>
-            <div class="contact-info__text">Brașov, România</div>
+            <div class="contact-info__text">Str. Carpaților 60<br>500269 Brașov, România</div>
           </div>
         </div>
 
@@ -128,7 +128,7 @@
           </div>
           <div>
             <div class="contact-info__label">Telefon</div>
-            <div class="contact-info__text"><a href="tel:+40740123456" style="color: inherit; text-decoration: none;">+40 740 123 456</a></div>
+            <div class="contact-info__text"><a href="tel:+40742037973" style="color: inherit; text-decoration: none;">0742 037 973</a></div>
           </div>
         </div>
 
@@ -208,12 +208,23 @@
   </div>
 </section>
 
-<!-- Map Placeholder -->
-<section class="section section--dark">
+<!-- Map -->
+<section class="section section--dark" id="locatie">
   <div class="container reveal">
-    <div style="width: 100%; height: 400px; background: var(--color-bg-alt, #2a2a2a); display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-      <span style="color: var(--color-gray, #888); font-size: 1.125rem;">Google Maps — Locația Kokoro Brașov Academy</span>
+    <div style="width: 100%; height: 400px; background: var(--color-bg-alt, #2a2a2a); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+      <iframe
+        title="Hartă Kokoro Brașov Academy — Str. Carpaților 60"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=25.5787%2C45.6377%2C25.5987%2C45.6477&amp;layer=mapnik&amp;marker=45.6427%2C25.5887"
+        style="width: 100%; height: 100%; border: 0;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
     </div>
+    <p style="text-align: center; margin-top: var(--space-md); color: var(--color-gray, #888); font-size: 0.9375rem;">
+      <strong>Str. Carpaților 60, 500269 Brașov</strong> ·
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=45.6427%2C25.5887" target="_blank" rel="noopener" style="color: var(--color-accent);">Deschide pe Google Maps →</a>
+    </p>
   </div>
 </section>
 
@@ -235,7 +246,7 @@
       </div>
       <div><h4 class="footer__heading">Navigare</h4><nav class="footer__links"><a href="discipline.html" class="footer__link">Discipline</a><a href="orar.html" class="footer__link">Orar</a><a href="tarife.html" class="footer__link">Tarife</a><a href="campioni.html" class="footer__link">Campioni</a><a href="galerie.html" class="footer__link">Galerie</a></nav></div>
       <div><h4 class="footer__heading">Discipline</h4><nav class="footer__links"><a href="discipline.html" class="footer__link">Ju-Jitsu Competițional</a><a href="discipline.html" class="footer__link">Ju-Jitsu Autoapărare</a><a href="discipline.html" class="footer__link">TRX Suspension Training</a><a href="discipline.html" class="footer__link">Personal Training</a></nav></div>
-      <div><h4 class="footer__heading">Contact</h4><div class="footer__links"><p class="footer__link">Brașov, România</p><a href="tel:+40740123456" class="footer__link">+40 740 123 456</a><a href="mailto:contact@kokoro.ro" class="footer__link">contact@kokoro.ro</a></div></div>
+      <div><h4 class="footer__heading">Contact</h4><div class="footer__links"><p class="footer__link">Str. Carpaților 60<br>500269 Brașov</p><a href="tel:+40742037973" class="footer__link">0742 037 973</a><a href="mailto:contact@kokoro.ro" class="footer__link">contact@kokoro.ro</a></div></div>
     </div>
     <div class="footer__bottom">
       <p class="footer__copyright">&copy; 2026 Kokoro Brașov Academy. Toate drepturile rezervate.</p>
@@ -330,5 +341,76 @@
 }
 </script>
 
+
+<!-- JSON-LD LocalBusiness (extended) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://kokoro.ro/#localbusiness",
+  "name": "Kokoro Brașov Academy",
+  "url": "https://kokoro.ro/",
+  "image": "https://laur2198.github.io/kokoro.ro/assets/img/og-default.jpg",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Str. Carpaților 60",
+    "addressLocality": "Brașov",
+    "postalCode": "500269",
+    "addressRegion": "Brașov",
+    "addressCountry": "RO"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 45.6427,
+    "longitude": 25.5887
+  },
+  "telephone": "+40742037973",
+  "email": "contact@kokoro.ro",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "telephone": "+40742037973",
+      "email": "contact@kokoro.ro",
+      "availableLanguage": [
+        "Romanian",
+        "English"
+      ],
+      "areaServed": "RO"
+    },
+    {
+      "@type": "ContactPoint",
+      "contactType": "reservations",
+      "url": "https://kokoro.ro/inscriere/",
+      "availableLanguage": "Romanian"
+    }
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "16:00",
+      "closes": "21:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "10:00",
+      "closes": "14:00"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/kokorobrasovacademy",
+    "https://www.instagram.com/kokorobrasov"
+  ]
+}
+</script>
 </body>
 </html>

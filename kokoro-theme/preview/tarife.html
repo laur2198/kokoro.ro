@@ -217,8 +217,8 @@
       <div>
         <h4 class="footer__heading">Contact</h4>
         <div class="footer__links">
-          <p class="footer__link">Brașov, România</p>
-          <a href="tel:+40740123456" class="footer__link">+40 740 123 456</a>
+          <p class="footer__link">Str. Carpaților 60<br>500269 Brașov</p>
+          <a href="tel:+40742037973" class="footer__link">0742 037 973</a>
           <a href="mailto:contact@kokoro.ro" class="footer__link">contact@kokoro.ro</a>
         </div>
       </div>
@@ -316,5 +316,53 @@
 }
 </script>
 
+
+<!-- JSON-LD OfferCatalog (tarife) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  "name": "Tarife Kokoro Brașov Academy",
+  "provider": {
+    "@id": "https://kokoro.ro/#organization"
+  },
+  "itemListElement": [
+    {
+      "@type": "Offer",
+      "name": "Abonament copii (4-12 ani) — 3 antrenamente/săptămână",
+      "description": "Acces complet la grupa Copii: 3 antrenamente Ju-Jitsu/săptămână + acces la sala de antrenament",
+      "priceCurrency": "RON",
+      "price": "150",
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "unitCode": "MON",
+        "value": 1
+      },
+      "category": "Sports membership"
+    },
+    {
+      "@type": "Offer",
+      "name": "Abonament juniori & adulți — Ju-Jitsu + autoapărare + TRX",
+      "description": "Acces nelimitat: Ju-Jitsu competițional, autoapărare, TRX, participare competiții.",
+      "priceCurrency": "RON",
+      "price": "200",
+      "eligibleQuantity": {
+        "@type": "QuantitativeValue",
+        "unitCode": "MON",
+        "value": 1
+      },
+      "category": "Sports membership"
+    },
+    {
+      "@type": "Offer",
+      "name": "Personal Training — ședință individuală",
+      "description": "1-la-1 cu antrenorul, program personalizat, orar flexibil.",
+      "priceCurrency": "RON",
+      "price": "100",
+      "category": "Personal training session"
+    }
+  ]
+}
+</script>
 </body>
 </html>
