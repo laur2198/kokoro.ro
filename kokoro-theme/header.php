@@ -1,9 +1,15 @@
+<?php
+$header_cta_text  = kokoro_setting('header_cta_text', 'Înscrie-te');
+$header_cta_url   = kokoro_setting('header_cta_url',  '');
+if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kokoro Brașov Academy — Ju-Jitsu pentru copii, juniori și adulți din 2008. Campioni mondiali, antrenori dedicați.">
+  <?php kokoro_render_seo_meta(); ?>
   <?php wp_head(); ?>
 </head>
 
@@ -46,8 +52,8 @@
     </div>
 
     <!-- Desktop CTA -->
-    <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--small navbar__cta-desktop">
-      Înscrie-te
+    <a href="<?php echo esc_url($header_cta_url); ?>" class="btn btn--primary btn--small navbar__cta-desktop">
+      <?php echo esc_html($header_cta_text); ?>
     </a>
 
     <!-- Hamburger Button -->
@@ -71,8 +77,8 @@
       'depth'          => 1,
     ]);
   ?>
-  <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--large">
-    Înscrie-te Acum
+  <a href="<?php echo esc_url($header_cta_url); ?>" class="btn btn--primary btn--large">
+    <?php echo esc_html($header_cta_text); ?>
   </a>
 </div>
 

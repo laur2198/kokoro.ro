@@ -22,7 +22,7 @@ body {
   font-weight: var(--fw-regular);
   font-size: 16px;
   line-height: 1.6;
-  color: var(--color-white);
+  color: var(--color-text);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -76,11 +76,11 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: var(--color-bg-alt);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-gray-dark);
+  background: var(--color-primary);
   border-radius: var(--radius-full);
 }
 

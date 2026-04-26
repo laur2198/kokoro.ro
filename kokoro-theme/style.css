@@ -7,7 +7,7 @@ Description: Temă custom pentru Kokoro Brașov Ju-Jitsu Academy — design edit
 Version: 1.0.0
 Requires at least: 6.0
 Tested up to: 6.7
-Requires PHP: 8.0
+Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: kokoro
@@ -19,16 +19,23 @@ Tags: custom-menu, custom-logo, featured-images, full-width-template, one-column
    ========================================================================== */
 
 :root {
-  /* Colors */
-  --color-bg:        #080808;
-  --color-bg-alt:    #111111;
-  --color-bg-card:   #1A1A1A;
+  /* Colors — Brand Kokoro (albastru + galben + alb) */
+  --color-bg:        #FFFFFF;
+  --color-bg-alt:    #F0F4F8;
+  --color-bg-card:   #FFFFFF;
   --color-accent:    #FFD600;
+  --color-primary:   #1565C0;
+  --color-primary-dark: #0D47A1;
+  --color-primary-light: #E3F2FD;
   --color-secondary: #1565C0;
-  --color-white:     #F5F5F5;
-  --color-gray:      #888888;
-  --color-gray-dark: #333333;
+  --color-white:     #FFFFFF;
+  --color-text:      #1A1A1A;
+  --color-text-light: #FFFFFF;
+  --color-gray:      #5A6A7A;
+  --color-gray-light: #94A3B8;
+  --color-gray-dark: #D0D5DD;
   --color-red:       #E63329;
+  --color-dark:      #0D2137;
 
   /* Typography */
   --font-heading: 'Barlow Condensed', sans-serif;

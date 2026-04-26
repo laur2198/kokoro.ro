@@ -13,12 +13,21 @@ define('KOKORO_DIR', get_template_directory());
 define('KOKORO_URI', get_template_directory_uri());
 
 /* ==========================================================================
+   0. Includes
+   ========================================================================== */
+
+require_once KOKORO_DIR . '/inc/cpt.php';
+require_once KOKORO_DIR . '/inc/acf-fields.php';
+require_once KOKORO_DIR . '/inc/forms.php';
+require_once KOKORO_DIR . '/inc/seo-meta.php';
+
+/* ==========================================================================
    1. Theme Setup
    ========================================================================== */
 
 function kokoro_setup() {
-    // Title tag support
-    add_theme_support('title-tag');
+    // Title tag — gestionat manual de inc/seo-meta.php (kokoro_render_seo_meta).
+    // NU adăugăm 'title-tag' ca să evităm dublarea în <head>.
 
     // Post thumbnails
     add_theme_support('post-thumbnails');
@@ -164,6 +173,27 @@ class Kokoro_Nav_Walker extends Walker_Nav_Menu {
     }
 }
 
+/**
+ * Walker simplu pentru meniul din footer: emite doar <a class="footer__link">,
+ * fără <li>/<ul>. Folosit în footer.php cu items_wrap = '%3$s'.
+ */
+class Kokoro_Footer_Link_Walker extends Walker_Nav_Menu {
+
+    public function start_lvl(&$output, $depth = 0, $args = null) { /* no submenu */ }
+    public function end_lvl(&$output, $depth = 0, $args = null)   { /* no submenu */ }
+    public function end_el(&$output, $item, $depth = 0, $args = null) { /* no </li> */ }
+
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $url   = !empty($item->url) ? $item->url : '';
+        $title = apply_filters('the_title', $item->title, $item->ID);
+        $output .= sprintf(
+            '<a href="%s" class="footer__link">%s</a>',
+            esc_url($url),
+            esc_html($title)
+        );
+    }
+}
+
 /* ==========================================================================
    4. Widget Areas
    ========================================================================== */
@@ -222,33 +252,36 @@ add_filter('excerpt_more', 'kokoro_excerpt_more');
    ========================================================================== */
 
 function kokoro_activate() {
+    // [slug => [title, template_filename or null]]
     $pages = [
-        'despre-noi'          => 'Despre Noi',
-        'antrenori'           => 'Antrenori',
-        'membri'              => 'Membri & Campioni',
-        'campioni'            => 'Campioni',
-        'discipline'          => 'Discipline',
-        'orar'                => 'Orar',
-        'tarife'              => 'Tarife',
-        'inscriere'           => 'Înscriere',
-        'galerie'             => 'Galerie',
-        'contact'             => 'Contact',
+        'despre-noi' => ['Despre Noi',         'page-despre-noi.php'],
+        'antrenori'  => ['Antrenori',          'page-antrenori.php'],
+        'campioni'   => ['Campioni',           'page-campioni.php'],
+        'discipline' => ['Discipline',         'page-discipline.php'],
+        'orar'       => ['Orar',               'page-orar.php'],
+        'tarife'     => ['Tarife',             'page-tarife.php'],
+        'inscriere'  => ['Înscriere',          'page-inscriere.php'],
+        'galerie'    => ['Galerie',            'page-galerie.php'],
+        'contact'    => ['Contact',            'page-contact.php'],
     ];
 
-    foreach ($pages as $slug => $title) {
+    foreach ($pages as $slug => [$title, $template]) {
         if (!get_page_by_path($slug)) {
-            wp_insert_post([
+            $page_id = wp_insert_post([
                 'post_title'   => $title,
                 'post_name'    => $slug,
                 'post_status'  => 'publish',
                 'post_type'    => 'page',
                 'post_content' => '',
             ]);
+            if ($page_id && !is_wp_error($page_id) && $template) {
+                update_post_meta($page_id, '_wp_page_template', $template);
+            }
         }
     }
 
-    // Set front page to static
-    $front = get_page_by_path('front-page');
+    // Front page: creează „Acasă" doar dacă nu există deja, apoi setează ca front static.
+    $front = get_page_by_path('acasa');
     if (!$front) {
         $front_id = wp_insert_post([
             'post_title'  => 'Acasă',
@@ -256,9 +289,16 @@ function kokoro_activate() {
             'post_status' => 'publish',
             'post_type'   => 'page',
         ]);
+    } else {
+        $front_id = $front->ID;
+    }
+    if ($front_id && !is_wp_error($front_id)) {
         update_option('page_on_front', $front_id);
         update_option('show_on_front', 'page');
     }
+
+    // Permalinks rewrite — necesar pentru CPT-urile noi (campion/disciplina/antrenor)
+    flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'kokoro_activate');
 
