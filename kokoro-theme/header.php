@@ -1,5 +1,4 @@
 <?php
-$header_meta_desc = kokoro_setting('meta_descriere', 'Kokoro Brașov Academy — Ju-Jitsu pentru copii, juniori și adulți din 2008. Campioni mondiali, antrenori dedicați.');
 $header_cta_text  = kokoro_setting('header_cta_text', 'Înscrie-te');
 $header_cta_url   = kokoro_setting('header_cta_url',  '');
 if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');
@@ -8,8 +7,9 @@ if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="<?php echo esc_attr($header_meta_desc); ?>">
+  <?php kokoro_render_seo_meta(); ?>
   <?php wp_head(); ?>
 </head>
 
