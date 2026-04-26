@@ -145,14 +145,176 @@
 </section>
 
 <!-- ============================================================
-     [D2] Beneficii, Ce învață, Grupe de vârstă
-     [D2] Cum se desfășoară, Echipament, Prețuri
-     [D2] Diferențiator, Testimoniale, FAQ, Locație, CTA final
-     [D2] + Schema Course + FAQPage
+     [D2.1] DONE: Beneficii, Ce învață, Grupe de vârstă
+     [D2.2] Cum se desfășoară, Echipament, Prețuri, Diferențiator
+     [D2.3] Testimoniale, FAQ, Locație, CTA final + Schema Course + FAQPage
      ============================================================ -->
 
 <!-- ============================================================
-     SECTION TEMPORARĂ: CTA simplu (până la D2)
+     SECTION 3: BENEFICII
+     ============================================================ -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__header reveal">
+      <div class="section-number">02 — Beneficii</div>
+      <h2>CE PRIMEȘTE COPILUL<br>DUMNEAVOASTRĂ <em>LA KOKORO</em></h2>
+      <p style="color: var(--color-gray); margin-top: var(--space-md); max-width: 700px; line-height: 1.7;">
+        Ju-Jitsu nu este doar despre tehnici de luptă — este un sistem complet care formează caractere puternice și sănătoase. Iată cele șase beneficii esențiale pe care le veți observa în primele luni.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-xl);">
+      <div class="reveal reveal-delay-1" style="padding: var(--space-xl); background: var(--color-white); border-left: 4px solid var(--color-accent); border-radius: 4px;">
+        <div style="font-size: 2.5rem; line-height: 1; margin-bottom: var(--space-md);">🥋</div>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: var(--space-sm);">Disciplină autentică</h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Copilul dumneavoastră învață să-și controleze comportamentul, să respecte reguli clare și să persevereze în fața obstacolelor — abilități transferabile direct la școală și acasă.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="padding: var(--space-xl); background: var(--color-white); border-left: 4px solid var(--color-accent); border-radius: 4px;">
+        <div style="font-size: 2.5rem; line-height: 1; margin-bottom: var(--space-md);">🛡️</div>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: var(--space-sm);">Autoapărare practică</h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Tehnici eficiente de Ju-Jitsu adaptate vârstei, focusate pe dezescaladarea conflictului și apărarea corporală controlată — fără agresivitate sau lovituri inutile.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-3" style="padding: var(--space-xl); background: var(--color-white); border-left: 4px solid var(--color-accent); border-radius: 4px;">
+        <div style="font-size: 2.5rem; line-height: 1; margin-bottom: var(--space-md);">💪</div>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: var(--space-sm);">Dezvoltare fizică armonioasă</h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Forță, mobilitate, coordonare, echilibru și viteză — toate dezvoltate progresiv într-un mediu sigur, cu instructori atenți la fiecare nivel de progres individual.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-4" style="padding: var(--space-xl); background: var(--color-white); border-left: 4px solid var(--color-accent); border-radius: 4px;">
+        <div style="font-size: 2.5rem; line-height: 1; margin-bottom: var(--space-md);">🧠</div>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: var(--space-sm);">Concentrare și încredere</h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Antrenamentul Ju-Jitsu cere atenție constantă. În câteva luni veți observa un copil mai concentrat la lecțiile școlare și mai sigur pe sine în situații sociale dificile.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1" style="padding: var(--space-xl); background: var(--color-white); border-left: 4px solid var(--color-accent); border-radius: 4px;">
+        <div style="font-size: 2.5rem; line-height: 1; margin-bottom: var(--space-md);">🤝</div>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: var(--space-sm);">Spirit de echipă</h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Lecțiile se desfășoară în grupe mici unde copilul dumneavoastră leagă prietenii sănătoase, învață să colaboreze cu coechipierii și să respecte adversarul ca pe un partener de evoluție.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-2" style="padding: var(--space-xl); background: var(--color-white); border-left: 4px solid var(--color-accent); border-radius: 4px;">
+        <div style="font-size: 2.5rem; line-height: 1; margin-bottom: var(--space-md);">🏆</div>
+        <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: var(--space-sm);">Cale spre performanță</h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Pentru copiii care doresc, există drumul competiției: avem deja campioni mondiali și europeni care au început antrenamentele la Kokoro la vârsta de 6-7 ani.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4: CE ÎNVAȚĂ COPILUL
+     ============================================================ -->
+<section class="section section--dark">
+  <div class="container container--narrow">
+    <div class="section__header reveal">
+      <div class="section-number">03 — Curriculum</div>
+      <h2>CE VA ÎNVĂȚA<br><em>COPILUL DUMNEAVOASTRĂ</em></h2>
+      <p style="color: var(--color-gray); margin-top: var(--space-md); line-height: 1.7;">
+        Curriculum-ul nostru urmează tradiția japoneză autentică, adaptată însă pentru fiecare grupă de vârstă. Iată ce conține un an de antrenament la Kokoro Brașov.
+      </p>
+    </div>
+
+    <ul class="reveal" style="list-style: none; padding: 0; margin: 0;">
+      <li style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-gray-dark); color: var(--color-white); font-size: 1.0625rem; display: flex; align-items: flex-start; gap: var(--space-md);">
+        <span aria-hidden="true" style="color: var(--color-accent); font-weight: 900; font-size: 1.25rem; flex-shrink: 0;">▸</span>
+        <span><strong>Tehnici de proiectare (nage waza)</strong> — bazele aruncărilor controlate, fundamentale în Ju-Jitsu autentic.</span>
+      </li>
+      <li style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-gray-dark); color: var(--color-white); font-size: 1.0625rem; display: flex; align-items: flex-start; gap: var(--space-md);">
+        <span aria-hidden="true" style="color: var(--color-accent); font-weight: 900; font-size: 1.25rem; flex-shrink: 0;">▸</span>
+        <span><strong>Tehnici de control la sol (ne-waza)</strong> — imobilizări sigure și escape-uri, esențiale pentru autoapărare reală.</span>
+      </li>
+      <li style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-gray-dark); color: var(--color-white); font-size: 1.0625rem; display: flex; align-items: flex-start; gap: var(--space-md);">
+        <span aria-hidden="true" style="color: var(--color-accent); font-weight: 900; font-size: 1.25rem; flex-shrink: 0;">▸</span>
+        <span><strong>Lovituri și blocaje adaptate (atemi waza)</strong> — adaptate strict pentru vârstă, cu accent pe control, nu pe agresivitate.</span>
+      </li>
+      <li style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-gray-dark); color: var(--color-white); font-size: 1.0625rem; display: flex; align-items: flex-start; gap: var(--space-md);">
+        <span aria-hidden="true" style="color: var(--color-accent); font-weight: 900; font-size: 1.25rem; flex-shrink: 0;">▸</span>
+        <span><strong>Cădere sigură fără traumatisme (ukemi)</strong> — prima abilitate pe care o învață orice copil, ce protejează în viața de zi cu zi.</span>
+      </li>
+      <li style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-gray-dark); color: var(--color-white); font-size: 1.0625rem; display: flex; align-items: flex-start; gap: var(--space-md);">
+        <span aria-hidden="true" style="color: var(--color-accent); font-weight: 900; font-size: 1.25rem; flex-shrink: 0;">▸</span>
+        <span><strong>Etichetă de dojo</strong> — salutul, respectul față de antrenor și coechipieri, ritualul japonez tradițional al antrenamentului.</span>
+      </li>
+      <li style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-gray-dark); color: var(--color-white); font-size: 1.0625rem; display: flex; align-items: flex-start; gap: var(--space-md);">
+        <span aria-hidden="true" style="color: var(--color-accent); font-weight: 900; font-size: 1.25rem; flex-shrink: 0;">▸</span>
+        <span><strong>Vocabular japonez de bază</strong> — termenii esențiali ai disciplinei, transmiși din generație în generație.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5: GRUPE DE VÂRSTĂ
+     ============================================================ -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__header reveal">
+      <div class="section-number">04 — Grupe</div>
+      <h2>PROGRAMUL <em>PE VÂRSTE</em></h2>
+      <p style="color: var(--color-gray); margin-top: var(--space-md); max-width: 700px; line-height: 1.7;">
+        Fiecare copil este unic, iar noi structurăm antrenamentele după nivelul de dezvoltare al fiecărei vârste. Veți alege împreună cu noi grupa potrivită pentru copilul dumneavoastră.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-xl);">
+      <div class="card reveal reveal-delay-1" style="padding: var(--space-2xl);">
+        <div class="card__tag">Copii 4-7 ani</div>
+        <p style="color: var(--color-accent); font-weight: 700; margin: var(--space-md) 0; font-size: 0.9375rem;">
+          Inițiere prin joc · 2 antrenamente/săptămână × 45 min
+        </p>
+        <h3 class="card__title" style="margin-bottom: var(--space-md);">PRIMUL <em>CONTACT</em></h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Focus pe motricitate generală, învățarea căderilor sigure, respectarea regulilor de grup și plăcerea de a învăța prin mișcare. Antrenamentele sunt conduse cu joacă structurată — copilul se distrează în timp ce dezvoltă fundamentele Ju-Jitsu-ului.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-2" style="padding: var(--space-2xl); border-color: var(--color-accent);">
+        <div class="card__tag">Copii 8-12 ani</div>
+        <p style="color: var(--color-accent); font-weight: 700; margin: var(--space-md) 0; font-size: 0.9375rem;">
+          Tehnică de bază · 3 antrenamente/săptămână × 60 min
+        </p>
+        <h3 class="card__title" style="margin-bottom: var(--space-md);">FUNDAMENTELE <em>TEHNICII</em></h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Învățarea sistematică a tehnicilor Ju-Jitsu: proiectări, controale la sol, autoapărare introductivă. Copilul dumneavoastră poate participa opțional la primele competiții și începe să-și formeze o identitate sportivă reală.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-3" style="padding: var(--space-2xl);">
+        <div class="card__tag">Juniori 13-15 ani</div>
+        <p style="color: var(--color-accent); font-weight: 700; margin: var(--space-md) 0; font-size: 0.9375rem;">
+          Performanță · 3-4 antrenamente/săptămână × 75 min
+        </p>
+        <h3 class="card__title" style="margin-bottom: var(--space-md);">CALEA <em>COMPETIȚIEI</em></h3>
+        <p style="color: var(--color-gray); line-height: 1.7;">
+          Pregătire sistematică pentru competiții naționale și internaționale, autoapărare avansată, perfecționare tehnică. Pentru juniorii cu potențial, oferim suport individual către lotul de performanță al academiei.
+        </p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: var(--space-2xl); padding: var(--space-xl); background: var(--color-white); border-radius: 4px; border-left: 4px solid var(--color-accent); max-width: 800px; margin-left: auto; margin-right: auto;">
+      <p style="color: var(--color-bg); line-height: 1.7;">
+        <strong>Notă:</strong> Trecerea între grupe se face individual, în funcție de nivelul de pregătire al copilului — nu strict după vârstă. Antrenorul evaluează periodic fiecare copil și recomandă mutarea atunci când este cazul.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION TEMPORARĂ: CTA simplu (până la D2.3)
      ============================================================ -->
 <section class="section section--accent">
   <div class="container" style="text-align: center;">
