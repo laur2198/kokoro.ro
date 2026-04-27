@@ -513,6 +513,10 @@ function kokoro_register_acf_field_groups() {
         'key'    => 'group_kokoro_pillar',
         'title'  => 'Conținut Pagină Pilon (SEO)',
         'fields' => [
+            // ============ SCHEMA ============
+            ['key' => 'field_pl_tab_schema', 'label' => 'SCHEMA', 'type' => 'tab', 'placement' => 'left'],
+            ['key' => 'field_pl_schema_type', 'name' => 'pl_schema_type', 'label' => 'Tip schema JSON-LD', 'type' => 'select', 'choices' => ['course' => 'Course (curs sportiv — Ju-Jitsu, autoapărare)', 'service' => 'Service (serviciu — personal training, consultanță)', 'article' => 'Article (ghid editorial — comparativ arte marțiale, blog SEO)'], 'default_value' => 'course', 'instructions' => 'Determină schema Schema.org randată automat în footer. Course = recomandat default. Service = pentru pagini gen personal-trainer. Article = pentru ghiduri editoriale lungi.'],
+
             // ============ HERO ============
             ['key' => 'field_pl_tab_hero', 'label' => 'HERO', 'type' => 'tab', 'placement' => 'left'],
             ['key' => 'field_pl_hero_eyebrow',   'name' => 'pl_hero_eyebrow',   'label' => 'Eyebrow (categorie)', 'type' => 'text', 'instructions' => 'Ex: „Pentru copii (4-15 ani)" — apare deasupra titlului.'],
