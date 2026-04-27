@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'kokoro-theme/preview/**'
+      - 'kokoro-theme/assets/**'
+      - 'kokoro-theme/style.css'
       - '.github/workflows/deploy-preview.yml'
   workflow_dispatch:
 
@@ -22,11 +24,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy preview/ to gh-pages branch
+      - name: Build deploy folder (preview + assets + style.css)
+        run: |
+          mkdir -p dist
+          cp -R kokoro-theme/preview/. dist/
+          cp -R kokoro-theme/assets dist/assets
+          cp kokoro-theme/style.css dist/style.css
+
+      - name: Deploy dist/ to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./kokoro-theme/preview
+          publish_dir: ./dist
           publish_branch: gh-pages
           force_orphan: true
           commit_message: "deploy: ${{ github.event.head_commit.message }}"
