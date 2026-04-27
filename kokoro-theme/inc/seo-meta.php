@@ -577,6 +577,101 @@ function kokoro_render_jsonld_article() {
     echo "\n</script>\n";
 }
 
+/* ==========================================================================
+   JSON-LD: Course/Service/Article — paginile pilon (page-pillar.php)
+   Tipul schemei se alege din ACF câmp `pl_schema_type`:
+     - course   → Course schema (default; pentru ju-jitsu-copii, autoaparare-*)
+     - service  → Service schema (pentru personal-trainer)
+     - article  → Article schema (pentru ghiduri editoriale ex. arte-martiale)
+   ========================================================================== */
+
+function kokoro_render_jsonld_pillar() {
+    if (!is_page()) return;
+    if (!is_page_template('page-pillar.php')) return;
+    if (!function_exists('get_field')) return;
+
+    $pid  = get_queried_object_id();
+    if (!$pid) return;
+
+    $type = (string) get_field('pl_schema_type', $pid);
+    if ($type === '') $type = 'course';
+
+    $title = get_the_title($pid);
+    $url   = get_permalink($pid);
+    $desc  = (string) get_field('pl_intro_text', $pid);
+    $desc  = $desc !== '' ? wp_trim_words(wp_strip_all_tags($desc), 50, '…') : '';
+    $thumb = has_post_thumbnail($pid) ? get_the_post_thumbnail_url($pid, 'kokoro-hero') : '';
+
+    $org = [
+        '@type' => 'Organization',
+        'name'  => get_bloginfo('name'),
+        '@id'   => home_url('/') . '#organization',
+        'url'   => home_url('/'),
+    ];
+    $place_address = [
+        '@type'           => 'PostalAddress',
+        'streetAddress'   => kokoro_setting('strada', ''),
+        'addressLocality' => kokoro_setting('localitate', 'Brașov'),
+        'addressCountry'  => kokoro_setting('tara', 'RO'),
+    ];
+
+    $data = ['@context' => 'https://schema.org'];
+
+    switch ($type) {
+        case 'service':
+            $data += [
+                '@type'       => 'Service',
+                'name'        => $title,
+                'description' => $desc,
+                'url'         => $url,
+                'provider'    => $org,
+                'areaServed'  => ['@type' => 'City', 'name' => kokoro_setting('localitate', 'Brașov')],
+            ];
+            break;
+        case 'article':
+            $data += [
+                '@type'         => 'Article',
+                'headline'      => $title,
+                'description'   => $desc,
+                'url'           => $url,
+                'datePublished' => get_the_date('c', $pid),
+                'dateModified'  => get_the_modified_date('c', $pid),
+                'author'        => $org,
+                'publisher'     => $org,
+                'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $url],
+            ];
+            if ($thumb) $data['image'] = $thumb;
+            break;
+        case 'course':
+        default:
+            $data += [
+                '@type'            => 'Course',
+                'name'             => $title,
+                'description'      => $desc,
+                'url'              => $url,
+                'provider'         => $org,
+                'inLanguage'       => 'ro',
+                'courseMode'       => 'in-person',
+                'educationalLevel' => 'Beginner to Advanced',
+                'hasCourseInstance'=> [
+                    '@type'      => 'CourseInstance',
+                    'courseMode' => 'in-person',
+                    'location'   => [
+                        '@type'   => 'Place',
+                        'name'    => get_bloginfo('name'),
+                        'address' => $place_address,
+                    ],
+                ],
+            ];
+            if ($thumb) $data['image'] = $thumb;
+            break;
+    }
+
+    echo "\n<script type=\"application/ld+json\">\n";
+    echo wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    echo "\n</script>\n";
+}
+
 /**
  * Helper: randează vizual FAQ-ul (același conținut care intră în FAQPage schema).
  * Folosit în template-uri: dacă pagina/postul curent are kokoro_faq populat,
@@ -629,6 +724,7 @@ function kokoro_print_jsonld_schemas() {
     kokoro_render_jsonld_person_campion();
     kokoro_render_jsonld_person_antrenor();
     kokoro_render_jsonld_course_disciplina();
+    kokoro_render_jsonld_pillar();
     kokoro_render_jsonld_faqpage();
     kokoro_render_jsonld_article();
 }
