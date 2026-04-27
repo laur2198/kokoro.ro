@@ -1,0 +1,310 @@
+/* ==========================================================================
+   Japanese Elements — Kokoro Design System
+   Torii gate separators, shoji patterns, sakura animation, kanji watermarks
+   ========================================================================== */
+
+/* ---------- Torii Gate Separator ---------- */
+
+.torii-separator {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: var(--space-xl) 0 var(--space-2xl);
+}
+
+.torii-separator::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--color-gray-dark);
+}
+
+.torii-separator__icon {
+  position: relative;
+  z-index: 1;
+  background: var(--color-white);
+  padding: 0 var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.torii-separator__icon svg {
+  width: 40px;
+  height: 40px;
+  opacity: 0.3;
+}
+
+.torii-separator--alt::before {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.torii-separator--alt .torii-separator__icon {
+  background: var(--color-dark);
+}
+
+.torii-separator--alt .torii-separator__icon svg {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ---------- Shoji Screen Pattern ---------- */
+
+.shoji-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--color-white) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-white) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.shoji-pattern--dense {
+  background-size: 30px 30px;
+}
+
+.shoji-pattern--accent {
+  background-image:
+    linear-gradient(var(--color-accent) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-accent) 1px, transparent 1px);
+  opacity: 0.03;
+}
+
+/* ---------- Sakura Petals Animation ---------- */
+
+.sakura-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-toast);
+  overflow: hidden;
+}
+
+.sakura-petal {
+  position: absolute;
+  top: -20px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  opacity: 0;
+  border-radius: 50% 0 50% 50%;
+  animation: sakura-fall linear forwards;
+}
+
+@keyframes sakura-fall {
+  0% {
+    opacity: 0;
+    transform: translateX(0) rotate(0deg) scale(0.8);
+  }
+  10% {
+    opacity: 0.12;
+  }
+  90% {
+    opacity: 0.08;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(150px) rotate(720deg) scale(0.4);
+    top: 100vh;
+  }
+}
+
+/* ---------- Kanji Watermarks ---------- */
+
+.kanji-watermark {
+  position: absolute;
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 900;
+  color: var(--color-primary);
+  opacity: 0.06;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  z-index: 0;
+}
+
+.kanji-watermark--hero {
+  font-size: clamp(15rem, 40vw, 30rem);
+  right: -5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.kanji-watermark--section {
+  font-size: clamp(8rem, 20vw, 15rem);
+  right: 5%;
+  bottom: 10%;
+}
+
+.kanji-watermark--small {
+  font-size: clamp(5rem, 10vw, 8rem);
+  opacity: 0.05;
+}
+
+/* ---------- Enso Circle ---------- */
+
+.enso {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.05;
+}
+
+.enso--large {
+  width: clamp(300px, 40vw, 600px);
+  height: clamp(300px, 40vw, 600px);
+}
+
+.enso--medium {
+  width: clamp(200px, 25vw, 400px);
+  height: clamp(200px, 25vw, 400px);
+}
+
+.enso--small {
+  width: clamp(100px, 15vw, 200px);
+  height: clamp(100px, 15vw, 200px);
+}
+
+/* ---------- Belt Colors (Progress/Ranks) ---------- */
+
+.belt {
+  display: block;
+  height: 8px;
+  border-radius: var(--radius-full);
+  width: 50px;
+  margin: 0 auto var(--space-xs);
+}
+
+.belt--white   { background: #FFFFFF; }
+.belt--yellow  { background: #FFD600; }
+.belt--orange  { background: #FF9800; }
+.belt--green   { background: #4CAF50; }
+.belt--blue    { background: #1565C0; }
+.belt--brown   { background: #795548; }
+.belt--black   { background: #1A1A1A; border: 1px solid #333; }
+
+.belt-progression {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+/* ---------- Japanese Values Display ---------- */
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+}
+
+.value-item {
+  text-align: center;
+  padding: var(--space-2xl);
+  position: relative;
+}
+
+.value-item__kanji {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.value-item__romaji {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.value-item__meaning {
+  font-size: 0.9375rem;
+  color: var(--color-gray);
+}
+
+/* ---------- Japanese Decorative Line ---------- */
+
+.jp-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.jp-line::before,
+.jp-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-gray-dark);
+}
+
+.jp-line__text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+/* ---------- Scroll Reveal Animations ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--left {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.reveal--left.reveal--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal--right {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.reveal--right.reveal--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal--scale {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.reveal--scale.reveal--visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for grid items */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }

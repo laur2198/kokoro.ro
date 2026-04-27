@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# AI search engines (explicit allow)
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://laur2198.github.io/kokoro.ro/sitemap.xml
