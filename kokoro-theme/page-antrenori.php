@@ -6,6 +6,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 $hero_titlu    = function_exists('get_field') ? (string) get_field('antr_hero_titlu')    : '';
@@ -117,7 +119,7 @@ $antrenori = get_posts([
         <?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
       <?php if ($cta_text !== '') : ?>
-        <p style="color: var(--color-bg); opacity: 0.7; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
+        <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
           <?php echo esc_html($cta_text); ?>
         </p>
       <?php endif; ?>

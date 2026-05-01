@@ -12,6 +12,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 ?>
 
@@ -23,7 +25,11 @@ get_header();
 <section class="page-header">
   <div class="container">
     <div class="section-number">Ghid Părinți · 2026 · Brașov</div>
-    <h1>ARTE MARȚIALE<br>PENTRU <em>COPII</em><br>ÎN BRAȘOV</h1>
+    <h1><?php
+      $ovr_titlu = kokoro_pillar_ovr('pillar_ovr_hero_titlu');
+      if ($ovr_titlu !== '') { echo wp_kses_post($ovr_titlu); }
+      else { ?>ARTE MARȚIALE<br>PENTRU <em>COPII</em><br>ÎN BRAȘOV<?php }
+    ?></h1>
     <p style="color: var(--color-gray); margin-top: var(--space-lg); max-width: 750px; line-height: 1.7; font-size: 1.0625rem;">
       Ghid complet pentru părinții care vor să aleagă <strong style="color: var(--color-white);">arta marțială potrivită copilului lor</strong>. Comparație detaliată Ju-Jitsu vs Karate vs BJJ vs Krav Maga vs Judo, recomandări pe vârste (4-15 ani), red flags la alegerea clubului și 8 întrebări esențiale înainte de înscriere.
     </p>

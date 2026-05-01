@@ -6,6 +6,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 ?>
 

@@ -1,9 +1,11 @@
 </main><!-- /#content -->
 
 <?php
-$contact_telefon  = kokoro_setting('telefon',  '+40 740 123 456');
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
+
+$contact_telefon  = kokoro_setting('telefon',  '+40 742 037 973');
 $contact_email    = kokoro_setting('email',    'contact@kokoro.ro');
-$contact_adresa   = kokoro_setting('adresa',   'Brașov, România');
+$contact_adresa   = kokoro_setting('adresa',   'Str. Carpaților 60, 500269 Brașov, România');
 $contact_oras     = kokoro_setting('oras',     'Brașov, România');
 $contact_maps     = kokoro_setting('maps_url', '');
 
@@ -12,7 +14,7 @@ $social_instagram = kokoro_setting('instagram', '');
 $social_youtube   = kokoro_setting('youtube',   '');
 $social_tiktok    = kokoro_setting('tiktok',    '');
 
-$footer_descriere      = kokoro_setting('footer_descriere',      'Kokoro Brașov Academy — academie de Ju-Jitsu fondată în 2008. Recunoscută MTS și FRAM. Formăm campioni și caractere puternice prin disciplină, respect și perseverență.');
+$footer_descriere      = kokoro_setting('footer_descriere',      'Kokoro Brașov Academy — academie de Ju-Jitsu fondată în 2008. Recunoscută de Agenția Națională pentru Sport și Federația Română de Arte Marțiale. Formăm campioni și caractere puternice prin disciplină, respect și perseverență.');
 $footer_kanji          = kokoro_setting('footer_kanji',          '武道');
 $footer_disc_titlu     = kokoro_setting('footer_disc_titlu',     'Discipline');
 $footer_disc_limit     = (int) kokoro_setting('footer_disc_limit', 4);
@@ -22,7 +24,7 @@ $footer_contact_titlu  = kokoro_setting('footer_contact_titlu',  'Contact');
 $footer_copyright      = kokoro_setting('footer_copyright',      'Kokoro Brașov Academy. Toate drepturile rezervate.');
 $footer_tagline        = kokoro_setting('footer_tagline',        'Kokoro — Inimă, Spirit, Minte');
 
-$wa_numar = preg_replace('/\D/', '', kokoro_setting('whatsapp_numar', '40740123456'));
+$wa_numar = preg_replace('/\D/', '', kokoro_setting('whatsapp_numar', '40742037973'));
 $wa_arata = function_exists('get_field') ? (bool) get_field('set_whatsapp_arata', 'option') : true;
 
 // Disciplinele pentru footer (pull din CPT)

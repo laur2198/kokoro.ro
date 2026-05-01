@@ -6,6 +6,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 $hero_titlu    = function_exists('get_field') ? (string) get_field('campioni_hero_titlu')    : '';
@@ -57,7 +59,7 @@ $palmares = kokoro_get_palmares_rows();
           <div class="stat__number" style="color: var(--color-bg);"
                data-counter="<?php echo esc_attr($stat['numar']); ?>"
                <?php if (!empty($stat['sufix'])) : ?>data-suffix="<?php echo esc_attr($stat['sufix']); ?>"<?php endif; ?>>0</div>
-          <div class="stat__label" style="color: var(--color-bg); opacity: 0.7;"><?php echo esc_html($stat['label']); ?></div>
+          <div class="stat__label" style="color: var(--color-primary-dark);"><?php echo esc_html($stat['label']); ?></div>
         </div>
       <?php endforeach; ?>
     </div>

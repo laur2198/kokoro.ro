@@ -12,6 +12,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 ?>
 
@@ -23,7 +25,11 @@ get_header();
 <section class="page-header">
   <div class="container">
     <div class="section-number">Pentru Femei (16+ ani)</div>
-    <h1>AUTOAPĂRARE<br>PENTRU <em>FEMEI</em><br>BRAȘOV</h1>
+    <h1><?php
+      $ovr_titlu = kokoro_pillar_ovr('pillar_ovr_hero_titlu');
+      if ($ovr_titlu !== '') { echo wp_kses_post($ovr_titlu); }
+      else { ?>AUTOAPĂRARE<br>PENTRU <em>FEMEI</em><br>BRAȘOV<?php }
+    ?></h1>
     <p style="color: var(--color-gray); margin-top: var(--space-lg); max-width: 700px; line-height: 1.7; font-size: 1.0625rem;">
       Învățați un sistem de autoapărare care <strong style="color: var(--color-white);">funcționează indiferent de mărime sau forță</strong>. La Kokoro Brașov, vă oferim Ju-Jitsu autentic — tehnică reală, mediu sigur, instructori profesioniști. Pentru femeile care nu mai vor să trăiască cu frica zilnică.
     </p>
@@ -437,7 +443,7 @@ get_header();
           📞 0742 037 973
         </a>
       </div>
-      <p style="color: var(--color-bg); opacity: 0.7; margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
       </p>
     </div>

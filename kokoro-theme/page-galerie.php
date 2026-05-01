@@ -6,6 +6,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 $hero_titlu    = function_exists('get_field') ? (string) get_field('galerie_hero_titlu')    : '';

@@ -1,0 +1,9 @@
+# Block all direct web access to bin/
+# Seed scripts should be run via wp-cli or temporarily allowed for one-time setup
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

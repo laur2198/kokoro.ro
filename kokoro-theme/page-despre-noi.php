@@ -6,6 +6,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 $acf = function_exists('get_field');
@@ -106,7 +108,7 @@ $antrenori = ($echipa_limit > 0) ? get_posts([
           <div class="stat__number" style="color: var(--color-bg);"
                data-counter="<?php echo esc_attr($stat['numar'] ?? 0); ?>"
                <?php if (!empty($stat['sufix'])) : ?>data-suffix="<?php echo esc_attr($stat['sufix']); ?>"<?php endif; ?>>0</div>
-          <div class="stat__label" style="color: var(--color-bg); opacity: 0.7;"><?php echo esc_html($stat['label'] ?? ''); ?></div>
+          <div class="stat__label" style="color: var(--color-primary-dark);"><?php echo esc_html($stat['label'] ?? ''); ?></div>
         </div>
       <?php endforeach; ?>
     </div>
@@ -263,7 +265,7 @@ $antrenori = ($echipa_limit > 0) ? get_posts([
         <?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
       <?php if ($cta_text !== '') : ?>
-        <p style="color: var(--color-bg); opacity: 0.7; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
+        <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
           <?php echo esc_html($cta_text); ?>
         </p>
       <?php endif; ?>

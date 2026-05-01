@@ -12,6 +12,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 ?>
 
@@ -23,7 +25,11 @@ get_header();
 <section class="page-header">
   <div class="container">
     <div class="section-number">Pentru Copii (4-15 ani)</div>
-    <h1>JU-JITSU<br>PENTRU <em>COPII</em><br>BRAȘOV</h1>
+    <h1><?php
+      $ovr_titlu = kokoro_pillar_ovr('pillar_ovr_hero_titlu');
+      if ($ovr_titlu !== '') { echo wp_kses_post($ovr_titlu); }
+      else { ?>JU-JITSU<br>PENTRU <em>COPII</em><br>BRAȘOV<?php }
+    ?></h1>
     <p style="color: var(--color-gray); margin-top: var(--space-lg); max-width: 700px; line-height: 1.7; font-size: 1.0625rem;">
       La Kokoro Brașov Academy, copilul dumneavoastră învață Ju-Jitsu autentic într-un mediu sigur și disciplinat. Cursuri pentru toate vârstele între 4 și 15 ani, cu antrenori cu palmares internațional și 17 ani de experiență.
     </p>
@@ -591,7 +597,7 @@ get_header();
           📞 0742 037 973
         </a>
       </div>
-      <p style="color: var(--color-bg); opacity: 0.7; margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
       </p>
     </div>

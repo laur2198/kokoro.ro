@@ -12,6 +12,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 ?>
 
@@ -23,7 +25,11 @@ get_header();
 <section class="page-header">
   <div class="container">
     <div class="section-number">Antrenament 1-la-1 · Adrian Boglut</div>
-    <h1>PERSONAL<br>TRAINER <em>BRAȘOV</em></h1>
+    <h1><?php
+      $ovr_titlu = kokoro_pillar_ovr('pillar_ovr_hero_titlu');
+      if ($ovr_titlu !== '') { echo wp_kses_post($ovr_titlu); }
+      else { ?>PERSONAL<br>TRAINER <em>BRAȘOV</em><?php }
+    ?></h1>
     <p style="color: var(--color-gray); margin-top: var(--space-lg); max-width: 750px; line-height: 1.7; font-size: 1.0625rem;">
       Antrenament individualizat 1-la-1 cu <strong style="color: var(--color-white);">Adrian Boglut</strong>, vicecampion european U21 -62kg. Programe construite pe obiectivele dumneavoastră — slăbire, performanță sportivă, recuperare după accidentări sau pregătire fizică pentru competiții. Orar flexibil, evaluare gratuită.
     </p>
@@ -432,7 +438,7 @@ get_header();
           📞 0742 037 973
         </a>
       </div>
-      <p style="color: var(--color-bg); opacity: 0.7; margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
       </p>
     </div>

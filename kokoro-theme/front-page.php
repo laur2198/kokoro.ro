@@ -6,6 +6,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 // -------------------------------------------------------------------
@@ -74,7 +76,7 @@ $jp_traducere = $acf ? (string) get_field('home_jp_traducere') : '';
 if ($hero_image === '')     $hero_image     = KOKORO_URI . '/assets/images/hero-placeholder.jpg';
 if ($hero_eyebrow === '')   $hero_eyebrow   = '01 — Academia';
 if ($hero_titlu === '')     $hero_titlu     = 'DEVINO|CAMPION|LA KOKORO';
-if ($hero_subtitlu === '')  $hero_subtitlu  = 'Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută MTS și FRAM, cu campioni mondiali în palmares.';
+if ($hero_subtitlu === '')  $hero_subtitlu  = 'Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută Agenția Națională pentru Sport și Federația Română de Arte Marțiale, cu campioni mondiali și europeni în palmares.';
 if ($hero_btn1_text === '') $hero_btn1_text = 'Înscrie-te Acum';
 if ($hero_btn2_text === '') $hero_btn2_text = 'Descoperă Disciplinele';
 if ($hero_btn1_url === '')  $hero_btn1_url  = home_url('/inscriere/');
@@ -101,10 +103,10 @@ if (!is_array($valori) || empty($valori)) {
 }
 if (!is_array($camp_stats) || empty($camp_stats)) {
     $camp_stats = [
-        ['numar' => 200, 'sufix' => '+', 'label' => 'Medalii'],
-        ['numar' => 3,   'sufix' => '',  'label' => 'Campioni Mondiali'],
-        ['numar' => 50,  'sufix' => '+', 'label' => 'Medalii Internaționale'],
-        ['numar' => 100, 'sufix' => '+', 'label' => 'Medalii Naționale'],
+        ['numar' => 2000, 'sufix' => '+', 'label' => 'Medalii câștigate'],
+        ['numar' => 3,    'sufix' => '',  'label' => 'Campioni Mondiali'],
+        ['numar' => 4,    'sufix' => '',  'label' => 'Campioni Europeni'],
+        ['numar' => 1000, 'sufix' => '+', 'label' => 'Sportivi formați'],
     ];
 }
 
@@ -181,10 +183,11 @@ wp_reset_postdata();
 
 if (!is_array($hero_stats) || empty($hero_stats)) {
     $hero_stats = [
-        ['numar' => 17,  'sufix' => '+', 'label' => 'Ani de activitate'],
-        ['numar' => 200, 'sufix' => '+', 'label' => 'Medalii câștigate'],
-        ['numar' => 3,   'sufix' => '',  'label' => 'Campioni mondiali'],
-        ['numar' => 500, 'sufix' => '+', 'label' => 'Sportivi formați'],
+        ['numar' => 18,   'sufix' => '+', 'label' => 'Ani de activitate'],
+        ['numar' => 2000, 'sufix' => '+', 'label' => 'Medalii câștigate'],
+        ['numar' => 3,    'sufix' => '',  'label' => 'Campioni mondiali'],
+        ['numar' => 4,    'sufix' => '',  'label' => 'Campioni europeni'],
+        ['numar' => 1000, 'sufix' => '+', 'label' => 'Sportivi formați'],
     ];
 }
 if (!is_array($marquee_items) || empty($marquee_items)) {
@@ -210,10 +213,10 @@ $discipline_cpt = get_posts([
 ]);
 // Fallback când nu există încă CPT-uri — folosim cele 4 carduri hardcodate originale
 $discipline_fallback = [
-    ['titlu' => 'Ju-Jitsu|Competițional', 'teaser' => 'Fighting, Ne-Waza, Duo System',              'url' => home_url('/ju-jitsu-competitional/')],
-    ['titlu' => 'Ju-Jitsu|Autoapărare',   'teaser' => 'Tehnici practice de self-defense',           'url' => home_url('/autoaparare/')],
-    ['titlu' => 'TRX|Suspension',         'teaser' => 'Antrenament funcțional cu greutatea corpului', 'url' => home_url('/trx-suspension-training/')],
-    ['titlu' => 'Personal|Training',      'teaser' => 'Preparare fizică individualizată',           'url' => home_url('/preparator-fizic/')],
+    ['titlu' => 'Ju-Jitsu|Competițional', 'teaser' => 'Ju-Jitsu Fighting, Jiu-Jitsu Gi, Ground Fight, Ju-Jitsu Contact', 'url' => home_url('/ju-jitsu-competitional/')],
+    ['titlu' => 'Ju-Jitsu|Autoapărare',   'teaser' => 'Tehnici practice de self-defense',                                'url' => home_url('/autoaparare/')],
+    ['titlu' => 'Personal|Training',      'teaser' => 'Preparare fizică individualizată',                                'url' => home_url('/personal-trainer-brasov/')],
+    ['titlu' => 'Preparator|Fizic',       'teaser' => 'Pentru oameni care doresc să antreneze în privat',                'url' => home_url('/preparator-fizic/')],
 ];
 ?>
 
@@ -342,7 +345,7 @@ $discipline_fallback = [
         <?php echo kokoro_render_italic_title($valori_titlu, ' '); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
       <?php if ($valori_subtitlu !== '') : ?>
-        <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin-top: var(--space-lg);">
+        <p style="color: var(--color-text); max-width: 600px; margin-top: var(--space-lg);">
           <?php echo esc_html($valori_subtitlu); ?>
         </p>
       <?php endif; ?>
@@ -356,7 +359,7 @@ $discipline_fallback = [
           <div class="value-item__kanji"  style="color: var(--color-bg);"><?php echo esc_html($v['kanji']  ?? ''); ?></div>
           <div class="value-item__romaji" style="color: var(--color-bg);"><?php echo esc_html($v['romaji'] ?? ''); ?></div>
           <?php if (!empty($v['meaning'])) : ?>
-            <p class="value-item__meaning" style="color: var(--color-bg); opacity: 0.7;"><?php echo esc_html($v['meaning']); ?></p>
+            <p class="value-item__meaning" style="color: var(--color-text);"><?php echo esc_html($v['meaning']); ?></p>
           <?php endif; ?>
         </div>
       <?php endforeach; ?>
@@ -562,7 +565,7 @@ $discipline_fallback = [
         <?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
       <?php if ($cta_text !== '') : ?>
-        <p style="color: var(--color-bg); opacity: 0.7; max-width: 600px; margin: 0 auto var(--space-2xl);">
+        <p style="color: var(--color-primary-dark); max-width: 600px; margin: 0 auto var(--space-2xl);">
           <?php echo esc_html($cta_text); ?>
         </p>
       <?php endif; ?>

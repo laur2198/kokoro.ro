@@ -142,7 +142,7 @@ function kokoro_register_acf_field_groups() {
 
             // WhatsApp
             ['key' => 'field_set_tab_whatsapp', 'label' => 'WHATSAPP', 'type' => 'tab', 'placement' => 'left'],
-            ['key' => 'field_set_whatsapp_numar',  'label' => 'Număr WhatsApp', 'name' => 'set_whatsapp_numar',  'type' => 'text', 'default_value' => '40740123456', 'instructions' => 'Doar cifrele cu prefixul țării, fără +. Ex: 40740123456 (pentru +40 740 123 456). Lasă gol pentru a ascunde butonul WhatsApp.'],
+            ['key' => 'field_set_whatsapp_numar',  'label' => 'Număr WhatsApp', 'name' => 'set_whatsapp_numar',  'type' => 'text', 'default_value' => '40742037973', 'instructions' => 'Doar cifrele cu prefixul țării, fără +. Ex: 40742037973 (pentru +40 742 037 973). Lasă gol pentru a ascunde butonul WhatsApp.'],
             ['key' => 'field_set_whatsapp_arata',  'label' => 'Arată butonul flotant',  'name' => 'set_whatsapp_arata',  'type' => 'true_false', 'ui' => 1, 'ui_on_text' => 'Da', 'ui_off_text' => 'Nu', 'default_value' => 1],
 
             // Header
@@ -153,7 +153,7 @@ function kokoro_register_acf_field_groups() {
 
             // Footer
             ['key' => 'field_set_tab_footer', 'label' => 'FOOTER', 'type' => 'tab', 'placement' => 'left'],
-            ['key' => 'field_set_footer_descriere', 'label' => 'Descriere brand (footer coloana 1)', 'name' => 'set_footer_descriere', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Kokoro Brașov Academy — academie de Ju-Jitsu fondată în 2008. Recunoscută MTS și FRAM. Formăm campioni și caractere puternice prin disciplină, respect și perseverență.'],
+            ['key' => 'field_set_footer_descriere', 'label' => 'Descriere brand (footer coloana 1)', 'name' => 'set_footer_descriere', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Kokoro Brașov Academy — academie de Ju-Jitsu fondată în 2008. Recunoscută de Agenția Națională pentru Sport și Federația Română de Arte Marțiale. Formăm campioni și caractere puternice prin disciplină, respect și perseverență.'],
             ['key' => 'field_set_footer_kanji', 'label' => 'Kanji decorativ (footer coloana 1)', 'name' => 'set_footer_kanji', 'type' => 'text', 'default_value' => '武道'],
             ['key' => 'field_set_footer_disc_titlu', 'label' => 'Titlu coloana Discipline', 'name' => 'set_footer_disc_titlu', 'type' => 'text', 'default_value' => 'Discipline'],
             ['key' => 'field_set_footer_disc_limit', 'label' => 'Câte discipline în footer', 'name' => 'set_footer_disc_limit', 'type' => 'number', 'default_value' => 4, 'min' => 1, 'max' => 10],
@@ -782,6 +782,13 @@ function kokoro_register_acf_field_groups() {
         'copii'    => 'Copii (4-12 ani)',
         'juniori'  => 'Juniori (13-17 ani)',
         'adulti'   => 'Adulți (18+ ani)',
+        'piticii'  => 'Piticii Kokoro',
+        'avansati' => 'Avansați Kokoro',
+        'initiere' => 'Inițiere Ju-Jitsu Fighting',
+        'fighting' => 'Ju-Jitsu Fighting',
+        'gi'       => 'Jiu-Jitsu Gi',
+        'contact'  => 'Ju-Jitsu Contact',
+        'pt'       => 'PT — Personal Training',
     ];
 
     acf_add_local_field_group([
@@ -1113,7 +1120,7 @@ function kokoro_register_acf_field_groups() {
                 'name'          => 'home_hero_subtitlu',
                 'type'          => 'textarea',
                 'rows'          => 3,
-                'default_value' => 'Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută MTS și FRAM, cu campioni mondiali în palmares.',
+                'default_value' => 'Ju-Jitsu pentru copii, juniori și adulți din 2008. Academie recunoscută Agenția Națională pentru Sport și Federația Română de Arte Marțiale, cu campioni mondiali și europeni în palmares.',
             ],
             [
                 'key'           => 'field_home_hero_btn1_text',

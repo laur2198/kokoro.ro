@@ -6,20 +6,38 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
-$adresa   = kokoro_setting('adresa',   'Brașov, România');
-$telefon  = kokoro_setting('telefon',  '+40 740 123 456');
+$adresa   = kokoro_setting('adresa',   'Str. Carpaților 60<br>500269 Brașov, România');
+$telefon  = kokoro_setting('telefon',  '+40 742 037 973');
 $email    = kokoro_setting('email',    'contact@kokoro.ro');
 $facebook = kokoro_setting('facebook', '');
 $instagram= kokoro_setting('instagram','');
 $maps_url = kokoro_setting('maps_url', '');
+$wa_numar = preg_replace('/\D/', '', kokoro_setting('whatsapp_numar', '40742037973'));
+
+// ACF page-specific overrides
+$acf = function_exists('get_field');
+$contact_titlu      = $acf ? (string) get_field('contact_hero_titlu')   : '';
+$landmark           = $acf ? (string) get_field('contact_landmark')     : '';
+$drum               = $acf ? (string) get_field('contact_drum')         : '';
+$program            = $acf ? (string) get_field('contact_program')      : '';
+$form_titlu         = $acf ? (string) get_field('contact_form_titlu')   : '';
+$form_subiecte      = $acf ? get_field('contact_form_subiecte')         : [];
+
+if ($contact_titlu === '')   $contact_titlu = 'IA|LEGĂTURA|CU NOI';
+if ($landmark === '')        $landmark      = 'Parcul Industrial METROM — deasupra service-ului auto, lângă Pensiunea „Floarea Soarelui"';
+if ($drum === '')            $drum          = 'Intrarea se face pe poarta principală a uzinei METROM. După poartă, mergeți drept înainte 50 m, apoi la indicatorul rutier STOP, faceți dreapta 100 m.';
+if ($program === '')         $program       = 'Luni – Vineri: 16:00 – 21:00<br>Sâmbătă: după programare';
+if ($form_titlu === '')      $form_titlu    = 'TRIMITE-NE|UN MESAJ';
 ?>
 
 <section class="page-header">
   <div class="container">
     <div class="section-number">Contact</div>
-    <h1>IA <em>LEGĂTURA</em><br>CU NOI</h1>
+    <h1><?php echo kokoro_render_italic_title($contact_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
   </div>
   <div class="page-header__number" aria-hidden="true">連絡</div>
 </section>
@@ -45,7 +63,18 @@ $maps_url = kokoro_setting('maps_url', '');
               <?php else : ?>
                 <?php echo wp_kses($adresa, ['br' => []]); ?>
               <?php endif; ?>
+              <br><span style="color: var(--color-gray); font-size: 0.875rem;"><?php echo esc_html($landmark); ?></span>
             </p>
+          </div>
+        </div>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          </div>
+          <div>
+            <div class="contact-info__label">Cum ajungi</div>
+            <p class="contact-info__text"><?php echo esc_html($drum); ?></p>
           </div>
         </div>
         <?php endif; ?>
@@ -58,6 +87,18 @@ $maps_url = kokoro_setting('maps_url', '');
           <div>
             <div class="contact-info__label">Telefon</div>
             <p class="contact-info__text"><a href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $telefon)); ?>" class="link"><?php echo esc_html($telefon); ?></a></p>
+          </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($wa_numar !== '') : ?>
+        <div class="contact-info__item">
+          <div class="contact-info__icon" style="background: rgba(37, 211, 102, 0.15); color: #25D366;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          </div>
+          <div>
+            <div class="contact-info__label">WhatsApp</div>
+            <p class="contact-info__text"><a href="https://wa.me/<?php echo esc_attr($wa_numar); ?>" target="_blank" rel="noopener" class="link">Scrie-ne pe WhatsApp</a></p>
           </div>
         </div>
         <?php endif; ?>
@@ -80,7 +121,7 @@ $maps_url = kokoro_setting('maps_url', '');
           </div>
           <div>
             <div class="contact-info__label">Program</div>
-            <p class="contact-info__text">Luni – Vineri: 16:00 – 21:00<br>Sâmbătă: după programare</p>
+            <p class="contact-info__text"><?php echo wp_kses($program, ['br' => []]); ?></p>
           </div>
         </div>
 

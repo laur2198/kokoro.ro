@@ -1,4 +1,6 @@
 <?php
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 $header_cta_text  = kokoro_setting('header_cta_text', 'Înscrie-te');
 $header_cta_url   = kokoro_setting('header_cta_url',  '');
 if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');

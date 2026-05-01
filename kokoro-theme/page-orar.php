@@ -6,6 +6,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 $hero_titlu    = function_exists('get_field') ? (string) get_field('orar_hero_titlu')    : '';
@@ -88,9 +90,16 @@ $day_rendered = [];
               $antrenor   = $row['antrenor'] ?? '';
 
               $grupa_labels = [
-                  'copii'   => 'Copii',
-                  'juniori' => 'Juniori',
-                  'adulti'  => 'Adulți',
+                  'copii'    => 'Copii',
+                  'juniori'  => 'Juniori',
+                  'adulti'   => 'Adulți',
+                  'piticii'  => 'Piticii',
+                  'avansati' => 'Avansați',
+                  'initiere' => 'Inițiere',
+                  'fighting' => 'Fighting',
+                  'gi'       => 'Gi',
+                  'contact'  => 'Contact',
+                  'pt'       => 'PT',
               ];
               $grupa_label = $grupa_labels[$grupa_slug] ?? ucfirst($grupa_slug);
 
@@ -149,7 +158,7 @@ $day_rendered = [];
       <h2 style="color: var(--color-bg);">
         <?php echo kokoro_render_italic_title($cta_titlu, ' '); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
-      <p style="color: var(--color-bg); opacity: 0.7; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
+      <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
         <?php echo esc_html($cta_text); ?>
       </p>
       <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">

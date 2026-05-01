@@ -5,6 +5,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 // Suggested pages — pull paginile importante (filtrate pentru cele care chiar există)

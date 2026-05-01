@@ -5,6 +5,8 @@
  * @package Kokoro
  */
 
+
+if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
 
 if (!have_posts()) {
@@ -161,7 +163,7 @@ if ($prev_post || $next_post) :
   <div class="container" style="text-align: center;">
     <div class="reveal">
       <h2 style="color: var(--color-bg);">VINO LA O LECȚIE<br><em>DEMONSTRATIVĂ</em></h2>
-      <p style="color: var(--color-bg); opacity: 0.7; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
+      <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
         Prima lecție este gratuită. Descoperă singur cum decurge un antrenament <strong><?php the_title(); ?></strong> la Kokoro.
       </p>
       <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">
