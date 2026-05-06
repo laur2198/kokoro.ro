@@ -185,6 +185,9 @@ $footer_disc = get_posts([
           <span class="kanji--inline" aria-hidden="true">心</span> <?php echo esc_html($footer_tagline); ?>
         </p>
       <?php endif; ?>
+      <p class="footer__copyright footer__credit">
+        Site dezvoltat de <a href="https://greenpheonixconcept.com" target="_blank" rel="noopener" style="color: var(--color-accent); font-weight: 600;">Green Pheonix Concept</a>
+      </p>
     </div>
 
   </div><!-- /.container -->

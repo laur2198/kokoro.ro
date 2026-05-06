@@ -597,7 +597,7 @@ get_header();
           📞 0742 037 973
         </a>
       </div>
-      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: #0D47A1; margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
       </p>
     </div>
@@ -612,7 +612,7 @@ get_header();
   "@type": "Course",
   "name": "Ju-Jitsu pentru Copii (4-15 ani) — Kokoro Brașov",
   "description": "Curs structurat de Ju-Jitsu adaptat copiilor (4-15 ani), cu accent pe disciplină, autoapărare practică, dezvoltare fizică armonioasă și caractere puternice. Antrenamente pe grupe de vârstă: 4-7 ani (inițiere prin joc), 8-12 ani (tehnică de bază), 13-15 ani (performanță).",
-  "url": "https://kokoro.ro/ju-jitsu-copii-brasov.html",
+  "url": "<?php echo esc_url(get_permalink()); ?>",
   "provider": {
     "@type": "Organization",
     "name": "Kokoro Brașov Academy",

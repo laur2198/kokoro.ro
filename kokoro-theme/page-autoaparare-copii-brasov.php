@@ -437,7 +437,7 @@ get_header();
           📞 0742 037 973
         </a>
       </div>
-      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: #0D47A1; margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
       </p>
     </div>
@@ -452,7 +452,7 @@ get_header();
   "@type": "Course",
   "name": "Autoapărare pentru Copii (4-15 ani) — Kokoro Brașov",
   "description": "Curs de autoapărare bazat pe Ju-Jitsu autentic, adaptat pentru copii 4-15 ani. Combină prevenția (citire limbaj corporal, dezescaladare verbală) cu tehnică fizică reală (escape-uri, imobilizări) pentru protecție împotriva bullying-ului și agresiunii. Accent pe control, nu agresivitate.",
-  "url": "https://kokoro.ro/autoaparare-copii-brasov.html",
+  "url": "<?php echo esc_url(get_permalink()); ?>",
   "provider": {
     "@type": "Organization",
     "name": "Kokoro Brașov Academy",

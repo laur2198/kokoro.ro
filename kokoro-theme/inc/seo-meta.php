@@ -127,7 +127,7 @@ function kokoro_render_seo_meta() {
 <?php endif; ?>
 <meta name="author" content="<?php echo esc_attr(get_bloginfo('name')); ?>">
 <meta name="robots" content="<?php echo esc_attr($robots); ?>">
-<meta name="theme-color" content="#0D2137">
+<meta name="theme-color" content="var(--color-dark)">
 
 <meta name="geo.region" content="<?php echo esc_attr($regiune_iso); ?>">
 <meta name="geo.placename" content="<?php echo esc_attr(kokoro_setting('localitate', 'Brașov')); ?>">

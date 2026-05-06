@@ -777,7 +777,7 @@ get_header();
   "@type": "Article",
   "headline": "Arte Marțiale pentru Copii Brașov 2026 — Ghid Complet pentru Părinți",
   "description": "Ghid complet pentru părinții din Brașov: comparație Ju-Jitsu vs Karate vs BJJ vs Krav Maga vs Judo. Recomandări pe vârste (4-15 ani), red flags la alegerea clubului, 8 întrebări esențiale înainte de înscriere și beneficii științifice documentate.",
-  "image": "https://kokoro.ro/assets/img/og-default.jpg",
+  "image": "<?php echo esc_url(get_template_directory_uri() . '/assets/images/og-default.png'); ?>",
   "datePublished": "2026-04-26T10:00:00+03:00",
   "dateModified": "2026-04-26T10:00:00+03:00",
   "author": {
@@ -796,12 +796,12 @@ get_header();
     "@id": "https://kokoro.ro/#organization",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://kokoro.ro/assets/images/enso-circle.svg"
+      "url": "<?php echo esc_url(get_template_directory_uri() . '/assets/images/enso-circle.svg'); ?>"
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://kokoro.ro/arte-martiale-copii-brasov.html"
+    "@id": "<?php echo esc_url(get_permalink()); ?>"
   },
   "inLanguage": "ro",
   "articleSection": "Ghiduri pentru părinți",

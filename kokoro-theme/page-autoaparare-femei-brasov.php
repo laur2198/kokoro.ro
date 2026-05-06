@@ -443,7 +443,7 @@ get_header();
           📞 0742 037 973
         </a>
       </div>
-      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: #0D47A1; margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
       </p>
     </div>
@@ -458,7 +458,7 @@ get_header();
   "@type": "Course",
   "name": "Autoapărare pentru Femei (16+ ani) — Kokoro Brașov",
   "description": "Curs autoapărare pentru femei la Kokoro Brașov, bazat pe Ju-Jitsu autentic. Tehnicile bazate pe pârghii anatomice funcționează indiferent de mărimea agresorului. 3 niveluri (Începătoare, Intermediare, Avansate). Mediu profesional, vestiare separate.",
-  "url": "https://kokoro.ro/autoaparare-femei-brasov.html",
+  "url": "<?php echo esc_url(get_permalink()); ?>",
   "provider": {
     "@type": "Organization",
     "name": "Kokoro Brașov Academy",

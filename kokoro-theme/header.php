@@ -34,7 +34,7 @@ if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');
         ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>" width="50" height="50">
       <?php else : ?>
-        <img src="<?php echo esc_url(KOKORO_URI . '/assets/images/logo-placeholder.svg'); ?>" alt="<?php bloginfo('name'); ?>" width="50" height="50">
+        <img src="<?php echo esc_url(KOKORO_URI . '/assets/images/enso-circle.svg'); ?>" alt="<?php bloginfo('name'); ?>" width="50" height="50">
       <?php endif; ?>
       <span class="navbar__logo-text">Kokoro <span>Academy</span></span>
     </a>

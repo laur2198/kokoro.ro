@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D47A1"/>
+      <stop offset="50%" stop-color="#1565C0"/>
+      <stop offset="100%" stop-color="#0D2137"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Yellow accent stripe bottom -->
+  <rect x="0" y="612" width="1200" height="18" fill="#FFD600"/>
+
+  <!-- Large kanji watermark "心" (Kokoro) -->
+  <text x="1050" y="380" font-family="Noto Serif JP, serif" font-weight="900" font-size="500"
+        fill="#FFFFFF" opacity="0.06" text-anchor="middle">心</text>
+
+  <!-- Eyebrow -->
+  <text x="80" y="180" font-family="Barlow Condensed, sans-serif" font-weight="600" font-size="22"
+        fill="#FFD600" letter-spacing="6">KOKORO BRAȘOV ACADEMY</text>
+
+  <!-- Main title -->
+  <text x="80" y="280" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="84"
+        fill="#FFFFFF" letter-spacing="-1">DEVINO</text>
+  <text x="80" y="370" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="84"
+        fill="#FFD600" font-style="italic" letter-spacing="-1">CAMPION</text>
+  <text x="80" y="460" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="84"
+        fill="#FFFFFF" letter-spacing="-1">LA KOKORO</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="530" font-family="Barlow, sans-serif" font-weight="500" font-size="22"
+        fill="rgba(255,255,255,0.85)">Ju-Jitsu și Autoapărare · Brașov · din 2008</text>
+
+  <!-- URL -->
+  <text x="80" y="585" font-family="Barlow, sans-serif" font-weight="600" font-size="18"
+        fill="#FFD600" letter-spacing="2">KOKORO.RO</text>
+</svg>

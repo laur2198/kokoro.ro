@@ -111,8 +111,27 @@
   /* Hero mobile */
   .hero {
     min-height: auto;
-    padding-top: 100px;
+    padding-top: 110px;
     padding-bottom: var(--space-2xl);
+  }
+
+  /* Stats bar mobile — wrap 5 stats into 2-col grid */
+  .stats-bar {
+    padding: var(--space-xl) 0;
+  }
+
+  .stats-bar__inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .stats-bar .stat__number {
+    font-size: 1.75rem;
+  }
+
+  .stats-bar .stat__label {
+    font-size: 0.6875rem;
   }
 
   .hero__headline {
@@ -365,6 +384,29 @@
 
   .hero__cta {
     flex-direction: column;
+  }
+
+  /* Stats bar very small — single column */
+  .stats-bar__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .stats-bar .stat__number {
+    font-size: 2rem;
+  }
+
+  /* WhatsApp button smaller on tiny screens */
+  .whatsapp-float {
+    width: 48px;
+    height: 48px;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .whatsapp-float svg {
+    width: 24px;
+    height: 24px;
   }
 
   .hero__cta .btn {

@@ -438,7 +438,7 @@ get_header();
           📞 0742 037 973
         </a>
       </div>
-      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: #0D47A1; margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
       </p>
     </div>
@@ -451,10 +451,10 @@ get_header();
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "https://kokoro.ro/personal-trainer-brasov.html#service",
+  "@id": "<?php echo esc_url(get_permalink()); ?>#service",
   "name": "Personal Training cu Adrian Boglut — Kokoro Brașov",
   "description": "Antrenament personal individualizat 1-la-1 cu Adrian Boglut, vicecampion european U21 -62kg. Programe specializate pentru slăbire, performanță sportivă, recuperare după accidentări și wellness general.",
-  "url": "https://kokoro.ro/personal-trainer-brasov.html",
+  "url": "<?php echo esc_url(get_permalink()); ?>",
   "serviceType": "Personal Training",
   "category": "Fitness & Sports",
   "provider": {
@@ -486,7 +486,7 @@ get_header();
       }
     },
     "servicePhone": "+40742037973",
-    "serviceUrl": "https://kokoro.ro/inscriere.html"
+    "serviceUrl": "<?php echo esc_url(home_url('/inscriere/')); ?>"
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",

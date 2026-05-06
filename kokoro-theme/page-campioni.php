@@ -59,7 +59,7 @@ $palmares = kokoro_get_palmares_rows();
           <div class="stat__number" style="color: var(--color-bg);"
                data-counter="<?php echo esc_attr($stat['numar']); ?>"
                <?php if (!empty($stat['sufix'])) : ?>data-suffix="<?php echo esc_attr($stat['sufix']); ?>"<?php endif; ?>>0</div>
-          <div class="stat__label" style="color: var(--color-primary-dark);"><?php echo esc_html($stat['label']); ?></div>
+          <div class="stat__label" style="color: #0D47A1;"><?php echo esc_html($stat['label']); ?></div>
         </div>
       <?php endforeach; ?>
     </div>

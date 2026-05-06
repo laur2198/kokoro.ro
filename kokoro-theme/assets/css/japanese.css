@@ -185,7 +185,7 @@
 .belt--yellow  { background: #FFD600; }
 .belt--orange  { background: #FF9800; }
 .belt--green   { background: #4CAF50; }
-.belt--blue    { background: #1565C0; }
+.belt--blue    { background: var(--color-primary); }
 .belt--brown   { background: #795548; }
 .belt--black   { background: #1A1A1A; border: 1px solid #333; }
 
@@ -264,16 +264,39 @@
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Fallback: dacă JS nu rulează (sau IntersectionObserver fail),
+     conținutul devine vizibil după 2s prin animație CSS pură */
+  animation: revealFallback 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
 }
 
-.reveal--visible {
+.reveal--visible,
+.reveal.reveal--visible {
   opacity: 1;
   transform: translateY(0);
+  animation: none; /* dacă JS s-a declanșat, dezactivăm fallback-ul */
+}
+
+@keyframes revealFallback {
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+
+/* Dacă utilizatorul preferă reduced motion, arată tot imediat */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 .reveal--left {
   opacity: 0;
   transform: translateX(-50px);
+  animation: revealFallback 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
 }
 
 .reveal--left.reveal--visible {
@@ -284,6 +307,7 @@
 .reveal--right {
   opacity: 0;
   transform: translateX(50px);
+  animation: revealFallback 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
 }
 
 .reveal--right.reveal--visible {
@@ -294,6 +318,7 @@
 .reveal--scale {
   opacity: 0;
   transform: scale(0.9);
+  animation: revealFallback 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
 }
 
 .reveal--scale.reveal--visible {
