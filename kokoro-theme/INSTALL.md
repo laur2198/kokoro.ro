@@ -27,6 +27,29 @@ wp theme install /local/path/kokoro-theme.zip --activate
 
 ---
 
+## PAS 1B — Instalează mu-plugin Content Types
+
+Tipurile de conținut (Campioni, Discipline, Antrenori) sunt înregistrate într-un **must-use plugin** ca să decupleze conținutul de temă (supraviețuiește schimbării temei).
+
+1. Asigură-te că folderul `wp-content/mu-plugins/` există pe server. Dacă nu, creează-l.
+2. Copiază `mu-plugins/kokoro-content-types.php` din repo direct în `wp-content/mu-plugins/`:
+
+```bash
+# Via FTP/SSH
+cp /local/path/repo/mu-plugins/kokoro-content-types.php /var/www/html/wp-content/mu-plugins/
+
+# Via wp-cli (din directorul WP)
+wp scaffold _mu-plugin   # doar dacă vrei să creezi folderul; opțional
+```
+
+3. Verifică în admin: WP Admin → Plugins → Must-Use ar trebui să afișeze „Kokoro — Content Types".
+
+⚠ **Dacă mu-plugin-ul nu e instalat**, tema va afișa un notice roșu în admin și șabloanele single-antrenor / single-disciplina / single-campion nu vor răspunde.
+
+⚠ **Dacă pe production există deja CPT-uri definite în CPTUI** cu rol duplicat (ex. `trainers` în loc de `antrenor`), tema va afișa un notice galben de conflict. Migrează conținutul în CPT-urile native și șterge definițiile din CPTUI.
+
+---
+
 ## PAS 2 — Activează ACF
 
 1. WP Admin → Plugins → Adaugă nou

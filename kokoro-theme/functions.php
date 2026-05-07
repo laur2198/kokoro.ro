@@ -28,8 +28,16 @@ require_once KOKORO_DIR . '/inc/acf-pages-extra.php';
    ========================================================================== */
 
 function kokoro_setup() {
-    // Title tag — gestionat manual de inc/seo-meta.php (kokoro_render_seo_meta).
-    // NU adăugăm 'title-tag' ca să evităm dublarea în <head>.
+    // Translations — kokoro.pot/.mo în /languages
+    load_theme_textdomain('kokoro', KOKORO_DIR . '/languages');
+
+    // Title tag — emis de WP. Conținutul real e setat de filtrul
+    // kokoro_filter_document_title (inc/seo-meta.php) la prioritate 1,
+    // ca plugin-urile SEO (SiteSEO etc.) să poată suprascrie la prioritate 10.
+    add_theme_support('title-tag');
+
+    // Auto RSS feed links
+    add_theme_support('automatic-feed-links');
 
     // Post thumbnails
     add_theme_support('post-thumbnails');
@@ -55,6 +63,12 @@ function kokoro_setup() {
         'flex-height' => true,
         'flex-width'  => true,
     ]);
+
+    // Block editor (Gutenberg)
+    add_theme_support('responsive-embeds');
+    add_theme_support('wp-block-styles');
+    add_theme_support('align-wide');
+    add_theme_support('core-block-patterns');
 
     // Navigation menus
     register_nav_menus([
@@ -305,7 +319,35 @@ function kokoro_activate() {
 add_action('after_switch_theme', 'kokoro_activate');
 
 /* ==========================================================================
-   7. Security & Cleanup
+   7. ACF Plugin Dependency Notice
+   ========================================================================== */
+
+function kokoro_acf_admin_notice() {
+    if (function_exists('get_field')) return;
+    if (!current_user_can('activate_plugins')) return;
+
+    $install_url = wp_nonce_url(
+        self_admin_url('update.php?action=install-plugin&plugin=advanced-custom-fields'),
+        'install-plugin_advanced-custom-fields'
+    );
+    $plugins_url = self_admin_url('plugins.php');
+    ?>
+    <div class="notice notice-error">
+        <p>
+            <strong><?php esc_html_e('Kokoro Brașov Academy', 'kokoro'); ?></strong> —
+            <?php esc_html_e('tema necesită plugin-ul Advanced Custom Fields (ACF) pentru a funcționa corect. Conținutul paginilor (texte, imagini, setări) nu va putea fi editat fără el.', 'kokoro'); ?>
+        </p>
+        <p>
+            <a href="<?php echo esc_url($install_url); ?>" class="button button-primary"><?php esc_html_e('Instalează ACF', 'kokoro'); ?></a>
+            <a href="<?php echo esc_url($plugins_url); ?>" class="button"><?php esc_html_e('Pagina Plugin-uri', 'kokoro'); ?></a>
+        </p>
+    </div>
+    <?php
+}
+add_action('admin_notices', 'kokoro_acf_admin_notice');
+
+/* ==========================================================================
+   8. Security & Cleanup
    ========================================================================== */
 
 // Remove WordPress version from head

@@ -86,6 +86,13 @@ get_header();
       </div>
     </div>
 
+    <?php
+      // Afișează comentariile dacă sunt deschise sau dacă există comentarii.
+      if (comments_open() || get_comments_number()) {
+          comments_template();
+      }
+    ?>
+
   </div>
 </section>
 

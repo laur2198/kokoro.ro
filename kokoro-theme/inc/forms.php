@@ -216,6 +216,19 @@ function kokoro_form_redirect_back($status, $referer = null) {
 }
 
 /**
+ * Bypass cache pentru paginile cu ?kokoro_form=... ca să nu apară banner-ul
+ * de succes la utilizatori random când SpeedyCache/LiteSpeed cache-uiesc URL-ul.
+ */
+add_action('template_redirect', function () {
+    if (!empty($_GET['kokoro_form'])) {
+        nocache_headers();
+        if (!defined('DONOTCACHEPAGE')) {
+            define('DONOTCACHEPAGE', true);
+        }
+    }
+});
+
+/**
  * Helper: afișează banner de succes/eroare deasupra formularului
  * (folosit în page-contact.php și page-inscriere.php).
  */

@@ -119,8 +119,11 @@ function kokoro_render_seo_meta() {
 
     $og_image_w = 1200;
     $og_image_h = 630;
+
+    // <title> e emis de WP via add_theme_support('title-tag') + filtrul
+    // kokoro_filter_document_title (vezi mai jos). Plugin-urile SEO (ex. SiteSEO)
+    // pot suprascrie cu prioritate >1.
     ?>
-<title><?php echo esc_html($d['title']); ?></title>
 <meta name="description" content="<?php echo esc_attr($d['description']); ?>">
 <?php if (!empty($d['keywords'])) : ?>
 <meta name="keywords" content="<?php echo esc_attr($d['keywords']); ?>">
@@ -166,6 +169,38 @@ function kokoro_render_seo_meta() {
 <?php endif; ?>
     <?php
 }
+
+/**
+ * Filtru pentru <title>. Rulează la prioritate 1 (înainte de plugin-uri SEO),
+ * deci dacă SiteSEO/Yoast/RankMath sunt active la prioritate 10, ele vor
+ * suprascrie valoarea returnată aici. Dacă niciun plugin SEO nu intervine,
+ * formatul nostru e folosit.
+ *
+ * Nu apelăm wp_get_document_title() ca să evităm recursivitatea prin
+ * kokoro_seo_data().
+ */
+function kokoro_filter_document_title($title) {
+    $separator = kokoro_setting('seo_separator', ' | ');
+    $site_name = get_bloginfo('name');
+
+    if (is_front_page()) {
+        return kokoro_setting('seo_titlu_home', $site_name);
+    }
+    if (is_singular()) {
+        $pid      = get_queried_object_id();
+        $override = kokoro_seo_field('kokoro_seo_titlu', $pid);
+        if ($override !== '') return $override;
+        return get_the_title($pid) . $separator . $site_name;
+    }
+    if (is_search()) {
+        return sprintf('Căutare pentru „%s"%s%s', get_search_query(), $separator, $site_name);
+    }
+    if (is_404()) {
+        return 'Pagina nu există' . $separator . $site_name;
+    }
+    return $title; // arhive, taxonomy etc. → titlul implicit WP
+}
+add_filter('pre_get_document_title', 'kokoro_filter_document_title', 1);
 
 /**
  * Hook in <head> ca alternativă la apelul direct din header.php.

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "custom": true,
+      "customDuotone": false,
+      "palette": [
+        { "slug": "primary",       "color": "#1565C0", "name": "Albastru Kokoro" },
+        { "slug": "primary-dark",  "color": "#0D47A1", "name": "Albastru Închis" },
+        { "slug": "primary-light", "color": "#E3F2FD", "name": "Albastru Deschis" },
+        { "slug": "accent",        "color": "#FFD600", "name": "Galben Accent" },
+        { "slug": "dark",          "color": "#0D2137", "name": "Dark" },
+        { "slug": "text",          "color": "#1A1A1A", "name": "Text" },
+        { "slug": "gray",          "color": "#5A6A7A", "name": "Gri" },
+        { "slug": "gray-light",    "color": "#94A3B8", "name": "Gri Deschis" },
+        { "slug": "gray-dark",     "color": "#D0D5DD", "name": "Gri Frontieră" },
+        { "slug": "white",         "color": "#FFFFFF", "name": "Alb" },
+        { "slug": "bg-alt",        "color": "#F0F4F8", "name": "Fundal Alternativ" },
+        { "slug": "red",           "color": "#E63329", "name": "Roșu" }
+      ]
+    },
+    "typography": {
+      "customFontSize": true,
+      "dropCap": false,
+      "fontFamilies": [
+        {
+          "slug": "heading",
+          "name": "Barlow Condensed",
+          "fontFamily": "'Barlow Condensed', 'Arial Narrow', sans-serif"
+        },
+        {
+          "slug": "body",
+          "name": "Barlow",
+          "fontFamily": "'Barlow', system-ui, sans-serif"
+        },
+        {
+          "slug": "japanese",
+          "name": "Noto Serif JP",
+          "fontFamily": "'Noto Serif JP', serif"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small",   "size": "0.875rem", "name": "Mic" },
+        { "slug": "medium",  "size": "1rem",     "name": "Mediu" },
+        { "slug": "large",   "size": "1.25rem",  "name": "Mare" },
+        { "slug": "x-large", "size": "1.75rem",  "name": "Foarte mare" },
+        { "slug": "xx-large","size": "2.5rem",   "name": "Titlu" }
+      ]
+    },
+    "spacing": {
+      "units": ["px", "em", "rem", "%", "vh", "vw"],
+      "padding": true,
+      "margin": true,
+      "blockGap": true
+    },
+    "layout": {
+      "contentSize": "780px",
+      "wideSize": "1240px"
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var(--color-bg, #FFFFFF)",
+      "text": "var(--color-text, #1A1A1A)"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|body",
+      "lineHeight": "1.7"
+    },
+    "elements": {
+      "h1": { "typography": { "fontFamily": "var:preset|font-family|heading", "fontWeight": "900" } },
+      "h2": { "typography": { "fontFamily": "var:preset|font-family|heading", "fontWeight": "800" } },
+      "h3": { "typography": { "fontFamily": "var:preset|font-family|heading", "fontWeight": "700" } },
+      "link": {
+        "color": { "text": "var(--wp--preset--color--primary)" },
+        ":hover": { "color": { "text": "var(--wp--preset--color--accent)" } }
+      }
+    }
+  }
+}

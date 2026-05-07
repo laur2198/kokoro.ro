@@ -10,11 +10,18 @@ kokoro.ro/
 │   ├── *.php             Template-uri (15 fișiere): index, functions, header, footer,
 │   │                     single-*, page-*, archive, category, search, 404
 │   ├── style.css         Antet WordPress + import variabile
-│   ├── inc/              CPT, ACF fields, SEO meta, form handler
+│   ├── theme.json        Settings Gutenberg (paletă, tipografie, layout)
+│   ├── inc/              ACF fields, SEO meta, form handler, CPT notices
+│   ├── languages/        Folder pentru traduceri .po/.mo (text-domain: kokoro)
+│   ├── comments.php      Template comentarii
 │   ├── assets/           CSS (5), JS (1), SVG (3)
 │   └── preview/          HTML static identic vizual cu tema (deploy pe gh-pages)
+├── mu-plugins/           Must-use plugins (deploy în wp-content/mu-plugins/)
+│   └── kokoro-content-types.php   Înregistrare CPT campion/disciplina/antrenor
 └── kokoro-theme.zip      Arhivă gata pentru WordPress upload
 ```
+
+> **Notă deploy:** mu-plugin-ul de Content Types se copiază separat în `wp-content/mu-plugins/` pe server (vezi `kokoro-theme/INSTALL.md` PAS 1B). Decuplează CPT-urile de temă, ca să nu pierzi conținutul la schimbarea temei.
 
 ## Preview live (GitHub Pages)
 

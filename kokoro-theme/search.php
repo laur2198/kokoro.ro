@@ -68,20 +68,26 @@ $total   = (int) $wp_query->found_posts;
       </div>
 
       <!-- Pagination -->
-      <?php
-        $pagination = paginate_links([
-            'prev_text' => '← Anterior',
-            'next_text' => 'Următor →',
-            'type'      => 'array',
-        ]);
-        if (!empty($pagination)) :
-      ?>
-        <nav style="display: flex; gap: var(--space-sm); justify-content: center; margin-top: var(--space-3xl); flex-wrap: wrap;">
-          <?php foreach ($pagination as $link) : ?>
-            <span><?php echo $link; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WP-built ?></span>
-          <?php endforeach; ?>
-        </nav>
-      <?php endif; ?>
+      <div style="text-align: center; margin-top: var(--space-3xl);">
+        <?php
+          if (function_exists('wp_pagenavi')) {
+            wp_pagenavi();
+          } else {
+            $pagination = paginate_links([
+                'prev_text' => '← Anterior',
+                'next_text' => 'Următor →',
+                'type'      => 'array',
+            ]);
+            if (!empty($pagination)) {
+                echo '<nav style="display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap;">';
+                foreach ($pagination as $link) {
+                    echo '<span>' . $link . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WP-built
+                }
+                echo '</nav>';
+            }
+          }
+        ?>
+      </div>
 
     <?php else : ?>
       <div style="text-align: center; padding: var(--space-3xl) 0;">

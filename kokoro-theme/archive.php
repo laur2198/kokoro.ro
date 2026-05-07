@@ -73,11 +73,15 @@ get_header();
 
       <div style="text-align: center; margin-top: var(--space-3xl);">
         <?php
-          the_posts_pagination([
-            'mid_size'  => 2,
-            'prev_text' => '&larr; Anterioare',
-            'next_text' => 'Următoare &rarr;',
-          ]);
+          if (function_exists('wp_pagenavi')) {
+            wp_pagenavi();
+          } else {
+            the_posts_pagination([
+              'mid_size'  => 2,
+              'prev_text' => '&larr; Anterioare',
+              'next_text' => 'Următoare &rarr;',
+            ]);
+          }
         ?>
       </div>
 
