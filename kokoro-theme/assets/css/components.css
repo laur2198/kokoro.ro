@@ -62,8 +62,10 @@
   color: var(--color-white);
 }
 
-.section--blue a:hover {
-  color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  .section--blue a:hover {
+    color: var(--color-accent);
+  }
 }
 
 .section--blue strong {
@@ -97,9 +99,11 @@
   color: var(--color-white);
 }
 
-.section--blue .btn--outline:hover {
-  background: var(--color-white);
-  color: var(--color-primary);
+@media (hover: hover) and (pointer: fine) {
+  .section--blue .btn--outline:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+  }
 }
 
 .section--blue .btn--outline-accent {
@@ -107,9 +111,11 @@
   color: var(--color-accent);
 }
 
-.section--blue .btn--outline-accent:hover {
-  background: var(--color-accent);
-  color: var(--color-primary-dark);
+@media (hover: hover) and (pointer: fine) {
+  .section--blue .btn--outline-accent:hover {
+    background: var(--color-accent);
+    color: var(--color-primary-dark);
+  }
 }
 
 .section--blue .jp-quote__kanji {
@@ -175,9 +181,11 @@
   color: var(--color-primary-dark);
 }
 
-.section--accent .btn--outline:hover {
-  background: var(--color-primary-dark);
-  color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  .section--accent .btn--outline:hover {
+    background: var(--color-primary-dark);
+    color: var(--color-accent);
+  }
 }
 
 .section--accent .value-item__kanji {
@@ -228,20 +236,10 @@
   border-color: var(--color-primary);
 }
 
-.btn--primary:hover {
-  background: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
-}
-
 .btn--secondary {
   background: var(--color-accent);
   color: var(--color-primary-dark);
   border-color: var(--color-accent);
-}
-
-.btn--secondary:hover {
-  background: #E6C200;
-  border-color: #E6C200;
 }
 
 .btn--outline {
@@ -250,20 +248,10 @@
   border-color: var(--color-primary);
 }
 
-.btn--outline:hover {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-
 .btn--outline-white {
   background: transparent;
   color: var(--color-white);
   border-color: var(--color-white);
-}
-
-.btn--outline-white:hover {
-  background: var(--color-white);
-  color: var(--color-primary);
 }
 
 .btn--outline-accent {
@@ -272,9 +260,28 @@
   border-color: var(--color-primary);
 }
 
-.btn--outline-accent:hover {
-  background: var(--color-primary);
-  color: var(--color-white);
+/* Hover states gated — pe touch (hover: none), :hover sticks după tap */
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+  }
+  .btn--secondary:hover {
+    background: #E6C200;
+    border-color: #E6C200;
+  }
+  .btn--outline:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+  .btn--outline-white:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+  }
+  .btn--outline-accent:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
 }
 
 .btn:focus-visible {
@@ -388,9 +395,14 @@
   transition: width var(--transition-base);
 }
 
-.kokoro-menu__link:hover,
 .kokoro-menu__item--active .kokoro-menu__link {
   color: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .kokoro-menu__link:hover {
+    color: var(--color-accent);
+  }
 }
 
 .kokoro-menu__link:hover::after,
@@ -455,8 +467,10 @@
   z-index: var(--z-modal);
 }
 
-.navbar__close:hover {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .navbar__close:hover {
+    opacity: 1;
+  }
 }
 
 .navbar__close:focus-visible {
@@ -485,10 +499,12 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.card:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(21, 101, 192, 0.12);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(21, 101, 192, 0.12);
+  }
 }
 
 .card__number {
@@ -1154,8 +1170,10 @@
   transition: color var(--transition-fast);
 }
 
-.footer__link:hover {
-  color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  .footer__link:hover {
+    color: var(--color-accent);
+  }
 }
 
 .footer__social {
@@ -1174,9 +1192,11 @@
   transition: all var(--transition-base);
 }
 
-.footer__social-link:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  .footer__social-link:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
 }
 
 .footer__bottom {
@@ -1334,34 +1354,7 @@
   color: var(--color-accent);
 }
 
-.whatsapp-float {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 60px;
-  height: 60px;
-  background: #25D366;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
-  z-index: 999;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  color: #fff;
-}
-
-.whatsapp-float:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55);
-  color: #fff;
-}
-
-.whatsapp-float svg {
-  width: 32px;
-  height: 32px;
-  fill: currentColor;
-}
+/* WhatsApp floating button — single source of truth (definiția canonică e mai jos) */
 
 @media (max-width: 768px) {
   .whatsapp-float {
@@ -1447,7 +1440,7 @@
   gap: var(--space-lg);
 }
 
-/* ---------- WhatsApp Float Button ---------- */
+/* ---------- WhatsApp Float Button — single source of truth ---------- */
 
 .whatsapp-float {
   position: fixed;
@@ -1460,13 +1453,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: var(--z-sticky);
+  z-index: var(--z-float-action); /* peste sticky CTA bar, sub overlay/modal */
   box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
-  transition: transform var(--transition-spring);
+  transition: transform var(--transition-spring), box-shadow var(--transition-fast);
 }
 
 .whatsapp-float:hover {
   transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55);
 }
 
 .whatsapp-float svg {

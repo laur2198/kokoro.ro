@@ -1,6 +1,9 @@
 /* ==========================================================================
    Responsive Breakpoints — Kokoro Design System
-   Mobile-first: 320px → 768px → 1024px → 1440px+
+   Desktop-first cascade (max-width queries) — compatible with existing
+   components.css patterns. Breakpoint ladder: 480 → 768 → 1024 → 1440+.
+   Smallest tested viewport is 480px; sub-360 viewports rely on cumulative
+   max-width:480 rules (no dedicated query — see audit Faza 6 Issue 4).
    ========================================================================== */
 
 /* ---------- Tablet (max 1024px) ---------- */

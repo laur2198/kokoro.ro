@@ -87,3 +87,25 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
 }
+
+/* ==========================================================================
+   Touch UX (Faza 6 — Issue 11)
+   touch-action: manipulation NU dezactivează pinch-zoom global, doar
+   double-tap-to-zoom local pe elementele interactive — a11y preserved.
+   ========================================================================== */
+
+* {
+  -webkit-tap-highlight-color: rgba(21, 101, 192, 0.15); /* primary cu alpha */
+}
+
+.btn,
+.kokoro-menu__link,
+.navbar a,
+.kokoro-sticky-cta__btn,
+.whatsapp-float,
+.skip-link,
+.footer__link,
+.footer__social-link {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
