@@ -51,8 +51,8 @@ add_action('init', 'kokoro_register_msg_cpt');
 /**
  * 2. Adaugă coloane utile în lista de Mesaje (admin).
  */
-add_filter('manage_kokoro_msg_posts_columns', function ($cols) {
-    $new = [
+function kokoro_msg_admin_columns($cols) {
+    return [
         'cb'        => $cols['cb'] ?? '',
         'title'     => __('Titlu', 'kokoro'),
         'msg_type'  => __('Tip', 'kokoro'),
@@ -60,27 +60,45 @@ add_filter('manage_kokoro_msg_posts_columns', function ($cols) {
         'msg_phone' => __('Telefon', 'kokoro'),
         'date'      => __('Primit la', 'kokoro'),
     ];
-    return $new;
-});
-add_action('manage_kokoro_msg_posts_custom_column', function ($col, $post_id) {
+}
+add_filter('manage_kokoro_msg_posts_columns', 'kokoro_msg_admin_columns');
+
+function kokoro_msg_admin_column_content($col, $post_id) {
     if ($col === 'msg_type') {
         $type = get_post_meta($post_id, '_kokoro_form_type', true);
         echo esc_html($type ?: '—');
-    }
-    if ($col === 'msg_email') {
+    } elseif ($col === 'msg_email') {
         $e = get_post_meta($post_id, '_kokoro_email', true);
         if ($e) echo '<a href="mailto:' . esc_attr(antispambot($e)) . '">' . esc_html($e) . '</a>';
         else echo '—';
-    }
-    if ($col === 'msg_phone') {
+    } elseif ($col === 'msg_phone') {
         echo esc_html(get_post_meta($post_id, '_kokoro_phone', true) ?: '—');
     }
-}, 10, 2);
+}
+add_action('manage_kokoro_msg_posts_custom_column', 'kokoro_msg_admin_column_content', 10, 2);
 
 /**
  * 3. Handler pentru submisii de formular (acționat prin admin-post.php).
  *    Folosit de ambele formulare (contact + înscriere) cu un câmp form_type.
  */
+/**
+ * Determină IP-ul real al clientului. Respectă X-Forwarded-For și CF-Connecting-IP
+ * (LiteSpeed și Cloudflare îl populează). Fallback la REMOTE_ADDR.
+ *
+ * @return string IPv4/IPv6 valid sau '0.0.0.0' fallback.
+ */
+function kokoro_get_client_ip() {
+    foreach (['HTTP_CF_CONNECTING_IP', 'HTTP_X_REAL_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'] as $h) {
+        if (empty($_SERVER[$h])) continue;
+        $candidate = explode(',', (string) $_SERVER[$h])[0];
+        $candidate = trim($candidate);
+        if (filter_var($candidate, FILTER_VALIDATE_IP)) {
+            return $candidate;
+        }
+    }
+    return '0.0.0.0';
+}
+
 function kokoro_handle_form_submit() {
     // Verify nonce
     if (!isset($_POST['kokoro_form_nonce']) || !wp_verify_nonce($_POST['kokoro_form_nonce'], 'kokoro_form_submit')) {
@@ -97,6 +115,20 @@ function kokoro_handle_form_submit() {
     if ($form_time > 0 && (time() - $form_time) < 2) {
         kokoro_form_redirect_back('spam');
     }
+
+    // Rate limit per IP — max 3/minut și 5/oră.
+    // Nu împiedică un user real să trimită (pragul e generos), dar oprește spam-ul masiv.
+    $ip       = kokoro_get_client_ip();
+    $ip_hash  = md5($ip);
+    $min_key  = 'kk_rl_m_' . $ip_hash;
+    $hour_key = 'kk_rl_h_' . $ip_hash;
+    $min_n    = (int) get_transient($min_key);
+    $hour_n   = (int) get_transient($hour_key);
+    if ($min_n >= 3 || $hour_n >= 5) {
+        kokoro_form_redirect_back('rate_limit');
+    }
+    set_transient($min_key,  $min_n  + 1, MINUTE_IN_SECONDS);
+    set_transient($hour_key, $hour_n + 1, HOUR_IN_SECONDS);
 
     // Whitelist form_type — orice altă valoare cade pe „contact"
     $allowed_types = ['contact', 'inscriere'];
@@ -205,11 +237,33 @@ add_action('admin_post_kokoro_form_submit',        'kokoro_handle_form_submit');
 
 /**
  * Redirect helper: trimite înapoi la pagina de unde vine, cu un parametru status.
+ *
+ * Setează un token unic într-un cookie + transient, validat de banner — fără
+ * cookie, banner-ul nu se afișează (anti-phishing: linkurile shareate cu
+ * ?kokoro_form=ok nu mai produc fals-pozitiv „Mesaj trimis cu succes").
  */
 function kokoro_form_redirect_back($status, $referer = null) {
     if ($referer === null) {
         $referer = wp_get_referer() ?: home_url('/');
     }
+
+    // Anti-phishing: token unic, transient 60s, cookie 90s.
+    if (!headers_sent()) {
+        $token = wp_generate_password(20, false, false);
+        set_transient('kk_form_status_' . $token, sanitize_key($status), 60);
+        setcookie(
+            'kokoro_form_token',
+            $token,
+            [
+                'expires'  => time() + 90,
+                'path'     => '/',
+                'secure'   => is_ssl(),
+                'httponly' => true,
+                'samesite' => 'Lax',
+            ]
+        );
+    }
+
     $url = add_query_arg('kokoro_form', $status, remove_query_arg('kokoro_form', $referer));
     wp_safe_redirect($url . '#kokoro-form');
     exit;
@@ -219,14 +273,15 @@ function kokoro_form_redirect_back($status, $referer = null) {
  * Bypass cache pentru paginile cu ?kokoro_form=... ca să nu apară banner-ul
  * de succes la utilizatori random când SpeedyCache/LiteSpeed cache-uiesc URL-ul.
  */
-add_action('template_redirect', function () {
+function kokoro_form_nocache_on_status() {
     if (!empty($_GET['kokoro_form'])) {
         nocache_headers();
         if (!defined('DONOTCACHEPAGE')) {
             define('DONOTCACHEPAGE', true);
         }
     }
-});
+}
+add_action('template_redirect', 'kokoro_form_nocache_on_status');
 
 /**
  * Helper: afișează banner de succes/eroare deasupra formularului
@@ -236,12 +291,21 @@ function kokoro_form_status_banner() {
     $status = isset($_GET['kokoro_form']) ? sanitize_key($_GET['kokoro_form']) : '';
     if ($status === '') return;
 
+    // Anti-phishing: banner-ul apare doar dacă există un token de cookie valid,
+    // emis de kokoro_form_redirect_back() la submit. Token-ul e one-time use.
+    $token = isset($_COOKIE['kokoro_form_token']) ? sanitize_text_field($_COOKIE['kokoro_form_token']) : '';
+    if ($token === '') return;
+    $expected = get_transient('kk_form_status_' . $token);
+    if ($expected !== $status) return;
+    delete_transient('kk_form_status_' . $token); // one-shot
+
     $messages = [
-        'ok'        => ['Mesajul a fost trimis cu succes! Te contactăm în cel mai scurt timp.', 'success'],
-        'mail_fail' => ['Mesajul a fost salvat, dar nu am putut trimite emailul. Te vom contacta noi.', 'warning'],
-        'invalid'   => ['Te rog completează corect câmpurile obligatorii (marcate cu *).', 'error'],
-        'nonce'     => ['Sesiunea a expirat. Reîncarcă pagina și încearcă din nou.', 'error'],
-        'spam'      => ['Mesajul nu a putut fi trimis. Dacă nu ești bot, contactează-ne direct.', 'error'],
+        'ok'         => ['Mesajul a fost trimis cu succes! Te contactăm în cel mai scurt timp.', 'success'],
+        'mail_fail'  => ['Mesajul a fost salvat, dar nu am putut trimite emailul. Te vom contacta noi.', 'warning'],
+        'invalid'    => ['Te rog completează corect câmpurile obligatorii (marcate cu *).', 'error'],
+        'nonce'      => ['Sesiunea a expirat. Reîncarcă pagina și încearcă din nou.', 'error'],
+        'spam'       => ['Mesajul nu a putut fi trimis. Dacă nu ești bot, contactează-ne direct.', 'error'],
+        'rate_limit' => ['Prea multe trimiteri într-un interval scurt. Te rog încearcă peste câteva minute sau sună-ne direct.', 'warning'],
     ];
 
     if (!isset($messages[$status])) return;
@@ -254,8 +318,10 @@ function kokoro_form_status_banner() {
     ];
     $c = $colors[$type] ?? $colors['error'];
 
+    // role="status" + aria-live="polite" → screen readers anunță banner-ul
+    // fără să întrerupă lectura curentă (apropiate de "soft" announcement).
     printf(
-        '<div id="kokoro-form" class="kokoro-form-banner" style="padding: var(--space-md) var(--space-lg); background: %s; color: %s; margin-bottom: var(--space-xl); border-radius: 4px; font-weight: 600;">%s</div>',
+        '<div id="kokoro-form" class="kokoro-form-banner" role="status" aria-live="polite" style="padding: var(--space-md) var(--space-lg); background: %s; color: %s; margin-bottom: var(--space-xl); border-radius: 4px; font-weight: 600;">%s</div>',
         esc_attr($c['bg']),
         esc_attr($c['color']),
         esc_html($msg)

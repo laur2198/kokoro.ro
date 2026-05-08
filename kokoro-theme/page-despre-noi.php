@@ -90,7 +90,7 @@ $antrenori = ($echipa_limit > 0) ? get_posts([
       </div>
       <?php if ($poveste_imagine !== '') : ?>
         <div>
-          <img src="<?php echo esc_url($poveste_imagine); ?>" alt="<?php echo esc_attr($poveste_titlu); ?>" style="width: 100%; height: auto; display: block;">
+          <img src="<?php echo esc_url($poveste_imagine); ?>" alt="<?php echo esc_attr($poveste_titlu); ?>" style="width: 100%; height: auto; display: block;" loading="lazy" decoding="async">
         </div>
       <?php endif; ?>
     </div>

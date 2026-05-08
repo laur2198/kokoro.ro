@@ -17,11 +17,14 @@ define('KOKORO_URI', get_template_directory_uri());
    ========================================================================== */
 
 require_once KOKORO_DIR . '/inc/cpt.php';
-require_once KOKORO_DIR . '/inc/acf-fields.php';
+require_once KOKORO_DIR . '/inc/helpers.php';            // kokoro_setting, kokoro_render_italic_title, kokoro_strip_honorific etc.
+require_once KOKORO_DIR . '/inc/acf-fields.php';         // bootstrap: require inc/acf/*.php
 require_once KOKORO_DIR . '/inc/forms.php';
-require_once KOKORO_DIR . '/inc/seo-meta.php';
+require_once KOKORO_DIR . '/inc/seo-meta.php';          // <head> meta tags + title filter
+require_once KOKORO_DIR . '/inc/seo-schemas.php';       // JSON-LD schema generators (split din seo-meta)
 require_once KOKORO_DIR . '/inc/security-headers.php';
 require_once KOKORO_DIR . '/inc/acf-pages-extra.php';
+require_once KOKORO_DIR . '/inc/activation.php';        // theme activation: create default pages
 
 /* ==========================================================================
    1. Theme Setup
@@ -114,13 +117,13 @@ function kokoro_enqueue_assets() {
         );
     }
 
-    // Main script
+    // Main script — in_footer + defer (parsing parallelism, WP 6.3+ strategy API)
     wp_enqueue_script(
         'kokoro-main',
         KOKORO_URI . '/assets/js/main.js',
         [],
         KOKORO_VERSION,
-        true
+        ['strategy' => 'defer', 'in_footer' => true]
     );
 
     // Pass data to JS
@@ -131,6 +134,20 @@ function kokoro_enqueue_assets() {
     ]);
 }
 add_action('wp_enqueue_scripts', 'kokoro_enqueue_assets');
+
+/**
+ * Preconnect la Google Fonts — TTFB -200-300ms pe conexiuni reci.
+ * Browser-ul deschide TCP+TLS la fonts.gstatic.com în paralel cu parsing-ul HTML,
+ * deci WOFF2 fetch-ul nu așteaptă întoarcerea CSS-ului.
+ */
+function kokoro_resource_hints($urls, $relation_type) {
+    if ($relation_type === 'preconnect') {
+        $urls[] = ['href' => 'https://fonts.googleapis.com'];
+        $urls[] = ['href' => 'https://fonts.gstatic.com', 'crossorigin' => 'anonymous'];
+    }
+    return $urls;
+}
+add_filter('wp_resource_hints', 'kokoro_resource_hints', 10, 2);
 
 /* ==========================================================================
    3. Custom Nav Walker
@@ -240,6 +257,132 @@ add_action('widgets_init', 'kokoro_widgets_init');
    ========================================================================== */
 
 /**
+ * Get footer disciplines (cached 1h). Invalidat automat la save_post_disciplina
+ * via version bump în option `kokoro_disc_ver` — fără DB scan pe transient_*.
+ *
+ * Rulează pe FIECARE pagină (footer e global), deci cache-ul e critic pentru
+ * a evita 5+ queries per request uncached.
+ *
+ * @param int $limit
+ * @return WP_Post[]
+ */
+function kokoro_get_footer_disciplines($limit) {
+    $limit  = max(1, (int) $limit);
+    $ver    = (int) get_option('kokoro_disc_ver', 1);
+    $key    = 'kokoro_footer_disc_v' . $ver . '_l' . $limit;
+    $cached = get_transient($key);
+    if (is_array($cached)) {
+        return $cached;
+    }
+    $posts = get_posts([
+        'post_type'              => 'disciplina',
+        'posts_per_page'         => $limit,
+        'post_status'            => 'publish',
+        'orderby'                => 'menu_order title',
+        'order'                  => 'ASC',
+        'no_found_rows'          => true,
+        'update_post_term_cache' => false,
+    ]);
+    set_transient($key, $posts, HOUR_IN_SECONDS);
+    return $posts;
+}
+
+/**
+ * Bump version → invalidates all footer-disc caches instantly (no DB scan).
+ */
+function kokoro_bump_disc_cache() {
+    update_option('kokoro_disc_ver', (int) get_option('kokoro_disc_ver', 1) + 1, false);
+}
+add_action('save_post_disciplina', 'kokoro_bump_disc_cache');
+add_action('deleted_post',         'kokoro_bump_disc_cache'); // covers any post deletion incl. disciplina
+
+/* ==========================================================================
+   Sticky CTA bar (mobile-only) pe paginile-cheie de conversie
+   ========================================================================== */
+
+/**
+ * Pagini unde apare sticky CTA bar (telefon + WhatsApp).
+ *
+ * @return string[] Listă de slug-uri.
+ */
+function kokoro_sticky_cta_slugs() {
+    $slugs = [
+        'inscriere',
+        'tarife',
+        'contact',
+        'ju-jitsu-copii-brasov',
+        'arte-martiale-copii-brasov',
+        'autoaparare-copii-brasov',
+    ];
+    /**
+     * Filter the slugs where the sticky mobile CTA bar appears.
+     *
+     * @param string[] $slugs Lista de slug-uri (post_name) unde bara apare.
+     */
+    return apply_filters('kokoro_sticky_cta_slugs', $slugs);
+}
+
+function kokoro_is_sticky_cta_page() {
+    if (!is_page()) return false;
+    return in_array(get_post_field('post_name'), kokoro_sticky_cta_slugs(), true);
+}
+
+/**
+ * Adaugă body class când pagina merită sticky CTA — CSS-ul folosește clasa
+ * pentru a adăuga padding-bottom la body (anti-overlap).
+ */
+function kokoro_body_class_sticky_cta($classes) {
+    if (kokoro_is_sticky_cta_page()) {
+        $classes[] = 'kokoro-has-sticky-cta';
+    }
+    return $classes;
+}
+add_filter('body_class', 'kokoro_body_class_sticky_cta');
+
+/**
+ * Render sticky CTA bar — vizibil doar pe mobile (≤768px) via CSS.
+ * Conține 2 butoane CTA: phone + WhatsApp. Respectă safe-area-inset-bottom.
+ */
+function kokoro_render_sticky_cta() {
+    if (!kokoro_is_sticky_cta_page()) return;
+
+    $tel  = kokoro_setting('telefon', '+40 742 037 973');
+    $tel_e164 = function_exists('kokoro_phone_to_e164')
+        ? kokoro_phone_to_e164($tel)
+        : '+' . preg_replace('/\D/', '', $tel);
+
+    $wa = preg_replace('/\D/', '', kokoro_setting('whatsapp_numar', '40742037973'));
+    if ($wa === '') $wa = '40742037973';
+    ?>
+    <div class="kokoro-sticky-cta" role="region" aria-label="<?php esc_attr_e('Contact rapid', 'kokoro'); ?>">
+        <a href="tel:<?php echo esc_attr($tel_e164); ?>" class="kokoro-sticky-cta__btn kokoro-sticky-cta__btn--phone">
+            <span class="kokoro-sticky-cta__icon" aria-hidden="true">📞</span>
+            <span><?php esc_html_e('Sună acum', 'kokoro'); ?></span>
+        </a>
+        <a href="https://wa.me/<?php echo esc_attr($wa); ?>" target="_blank" rel="noopener" class="kokoro-sticky-cta__btn kokoro-sticky-cta__btn--wa">
+            <span class="kokoro-sticky-cta__icon" aria-hidden="true">💬</span>
+            <span><?php esc_html_e('WhatsApp', 'kokoro'); ?></span>
+        </a>
+    </div>
+    <?php
+}
+add_action('wp_footer', 'kokoro_render_sticky_cta', 50);
+
+/**
+ * URL canonic pentru un antrenor — folosit ca @id în schema.org Person/Course.instructor.
+ *
+ * Strategy: ANTRENORII sunt entități canonice. Campionii care sunt și antrenori
+ * (cazul Adi) referențiază prin sameAs. Pillar inline schemas folosesc @id ref,
+ * nu Person inline cu nume duplicat.
+ *
+ * @param string $slug Slug-ul postului antrenor (ex. „sensei-lucian-boglut", „sempai-adrian", „sempai-dan").
+ * @return string URL absolut cu fragment #person.
+ */
+function kokoro_antrenor_canonical_id($slug) {
+    return home_url('/antrenor/' . sanitize_title($slug) . '/') . '#person';
+}
+
+/**
  * Get SVG icon from assets/images folder
  */
 function kokoro_svg($name) {
@@ -264,59 +407,8 @@ function kokoro_excerpt_more($more) {
 add_filter('excerpt_more', 'kokoro_excerpt_more');
 
 /* ==========================================================================
-   6. Theme Activation — Create Default Pages
+   6. Theme Activation — mutat în inc/activation.php
    ========================================================================== */
-
-function kokoro_activate() {
-    // [slug => [title, template_filename or null]]
-    $pages = [
-        'despre-noi' => ['Despre Noi',         'page-despre-noi.php'],
-        'antrenori'  => ['Antrenori',          'page-antrenori.php'],
-        'campioni'   => ['Campioni',           'page-campioni.php'],
-        'discipline' => ['Discipline',         'page-discipline.php'],
-        'orar'       => ['Orar',               'page-orar.php'],
-        'tarife'     => ['Tarife',             'page-tarife.php'],
-        'inscriere'  => ['Înscriere',          'page-inscriere.php'],
-        'galerie'    => ['Galerie',            'page-galerie.php'],
-        'contact'    => ['Contact',            'page-contact.php'],
-    ];
-
-    foreach ($pages as $slug => [$title, $template]) {
-        if (!get_page_by_path($slug)) {
-            $page_id = wp_insert_post([
-                'post_title'   => $title,
-                'post_name'    => $slug,
-                'post_status'  => 'publish',
-                'post_type'    => 'page',
-                'post_content' => '',
-            ]);
-            if ($page_id && !is_wp_error($page_id) && $template) {
-                update_post_meta($page_id, '_wp_page_template', $template);
-            }
-        }
-    }
-
-    // Front page: creează „Acasă" doar dacă nu există deja, apoi setează ca front static.
-    $front = get_page_by_path('acasa');
-    if (!$front) {
-        $front_id = wp_insert_post([
-            'post_title'  => 'Acasă',
-            'post_name'   => 'acasa',
-            'post_status' => 'publish',
-            'post_type'   => 'page',
-        ]);
-    } else {
-        $front_id = $front->ID;
-    }
-    if ($front_id && !is_wp_error($front_id)) {
-        update_option('page_on_front', $front_id);
-        update_option('show_on_front', 'page');
-    }
-
-    // Permalinks rewrite — necesar pentru CPT-urile noi (campion/disciplina/antrenor)
-    flush_rewrite_rules();
-}
-add_action('after_switch_theme', 'kokoro_activate');
 
 /* ==========================================================================
    7. ACF Plugin Dependency Notice

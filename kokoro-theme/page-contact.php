@@ -48,7 +48,7 @@ if ($form_titlu === '')      $form_titlu    = 'TRIMITE-NE|UN MESAJ';
 
       <!-- Contact Info -->
       <div class="reveal reveal--left">
-        <h3 class="heading-4" style="margin-bottom: var(--space-2xl);">INFORMAȚII<br><em>DE CONTACT</em></h3>
+        <h2 class="heading-4" style="margin-bottom: var(--space-2xl);">INFORMAȚII<br><em>DE CONTACT</em></h2>
 
         <?php if ($adresa !== '') : ?>
         <div class="contact-info__item">
@@ -147,7 +147,7 @@ if ($form_titlu === '')      $form_titlu    = 'TRIMITE-NE|UN MESAJ';
 
       <!-- Contact Form -->
       <div class="reveal reveal--right">
-        <h3 class="heading-4" style="margin-bottom: var(--space-2xl);">TRIMITE-NE<br><em>UN MESAJ</em></h3>
+        <h2 class="heading-4" style="margin-bottom: var(--space-2xl);">TRIMITE-NE<br><em>UN MESAJ</em></h2>
 
         <?php kokoro_form_status_banner(); ?>
 
@@ -159,8 +159,8 @@ if ($form_titlu === '')      $form_titlu    = 'TRIMITE-NE|UN MESAJ';
 
           <!-- Honeypot — câmp ascuns; bot-urile îl completează -->
           <div style="position: absolute; left: -9999px;" aria-hidden="true">
-            <label>Website</label>
-            <input type="text" name="website" tabindex="-1" autocomplete="off">
+            <label for="kokoro-honey-contact">Website</label>
+            <input type="text" id="kokoro-honey-contact" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           </div>
 
           <div class="form-group">

@@ -141,6 +141,79 @@ Sau via FTP — șterge fișierul. **Critic pentru securitate**.
 
 ---
 
+## PAS 6B — Cache exclusions (LiteSpeed / SpeedyCache)
+
+Tema folosește un cookie + transient pentru anti-phishing pe formulare. Ca să funcționeze corect, configurează cache-ul:
+
+### LiteSpeed Cache (admin → LiteSpeed Cache → Cache → Excludes)
+- **Do Not Cache URIs:** `*kokoro_form=*`
+- **Do Not Cache Cookies:** `kokoro_form_token`
+- **Optional — bypass complet pentru paginile cu formular** (mai sigur dacă ai dubii):
+  - `/contact/`
+  - `/inscriere/`
+
+### SpeedyCache (admin → SpeedyCache → Settings → Advanced)
+- **Never Cache URLs / Query Strings:** `kokoro_form`
+- **Never Cache Cookies:** `kokoro_form_token`
+
+### Calendar All-in-One Event
+Plugin-ul Time.ly poate emite output dinamic (filtre, AJAX). Adaugă `/calendar-competitional/` în „Never cache URLs" dacă observi probleme.
+
+---
+
+## PAS 6C — Performance profiling (recomandat pe staging înainte de launch)
+
+Tema are 3 instrumente disponibile pentru a identifica bottleneck-uri reale înainte de optimizări speculative:
+
+### A. Query Monitor (gratuit, esențial)
+1. WP Admin → Plugins → Add New → caută **„Query Monitor"** de John Blackbourn
+2. Activează. Apare un panou în admin bar pe orice pagină front-end (când ești logat ca admin).
+3. Verifică pe paginile-cheie:
+   - Homepage
+   - `/noutati/` (archive)
+   - `/contact/`, `/inscriere/` (forms)
+   - `/tarife/`, `/orar/` (heavy ACF)
+   - `/ju-jitsu-copii-brasov/` (pillar SEO)
+
+   Pentru fiecare, notează:
+   - **Queries** total (target: <50 normal, <20 ideal)
+   - **DB time** (target: <50ms)
+   - **Memory** (target: <40MB)
+   - **Slow queries** (highlighted roșu > 50ms)
+
+### B. Kokoro Perf Snapshot (custom)
+Tap intern care colectează: query count, timing per hook, count get_field ACF, inventar `<img>` cu lazy/srcset/dimensiuni/bytes, dimensiune HTML.
+
+**Instalare (mu-plugin mode):**
+1. Adaugă în `wp-config.php` deasupra liniei „That's all, stop editing":
+   ```php
+   define('SAVEQUERIES', true);
+   ```
+   (dezactivează după colectare — afectează 5-10% performanța)
+2. Copiază `kokoro-theme/bin/perf-snapshot.php` în `wp-content/mu-plugins/perf-snapshot.php` (creează folderul dacă nu există)
+3. Loghează ca admin → vizitează paginile-cheie. Apare un panel în colț dreapta-jos.
+4. Pentru a salva JSON: vizitează cu `?kokoro_perf_dump=1` → fișier în `wp-content/uploads/kokoro-perf/`
+5. **Trimite înapoi JSON-urile** (pentru toate cele 6+ pagini).
+6. După colectare: șterge `wp-content/mu-plugins/perf-snapshot.php` și scoate `SAVEQUERIES` din wp-config.
+
+### C. Lighthouse (Chrome DevTools)
+1. Deschide site-ul pe staging (sau production cu URL secret).
+2. Chrome DevTools (F12) → tab **„Lighthouse"** → mode **Navigation** → device **Mobile** → categories **Performance + SEO + Accessibility + Best Practices**.
+3. Run audit. Salvează raportul ca PDF/JSON.
+4. Repetă pentru fiecare pagină-cheie (homepage, contact, ju-jitsu-copii-brasov).
+5. Notează LCP, CLS, INP, TBT, FCP — și send back ca PNG/PDF/JSON.
+
+### Ce rapoarte trimiți înapoi
+Pentru un audit fundamentat, am nevoie de:
+- [ ] 6× JSON din `kokoro-perf/` (homepage + 5 pagini-cheie)
+- [ ] 6× Lighthouse mobile reports (HTML sau PDF)
+- [ ] Screenshot Query Monitor pe homepage + 1 pagină cu formular
+- [ ] (Opțional) WebPageTest waterfall pe `https://www.webpagetest.org/`, locație București, browser Chrome, network 4G
+
+Fără aceste date, optimizările următoare sunt speculative.
+
+---
+
 ## PAS 7 — SEO & Analytics (opțional, după launch)
 
 1. **Google Search Console** — adaugă proprietatea `https://kokoro.ro` și verifică prin DNS sau HTML tag

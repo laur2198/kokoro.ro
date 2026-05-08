@@ -18,6 +18,9 @@ if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<!-- Skip link — keyboard navigation (WCAG 2.4.1) -->
+<a class="skip-link" href="#content"><?php esc_html_e('Sări la conținutul principal', 'kokoro'); ?></a>
+
 <!-- Sakura Petals Container -->
 <div class="sakura-container" aria-hidden="true"></div>
 
@@ -25,16 +28,16 @@ if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');
 <nav class="navbar" role="navigation" aria-label="<?php esc_attr_e('Meniu principal', 'kokoro'); ?>">
   <div class="navbar__inner">
 
-    <!-- Logo -->
-    <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar__logo" aria-label="Kokoro Brașov Academy — Acasă">
+    <!-- Logo (link primește accessible name din aria-label; img alt="" decorative) -->
+    <a href="<?php echo esc_url(home_url('/')); ?>" class="navbar__logo" aria-label="<?php esc_attr_e('Kokoro Brașov Academy — Acasă', 'kokoro'); ?>">
       <?php if (has_custom_logo()) : ?>
         <?php
           $logo_id = get_theme_mod('custom_logo');
           $logo_url = wp_get_attachment_image_url($logo_id, 'full');
         ?>
-        <img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>" width="50" height="50">
+        <img src="<?php echo esc_url($logo_url); ?>" alt="" width="50" height="50">
       <?php else : ?>
-        <img src="<?php echo esc_url(KOKORO_URI . '/assets/images/enso-circle.svg'); ?>" alt="<?php bloginfo('name'); ?>" width="50" height="50">
+        <img src="<?php echo esc_url(KOKORO_URI . '/assets/images/enso-circle.svg'); ?>" alt="" width="50" height="50">
       <?php endif; ?>
       <span class="navbar__logo-text">Kokoro <span>Academy</span></span>
     </a>
@@ -59,16 +62,16 @@ if ($header_cta_url === '') $header_cta_url = home_url('/inscriere/');
     </a>
 
     <!-- Hamburger Button -->
-    <button class="navbar__hamburger" aria-label="<?php esc_attr_e('Deschide meniu', 'kokoro'); ?>" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button type="button" class="navbar__hamburger" aria-label="<?php esc_attr_e('Deschide meniu', 'kokoro'); ?>" aria-expanded="false" aria-controls="mobile-menu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
     </button>
   </div>
 </nav>
 
 <!-- Mobile Menu Overlay -->
-<div class="navbar__mobile-menu" aria-hidden="true">
+<div id="mobile-menu" class="navbar__mobile-menu" aria-hidden="true">
   <?php
     wp_nav_menu([
       'theme_location' => 'primary',

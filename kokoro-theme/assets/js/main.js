@@ -11,24 +11,88 @@
      ========================================================================== */
 
   function initMobileMenu() {
-    const hamburger = document.querySelector('.navbar__hamburger');
-    const mobileMenu = document.querySelector('.navbar__mobile-menu');
+    var hamburger = document.querySelector('.navbar__hamburger');
+    var mobileMenu = document.querySelector('.navbar__mobile-menu');
 
     if (!hamburger || !mobileMenu) return;
 
+    var lastFocused = null;
+
+    function getFocusable() {
+      return mobileMenu.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+    }
+
+    function openMenu() {
+      hamburger.classList.add('navbar__hamburger--active');
+      mobileMenu.classList.add('navbar__mobile-menu--active');
+      hamburger.setAttribute('aria-expanded', 'true');
+      hamburger.setAttribute('aria-label', 'Închide meniu');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      // Move focus to first interactive element în meniu
+      lastFocused = document.activeElement;
+      var focusable = getFocusable();
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      }
+    }
+
+    function closeMenu() {
+      hamburger.classList.remove('navbar__hamburger--active');
+      mobileMenu.classList.remove('navbar__mobile-menu--active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.setAttribute('aria-label', 'Deschide meniu');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      // Restore focus la elementul anterior
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      } else {
+        hamburger.focus();
+      }
+    }
+
+    function isOpen() {
+      return mobileMenu.classList.contains('navbar__mobile-menu--active');
+    }
+
     hamburger.addEventListener('click', function () {
-      hamburger.classList.toggle('navbar__hamburger--active');
-      mobileMenu.classList.toggle('navbar__mobile-menu--active');
-      document.body.style.overflow = mobileMenu.classList.contains('navbar__mobile-menu--active') ? 'hidden' : '';
+      if (isOpen()) closeMenu();
+      else openMenu();
     });
 
     // Close on link click
     mobileMenu.querySelectorAll('.kokoro-menu__link').forEach(function (link) {
       link.addEventListener('click', function () {
-        hamburger.classList.remove('navbar__hamburger--active');
-        mobileMenu.classList.remove('navbar__mobile-menu--active');
-        document.body.style.overflow = '';
+        closeMenu();
       });
+    });
+
+    // Esc closes menu + Tab focus trap în interiorul meniului
+    document.addEventListener('keydown', function (e) {
+      if (!isOpen()) return;
+
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        e.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        var focusable = getFocusable();
+        if (focusable.length === 0) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
   }
 

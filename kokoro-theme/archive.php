@@ -42,7 +42,7 @@ get_header();
 
           <article class="post-card reveal">
             <?php if (has_post_thumbnail()) : ?>
-              <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'kokoro-card')); ?>" alt="<?php the_title_attribute(); ?>" class="post-card__image">
+              <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'kokoro-card')); ?>" alt="" class="post-card__image" loading="lazy" decoding="async">
             <?php else : ?>
               <div class="post-card__image" style="background: var(--color-bg-card); display: flex; align-items: center; justify-content: center;">
                 <span style="color: var(--color-gray); font-size: 0.875rem;">Kokoro</span>

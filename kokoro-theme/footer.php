@@ -27,14 +27,9 @@ $footer_tagline        = kokoro_setting('footer_tagline',        'Kokoro — Ini
 $wa_numar = preg_replace('/\D/', '', kokoro_setting('whatsapp_numar', '40742037973'));
 $wa_arata = function_exists('get_field') ? (bool) get_field('set_whatsapp_arata', 'option') : true;
 
-// Disciplinele pentru footer (pull din CPT)
-$footer_disc = get_posts([
-    'post_type'      => 'disciplina',
-    'posts_per_page' => $footer_disc_limit,
-    'post_status'    => 'publish',
-    'orderby'        => 'menu_order title',
-    'order'          => 'ASC',
-]);
+// Disciplinele pentru footer (pull din CPT) — cached 1h, invalidat de
+// kokoro_bump_disc_cache() pe save_post_disciplina (vezi functions.php).
+$footer_disc = kokoro_get_footer_disciplines($footer_disc_limit);
 ?>
 
 <!-- Footer -->
@@ -50,15 +45,15 @@ $footer_disc = get_posts([
   <div class="container">
     <div class="footer__grid">
 
-      <!-- Brand Column -->
+      <!-- Brand Column (link primește accessible name din aria-label; img alt="" decorative — descrierea de mai jos oferă context) -->
       <div class="footer__brand">
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="footer__logo">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="footer__logo" aria-label="<?php esc_attr_e('Kokoro Brașov Academy — Acasă', 'kokoro'); ?>">
           <?php if (has_custom_logo()) : ?>
             <?php
               $logo_id = get_theme_mod('custom_logo');
               $logo_url = wp_get_attachment_image_url($logo_id, 'full');
             ?>
-            <img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>" width="60" height="60">
+            <img src="<?php echo esc_url($logo_url); ?>" alt="" width="60" height="60">
           <?php endif; ?>
         </a>
         <?php if ($footer_descriere !== '') : ?>

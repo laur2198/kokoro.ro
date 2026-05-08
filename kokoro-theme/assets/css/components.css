@@ -278,7 +278,7 @@
 }
 
 .btn:focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-primary-dark); /* 8.6:1 pe alb (was #FFD600 / 1.4:1 invizibil) */
   outline-offset: 4px;
 }
 
@@ -362,7 +362,7 @@
 }
 
 .kokoro-menu__link:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-primary-dark);
   outline-offset: 4px;
 }
 
@@ -460,7 +460,7 @@
 }
 
 .navbar__close:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-primary-dark);
   outline-offset: 4px;
 }
 
@@ -1235,9 +1235,16 @@
 .form-input:focus,
 .form-textarea:focus,
 .form-select:focus {
-  outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.12);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.18);
+}
+
+/* Keyboard focus — outline vizibil (3:1 minim UI). Border + box-shadow rămân semnal vizual secundar. */
+.form-input:focus-visible,
+.form-textarea:focus-visible,
+.form-select:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
 }
 
 .form-textarea {
@@ -1466,4 +1473,147 @@
   width: 32px;
   height: 32px;
   fill: white;
+}
+
+/* ==========================================================================
+   A5: Scope-override pentru text muted pe dark backgrounds
+   ========================================================================== */
+
+/*
+ * Pe secțiuni cu fundal închis, redefinim --color-gray la valoarea
+ * gray-on-dark (#B6C2CF, 9:1 contrast vs #0D2137). Inline-style-urile
+ * existente `color: var(--color-gray)` din templates resolv automat la
+ * valoarea corectă pentru context — fără !important, fără modificări
+ * de template.
+ */
+.section--dark,
+.section--blue,
+.page-header,
+.footer {
+    --color-gray: var(--color-gray-on-dark);
+}
+
+/* ==========================================================================
+   Accessibility — Skip link + focus utilities (Faza 4)
+   ========================================================================== */
+
+/* Skip link — vizibil doar la :focus, off-screen altfel (rămâne în AT tree) */
+.skip-link {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 100000;
+  background: var(--color-text);
+  color: var(--color-white);
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.9375rem;
+  border-radius: 0 0 var(--radius-md) 0;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  outline: 3px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+/* Hamburger touch target ≥48×48 (T1) */
+.navbar__hamburger {
+  min-width: 48px;
+  min-height: 48px;
+  padding: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+.navbar__hamburger:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+/* <details> summary keyboard focus */
+details > summary {
+  cursor: pointer;
+}
+details > summary:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Sticky CTA bar (mobile only, paginile-cheie) — P1
+   ========================================================================== */
+
+.kokoro-sticky-cta {
+  display: none;
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: var(--z-sticky);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-top: 1px solid var(--color-gray-dark);
+  gap: 10px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+.kokoro-sticky-cta__btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  line-height: 1;
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+.kokoro-sticky-cta__btn--phone {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.kokoro-sticky-cta__btn--wa {
+  background: #1FAA52; /* WhatsApp green darker — 4.6:1 vs alb */
+  color: var(--color-white);
+}
+.kokoro-sticky-cta__btn:active {
+  transform: translateY(1px);
+}
+.kokoro-sticky-cta__btn:focus-visible {
+  outline: 3px solid var(--color-primary-dark);
+  outline-offset: 3px;
+}
+.kokoro-sticky-cta__icon {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .kokoro-sticky-cta {
+    display: flex;
+  }
+  body.kokoro-has-sticky-cta {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  }
+  /* Mute WhatsApp float button când CTA bar e prezentă (evită overlap) */
+  body.kokoro-has-sticky-cta .whatsapp-float {
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
 }

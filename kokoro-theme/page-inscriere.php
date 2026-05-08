@@ -44,14 +44,14 @@ get_header();
       <input type="hidden" name="form_time"  value="<?php echo esc_attr(time()); ?>">
       <?php wp_nonce_field('kokoro_form_submit', 'kokoro_form_nonce'); ?>
 
-      <!-- Honeypot -->
+      <!-- Honeypot — bot-urile completează acest câmp; oamenii nu îl văd. -->
       <div style="position: absolute; left: -9999px;" aria-hidden="true">
-        <label>Website</label>
-        <input type="text" name="website" tabindex="-1" autocomplete="off">
+        <label for="kokoro-honey-inscriere">Website</label>
+        <input type="text" id="kokoro-honey-inscriere" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       </div>
 
       <!-- Datele sportivului -->
-      <h3 class="heading-4" style="margin-bottom: var(--space-xl);">DATELE <em>SPORTIVULUI</em></h3>
+      <h2 class="heading-4" style="margin-bottom: var(--space-xl);">DATELE <em>SPORTIVULUI</em></h2>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
         <div class="form-group">
@@ -106,7 +106,7 @@ get_header();
       </div>
 
       <!-- Date contact -->
-      <h3 class="heading-4" style="margin-bottom: var(--space-xl);">DATE DE <em>CONTACT</em></h3>
+      <h2 class="heading-4" style="margin-bottom: var(--space-xl);">DATE DE <em>CONTACT</em></h2>
       <p style="color: var(--color-gray); font-size: 0.875rem; margin-bottom: var(--space-xl);">
         Pentru minori, completați datele părintelui/tutorelui legal.
       </p>

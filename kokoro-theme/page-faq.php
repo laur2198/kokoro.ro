@@ -44,7 +44,7 @@ foreach ($categorii as $cat) {
 }
 ?>
 
-<main id="content">
+<!-- main wrapper provided by header.php -->
 
 <!-- HERO -->
 <section class="page-header">
@@ -156,6 +156,6 @@ foreach ($categorii as $cat) {
   </div>
 </section>
 
-</main>
+<!-- /main from header -->
 
 <?php get_footer(); ?>

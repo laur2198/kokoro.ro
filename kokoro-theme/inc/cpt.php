@@ -21,7 +21,7 @@ defined('ABSPATH') || exit;
  * single-antrenor.php nu se vor declanșa.
  */
 function kokoro_cpt_missing_notice() {
-    if (!current_user_can('activate_plugins')) return;
+    if (!current_user_can('manage_options')) return;
 
     $expected = ['campion', 'disciplina', 'antrenor'];
     $missing  = array_filter($expected, fn($pt) => !post_type_exists($pt));

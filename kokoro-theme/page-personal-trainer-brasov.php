@@ -15,9 +15,18 @@
 
 if (!defined('ABSPATH')) { exit; } // Prevent direct access
 get_header();
+
+// Contact data — derivat din ACF settings (D5/D6)
+$kk_tel       = kokoro_setting('telefon', '+40 742 037 973');
+$kk_tel_e164  = function_exists('kokoro_phone_to_e164') ? kokoro_phone_to_e164($kk_tel) : '+' . preg_replace('/\D/', '', $kk_tel);
+$kk_email     = kokoro_setting('email', 'contact@kokoro.ro');
+$kk_lat       = (float) kokoro_setting('lat', '45.6427');
+$kk_lng       = (float) kokoro_setting('lng', '25.5887');
+$kk_marker    = $kk_lat . ',' . $kk_lng;
+$kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng + 0.01, $kk_lat + 0.005);
 ?>
 
-<main id="content">
+<!-- main wrapper provided by header.php -->
 
 <!-- ============================================================
      SECTION 1: HERO
@@ -38,11 +47,11 @@ get_header();
       <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--primary btn--large">
         Programați Evaluarea Gratuită
       </a>
-      <a href="tel:+40742037973" class="btn btn--outline btn--large">
+      <a href="<?php echo esc_attr('tel:' . $kk_tel_e164); ?>" class="btn btn--outline btn--large">
         Sună Acum
       </a>
-      <a href="tel:+40742037973" style="color: var(--color-accent); font-weight: 700; font-size: 1.125rem; margin-left: var(--space-md); white-space: nowrap; text-decoration: none;">
-        📞 0742 037 973
+      <a href="<?php echo esc_attr('tel:' . $kk_tel_e164); ?>" style="color: var(--color-accent); font-weight: 700; font-size: 1.125rem; margin-left: var(--space-md); white-space: nowrap; text-decoration: none;">
+        📞 <?php echo esc_html($kk_tel); ?>
       </a>
     </div>
   </div>
@@ -301,7 +310,7 @@ get_header();
       <div class="section-number">06 — Întrebări frecvente</div>
       <h2>ÎNTREBĂRI<br><em>FRECVENTE</em></h2>
       <p style="color: var(--color-gray); margin-top: var(--space-md); line-height: 1.7;">
-        Răspunsuri la cele mai des întâlnite întrebări despre personal training. Pentru întrebări specifice obiectivelor dumneavoastră, sunați la <a href="tel:+40742037973" style="color: var(--color-accent);">0742 037 973</a>.
+        Răspunsuri la cele mai des întâlnite întrebări despre personal training. Pentru întrebări specifice obiectivelor dumneavoastră, sunați la <a href="<?php echo esc_attr('tel:' . $kk_tel_e164); ?>" style="color: var(--color-accent);"><?php echo esc_html($kk_tel); ?></a>.
       </p>
     </div>
 
@@ -312,7 +321,7 @@ get_header();
           <span aria-hidden="true" style="color: var(--color-accent); font-family: var(--font-heading); font-size: 1.5rem;">+</span>
         </summary>
         <div style="color: var(--color-gray); line-height: 1.8; margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(13, 33, 55, 0.08);">
-          Tarifele variază în funcție de pachetul ales (1 ședință vs pachet 10 vs abonament lunar). Pentru detalii actualizate consultați pagina <a href="<?php echo esc_url(home_url('/tarife/')); ?>" style="color: var(--color-accent);">Tarife</a> sau sunați la <a href="tel:+40742037973" style="color: var(--color-accent);">0742 037 973</a>. Prima ședință de evaluare este întotdeauna <strong>gratuită</strong>.
+          Tarifele variază în funcție de pachetul ales (1 ședință vs pachet 10 vs abonament lunar). Pentru detalii actualizate consultați pagina <a href="<?php echo esc_url(home_url('/tarife/')); ?>" style="color: var(--color-accent);">Tarife</a> sau sunați la <a href="<?php echo esc_attr('tel:' . $kk_tel_e164); ?>" style="color: var(--color-accent);"><?php echo esc_html($kk_tel); ?></a>. Prima ședință de evaluare este întotdeauna <strong>gratuită</strong>.
         </div>
       </details>
 
@@ -405,7 +414,7 @@ get_header();
     <div class="reveal" style="width: 100%; height: 400px; border-radius: 8px; overflow: hidden; border: 1px solid var(--color-gray-dark);">
       <iframe
         title="Hartă Kokoro Brașov Academy — Str. Carpaților 60"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=25.5787%2C45.6377%2C25.5987%2C45.6477&amp;layer=mapnik&amp;marker=45.6427%2C25.5887"
+        src="<?php echo esc_url('https://www.openstreetmap.org/export/embed.html?bbox=' . rawurlencode() . '&layer=mapnik&marker=' . rawurlencode()); ?>"
         style="width: 100%; height: 100%; border: 0;"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
@@ -415,7 +424,7 @@ get_header();
 
     <p class="reveal" style="text-align: center; margin-top: var(--space-md); color: var(--color-gray); font-size: 0.9375rem;">
       <strong style="color: var(--color-white);">Str. Carpaților 60, 500269 Brașov</strong> ·
-      <a href="https://www.google.com/maps/search/?api=1&amp;query=45.6427%2C25.5887" target="_blank" rel="noopener" style="color: var(--color-accent);">Deschide pe Google Maps →</a>
+      <a href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode()); ?>" target="_blank" rel="noopener" style="color: var(--color-accent);">Deschide pe Google Maps →</a>
     </p>
   </div>
 </section>
@@ -434,18 +443,18 @@ get_header();
         <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">
           Programați Evaluarea Gratuită
         </a>
-        <a href="tel:+40742037973" class="btn btn--outline btn--large" style="border-color: var(--color-bg); color: var(--color-bg);">
-          📞 0742 037 973
+        <a href="<?php echo esc_attr('tel:' . $kk_tel_e164); ?>" class="btn btn--outline btn--large" style="border-color: var(--color-bg); color: var(--color-bg);">
+          📞 <?php echo esc_html($kk_tel); ?>
         </a>
       </div>
       <p style="color: #0D47A1; margin-top: var(--space-xl); font-size: 0.9375rem;">
-        Sau scrieți-ne la <a href="mailto:contact@kokoro.ro" style="color: var(--color-bg); font-weight: 700;">contact&#64;kokoro.ro</a>
+        Sau scrieți-ne la <a href="mailto:<?php echo esc_attr($kk_email); ?>" style="color: var(--color-bg); font-weight: 700;"><?php echo esc_html(antispambot($kk_email)); ?></a>
       </p>
     </div>
   </div>
 </section>
 
-</main>
+<!-- /main from header -->
 
 <script type="application/ld+json">
 {
@@ -481,8 +490,8 @@ get_header();
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 45.6427,
-        "longitude": 25.5887
+        "latitude": <?php echo (float) $kk_lat; ?>,
+        "longitude": <?php echo (float) $kk_lng; ?>
       }
     },
     "servicePhone": "+40742037973",
@@ -527,10 +536,7 @@ get_header();
     ]
   },
   "provider_mention": {
-    "@type": "Person",
-    "name": "Adrian Boglut",
-    "jobTitle": "Personal Trainer & Antrenor principal",
-    "award": "Vicecampion European U21 -62kg"
+    "@id": "<?php echo esc_url(kokoro_antrenor_canonical_id('sempai-adrian')); ?>"
   }
 }
 </script>
@@ -545,7 +551,7 @@ get_header();
       "name": "Cât costă o ședință de personal training la Kokoro Brașov?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tarifele variază în funcție de pachetul ales (1 ședință vs pachet 10 vs abonament lunar). Pentru detalii actualizate consultați pagina Tarife sau sunați la 0742 037 973. Prima ședință de evaluare este întotdeauna gratuită."
+        "text": "Tarifele variază în funcție de pachetul ales (1 ședință vs pachet 10 vs abonament lunar). Pentru detalii actualizate consultați pagina Tarife sau sunați la <?php echo esc_html($kk_tel); ?>. Prima ședință de evaluare este întotdeauna gratuită."
       }
     },
     {

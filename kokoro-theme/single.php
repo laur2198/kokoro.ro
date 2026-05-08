@@ -33,7 +33,7 @@ get_header();
 <?php if (has_post_thumbnail()) : ?>
   <section style="padding: 0;">
     <div class="container" style="margin-top: calc(-1 * var(--space-2xl));">
-      <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'kokoro-hero')); ?>" alt="<?php the_title_attribute(); ?>" style="width: 100%; height: auto; max-height: 500px; object-fit: cover;">
+      <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'kokoro-hero')); ?>" alt="" style="width: 100%; height: auto; max-height: 500px; object-fit: cover;" loading="eager" fetchpriority="high" decoding="async">
     </div>
   </section>
 <?php endif; ?>

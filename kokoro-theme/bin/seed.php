@@ -35,6 +35,24 @@ if (!defined('ABSPATH')) {
 
 if (!function_exists('update_field')) { die('ACF nu e activ. Activează ACF înainte de seed.'); }
 
+/**
+ * One-shot lock: după prima rulare reușită, refuză execuții ulterioare.
+ *
+ * Bypass intenționat: șterge opțiunea cu `wp option delete kokoro_seed_completed`
+ * sau `?force=1` cu admin logat. Bypass via URL e doar pentru sysadmin care
+ * rulează manual; poate fi eliminat dacă vrei lock-ul absolut.
+ */
+$seed_done = get_option('kokoro_seed_completed', '');
+$force     = isset($_GET['force']) && $_GET['force'] === '1';
+if ($seed_done && !$force) {
+    $msg = sprintf(
+        'Seed-ul a rulat deja la %s. Pentru a re-rula, șterge bin/seed.php (recomandat) sau adaugă ?force=1.',
+        esc_html($seed_done)
+    );
+    if (defined('WP_CLI') && class_exists('WP_CLI')) { WP_CLI::error($msg); }
+    die($msg);
+}
+
 // =============================================================================
 // HELPERS
 // =============================================================================
@@ -110,38 +128,55 @@ $antrenori = [
         'title'  => 'Sensei Lucian Bogluț',
         'image'  => 'assets/images/antrenori/sensei-lucian.png',
         'meta'   => [
-            'antrenor_rol'           => 'Sensei · Președinte Academie',
-            'antrenor_bio_scurt'     => 'Fondatorul și antrenorul coordonator al Academiei de Ju-Jitsu Kokoro Brașov din 2008. A construit academia într-o instituție recunoscută de ANS și FRAM, formând generații de sportivi cu palmares național și internațional.',
-            'antrenor_specializare'  => 'Inițiere Ju-Jitsu Fighting, Piticii Kokoro, coordonare antrenamente competiționale și examene de grad',
-            'antrenor_centura'       => 'Centură Neagră',
-            'antrenor_ani_experienta'=> 17,
+            'antrenor_given_name'       => 'Lucian',
+            'antrenor_family_name'      => 'Bogluț',
+            'antrenor_honorific_prefix' => 'Sensei',
+            'antrenor_rol'              => 'Sensei / Antrenor Principal',
+            'antrenor_bio_scurt'        => 'Fondatorul și antrenorul coordonator al Academiei de Ju-Jitsu Kokoro Brașov din 2008. A construit academia într-o instituție recunoscută de ANS și FRAM, formând generații de sportivi cu palmares național și internațional.',
+            'antrenor_specializare'     => 'Inițiere Ju-Jitsu Fighting, Piticii Kokoro, coordonare antrenamente competiționale și examene de grad',
+            'antrenor_skills'           => 'Ju-Jitsu, Coaching copii, Antrenament competițional, Inițiere arte marțiale, Examinare grad, Management academie',
+            'antrenor_centura'          => 'Centură Neagră',
+            'antrenor_ani_experienta'   => 18,
         ],
     ],
     [
         'title'  => 'Sempai Adrian',
         'image'  => 'assets/images/antrenori/sempai-adrian.png',
         'meta'   => [
-            'antrenor_rol'          => 'Sempai · Personal Trainer',
-            'antrenor_bio_scurt'    => 'Antrenorul de Personal Training și Ju-Jitsu Contact. Alături de Sempai Petru conduce și antrenamentele de Ju-Jitsu Fighting.',
-            'antrenor_specializare' => 'Personal Training, Ju-Jitsu Fighting, Ju-Jitsu Contact',
+            // family="Bogluț" e CRUCIAL pentru consolidare cu Person campion
+            // (pe /campion/adrian-boglut/ schema are name="Adrian Bogluț").
+            'antrenor_given_name'       => 'Adrian',
+            'antrenor_family_name'      => 'Bogluț',
+            'antrenor_honorific_prefix' => 'Sempai',
+            'antrenor_rol'              => 'Antrenor și Sportiv',
+            'antrenor_bio_scurt'        => 'Antrenorul de Personal Training și Ju-Jitsu Contact. Alături de Sempai Petru conduce și antrenamentele de Ju-Jitsu Fighting. Activ și ca sportiv competițional — Vicecampion European U21 -62kg, Vicecampion Mondial 2022.',
+            'antrenor_specializare'     => 'Personal Training, Ju-Jitsu Fighting, Ju-Jitsu Contact',
+            'antrenor_skills'           => 'Personal Training, Ju-Jitsu Fighting, Ju-Jitsu Contact, Coaching competițional, Pregătire fizică',
         ],
     ],
     [
         'title'  => 'Sempai Dan',
         'image'  => 'assets/images/antrenori/sempai-dan.png',
         'meta'   => [
-            'antrenor_rol'          => 'Sempai · Jiu-Jitsu Gi',
-            'antrenor_bio_scurt'    => 'Specialist în Jiu-Jitsu Gi și grupa Avansați Kokoro. Aduce experiență tehnică și didactică în sesiunile de luptă la sol cu kimono.',
-            'antrenor_specializare' => 'Avansați Kokoro, Jiu-Jitsu Gi',
+            // family_name TODO — surname necunoscut (confirmă cu Sempai Dan)
+            'antrenor_given_name'       => 'Dan',
+            'antrenor_honorific_prefix' => 'Sempai',
+            'antrenor_rol'              => 'Antrenor',
+            'antrenor_bio_scurt'        => 'Specialist în Jiu-Jitsu Gi și grupa Avansați Kokoro. Aduce experiență tehnică și didactică în sesiunile de luptă la sol cu kimono.',
+            'antrenor_specializare'     => 'Avansați Kokoro, Jiu-Jitsu Gi',
+            'antrenor_skills'           => 'Jiu-Jitsu Gi, Luptă la sol, Tehnică BJJ, Coaching avansați',
         ],
     ],
     [
         'title'  => 'Sempai Petru',
         'image'  => 'assets/images/antrenori/sempai-petru.png',
         'meta'   => [
-            'antrenor_rol'          => 'Sempai · Ju-Jitsu Fighting',
-            'antrenor_bio_scurt'    => 'Co-antrenor pentru Ju-Jitsu Fighting alături de Sempai Adrian. Pregătire competițională pentru juniori și adulți.',
-            'antrenor_specializare' => 'Ju-Jitsu Fighting',
+            // family_name TODO — surname necunoscut (confirmă cu Sempai Petru)
+            'antrenor_given_name'       => 'Petru',
+            'antrenor_honorific_prefix' => 'Sempai',
+            'antrenor_rol'              => 'Sempai · Ju-Jitsu Fighting',
+            'antrenor_bio_scurt'        => 'Co-antrenor pentru Ju-Jitsu Fighting alături de Sempai Adrian. Pregătire competițională pentru juniori și adulți.',
+            'antrenor_specializare'     => 'Ju-Jitsu Fighting',
         ],
     ],
 ];
@@ -221,12 +256,21 @@ $campioni = [
     ['nume' => 'Emma Porumboiu',           'img' => 'assets/images/campioni/21.png', 'palmares' => "Multipla Campioană la concursurile de nivel Național", 'titlu' => 'Campioană Națională', 'ordine' => 22],
     ['nume' => 'Toma Stoianovici',         'img' => 'assets/images/campioni/22.png', 'palmares' => "Bronz Balcanic 2024", 'titlu' => 'Medaliat Balcanic', 'ordine' => 23],
 ];
+// Identitate canonică: campionii care sunt și antrenori → URL canonic spre #person.
+// Permite schema Person.sameAs să consolideze entitatea în Knowledge Graph.
+$campion_to_antrenor_canonical = [
+    'Adrian Bogluț' => home_url('/antrenor/sempai-adrian/') . '#person',
+];
+
 foreach ($campioni as $c) {
     $meta = [
         'campion_bio_scurt'   => $c['titlu'] . ' — ' . str_replace("\n", '. ', $c['palmares']),
         'campion_centura'     => 'neagra',
         'campion_is_featured' => ($c['ordine'] === 1),
     ];
+    if (isset($campion_to_antrenor_canonical[$c['nume']])) {
+        $meta['antrenor_persoana_id_canonical'] = $campion_to_antrenor_canonical[$c['nume']];
+    }
     $id = k_upsert_post('campion', $c['nume'], '', $meta);
     // Set menu_order to control display order
     wp_update_post(['ID' => $id, 'menu_order' => $c['ordine']]);
@@ -482,3 +526,7 @@ k_seed_log('Tarife: 3 pachete · Orar: 23 sesiuni');
 k_seed_log('Pagini noi: Formulare · Regulament · Calendar · Contact (subiecte)');
 k_seed_log('');
 k_seed_log('IMPORTANT: dacă rulezi prin browser, șterge bin/seed.php după execuție pentru securitate.');
+
+// Lock: marchează seed-ul ca rulat. Urmează re-rulări vor da die() în top-of-file.
+update_option('kokoro_seed_completed', current_time('mysql'));
+k_seed_log('Lock activat (option kokoro_seed_completed). Re-rularea cere ?force=1 sau ștergerea opțiunii.');

@@ -16,11 +16,12 @@
         { "slug": "dark",          "color": "#0D2137", "name": "Dark" },
         { "slug": "text",          "color": "#1A1A1A", "name": "Text" },
         { "slug": "gray",          "color": "#5A6A7A", "name": "Gri" },
-        { "slug": "gray-light",    "color": "#94A3B8", "name": "Gri Deschis" },
-        { "slug": "gray-dark",     "color": "#D0D5DD", "name": "Gri Frontieră" },
+        { "slug": "gray-light",    "color": "#64748B", "name": "Gri Deschis" },
+        { "slug": "gray-dark",     "color": "#94A3B8", "name": "Gri Frontieră" },
+        { "slug": "gray-on-dark",  "color": "#B6C2CF", "name": "Gri (text pe fundal închis)" },
         { "slug": "white",         "color": "#FFFFFF", "name": "Alb" },
         { "slug": "bg-alt",        "color": "#F0F4F8", "name": "Fundal Alternativ" },
-        { "slug": "red",           "color": "#E63329", "name": "Roșu" }
+        { "slug": "red",           "color": "#C42121", "name": "Roșu" }
       ]
     },
     "typography": {

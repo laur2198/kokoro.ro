@@ -31,11 +31,12 @@ Tags: custom-menu, custom-logo, featured-images, full-width-template, one-column
   --color-white:     #FFFFFF;
   --color-text:      #1A1A1A;
   --color-text-light: #FFFFFF;
-  --color-gray:      #5A6A7A;
-  --color-gray-light: #94A3B8;
-  --color-gray-dark: #D0D5DD;
-  --color-red:       #E63329;
-  --color-dark:      #0D2137;
+  --color-gray:        #5A6A7A;  /* 5.56:1 pe alb — body text muted */
+  --color-gray-light:  #64748B;  /* 4.76:1 pe alb (was #94A3B8 / 2.56:1 fail) — placeholders */
+  --color-gray-dark:   #94A3B8;  /* 2.56:1 pe alb — borders (improved from #D0D5DD / 1.47:1; iter 2 candidate #7B8794 for 3.96:1) */
+  --color-gray-on-dark:#B6C2CF;  /* 9.00:1 pe #0D2137 — body text muted pe .section--dark */
+  --color-red:         #C42121;  /* 5.86:1 pe alb (was #E63329 / 4.31:1 fail) — errors */
+  --color-dark:        #0D2137;
 
   /* Typography */
   --font-heading: 'Barlow Condensed', sans-serif;

@@ -25,7 +25,7 @@ if (!function_exists('kokoro_pillar_ovr')) {
     }
 }
 
-add_action('acf/init', function () {
+function kokoro_acf_register_pages_extra() {
     if (!function_exists('acf_add_local_field_group')) return;
 
     // =========================================================================
@@ -259,4 +259,5 @@ add_action('acf/init', function () {
         'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-galerie.php']]],
         'instructions' => 'Pozele din galerie se gestionează separat (CPT galerie sau alt mecanism existent).',
     ]);
-});
+}
+add_action('acf/init', 'kokoro_acf_register_pages_extra');
