@@ -238,7 +238,7 @@
 
 .btn--secondary {
   background: var(--color-accent);
-  color: var(--color-primary-dark);
+  color: var(--color-dark); /* AAA contrast (11.53:1 pe yellow); brand-coerent navy peste bumblebee yellow+black */
   border-color: var(--color-accent);
 }
 
