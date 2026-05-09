@@ -40,7 +40,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
       else { ?>JU-JITSU<br>PENTRU <em>COPII</em><br>BRAȘOV<?php }
     ?></h1>
     <p style="color: var(--color-gray); margin-top: var(--space-lg); max-width: 700px; line-height: 1.7; font-size: 1.0625rem;">
-      La Kokoro Brașov Academy, copilul dumneavoastră învață Ju-Jitsu autentic într-un mediu sigur și disciplinat. Cursuri pentru toate vârstele între 4 și 15 ani, cu antrenori cu palmares internațional și 17 ani de experiență.
+      La Kokoro Brașov Academy, copilul dumneavoastră învață Ju-Jitsu autentic într-un mediu sigur și disciplinat. Cursuri pentru toate vârstele între 4 și 15 ani, cu antrenori cu palmares internațional și <?php echo (int) kokoro_ani_experienta(); ?> ani de experiență.
     </p>
 
     <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-2xl); align-items: center;">
@@ -373,7 +373,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-xl);">
       <div class="reveal reveal-delay-1" style="padding: var(--space-xl); border: 2px solid var(--color-accent); border-radius: 4px; background: var(--color-white);">
         <h3 style="font-family: var(--font-heading); font-weight: 800; font-size: 1.375rem; margin-bottom: var(--space-md); color: var(--color-bg);">
-          17 ani de experiență locală
+          <?php echo (int) kokoro_ani_experienta(); ?> ani de experiență locală
         </h3>
         <p style="color: var(--color-gray); line-height: 1.7;">
           Din 2008 am format generații de copii brașoveni — cunoaștem ce funcționează în comunitatea noastră, ce așteaptă părinții și ce rezultate concrete putem livra într-un an de antrenament.

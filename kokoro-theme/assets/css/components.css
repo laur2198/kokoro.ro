@@ -1267,6 +1267,15 @@
   outline-offset: 2px;
 }
 
+/* Privacy reassurance under submit (B4 CRO Faza 8) */
+.form-reassurance {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-gray);
+  margin-top: var(--space-md);
+  line-height: 1.5;
+}
+
 .form-textarea {
   min-height: 150px;
   resize: vertical;

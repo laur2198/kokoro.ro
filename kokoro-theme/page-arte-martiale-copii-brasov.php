@@ -210,7 +210,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
       <div class="section-number">03 — Pe vârste</div>
       <h2>CE SE POTRIVEȘTE<br>LA <em>FIECARE VÂRSTĂ</em></h2>
       <p style="color: var(--color-gray); margin-top: var(--space-md); max-width: 750px; line-height: 1.7;">
-        Fiecare vârstă are nevoi diferite: un copil de 5 ani are nevoie de joc structurat, un adolescent de 14 ani — de provocări reale. Iată recomandările noastre pe categorii de vârstă, bazate pe 17 ani de observație directă.
+        Fiecare vârstă are nevoi diferite: un copil de 5 ani are nevoie de joc structurat, un adolescent de 14 ani — de provocări reale. Iată recomandările noastre pe categorii de vârstă, bazate pe <?php echo (int) kokoro_ani_experienta(); ?> ani de observație directă.
       </p>
     </div>
 
@@ -467,7 +467,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
         Kokoro Brașov Academy <em style="color: var(--color-accent);">(Ju-Jitsu)</em>
       </h3>
       <p style="color: var(--color-bg); line-height: 1.8; margin-bottom: var(--space-lg);">
-        Nu putem fi obiectivi 100% — suntem editorul acestui ghid. Dar putem fi <strong>onești</strong>: dacă ar fi să recomandăm un singur club pentru un copil între 4 și 15 ani în Brașov, am recomanda Kokoro din motivele detaliate în acest ghid: 17 ani de experiență locală, antrenor cu palmares european (Adrian Boglut, vicecampion U21 -62kg), grupe mici cu atenție individuală, spațiu profesional, și un sistem complet care formează caracter, nu doar tehnică.
+        Nu putem fi obiectivi 100% — suntem editorul acestui ghid. Dar putem fi <strong>onești</strong>: dacă ar fi să recomandăm un singur club pentru un copil între 4 și 15 ani în Brașov, am recomanda Kokoro din motivele detaliate în acest ghid: <?php echo (int) kokoro_ani_experienta(); ?> ani de experiență locală, antrenor cu palmares european (Adrian Boglut, vicecampion U21 -62kg), grupe mici cu atenție individuală, spațiu profesional, și un sistem complet care formează caracter, nu doar tehnică.
       </p>
       <p style="color: var(--color-gray); line-height: 1.7; font-size: 0.9375rem; margin-bottom: var(--space-lg);">
         <strong>Recomandarea practică:</strong> nu vă bazați pe acest ghid singur — veniți la o lecție gratuită demonstrativă (chiar și fără copil) și judecați direct atmosfera, antrenorul, copiii din grupă. Aceste 60 de minute vă vor spune mai mult decât orice text.

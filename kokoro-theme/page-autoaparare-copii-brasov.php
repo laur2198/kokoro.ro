@@ -330,7 +330,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
           <span aria-hidden="true" style="color: var(--color-accent); font-family: var(--font-heading); font-size: 1.5rem;">+</span>
         </summary>
         <div style="color: var(--color-gray); line-height: 1.8; margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(13, 33, 55, 0.08);">
-          <strong>Dimpotrivă.</strong> Disciplina Ju-Jitsu învață copilul <em>când să NU folosească tehnica</em>. Codul moral al artelor marțiale tradiționale interzice agresiunea — forța se folosește doar în apărare. În peste 17 ani de activitate, am observat constant că Ju-Jitsu calmează copiii agresivi și îi face mai sociabili pe cei timizi.
+          <strong>Dimpotrivă.</strong> Disciplina Ju-Jitsu învață copilul <em>când să NU folosească tehnica</em>. Codul moral al artelor marțiale tradiționale interzice agresiunea — forța se folosește doar în apărare. În peste <?php echo (int) kokoro_ani_experienta(); ?> ani de activitate, am observat constant că Ju-Jitsu calmează copiii agresivi și îi face mai sociabili pe cei timizi.
         </div>
       </details>
 
@@ -532,7 +532,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
       "name": "Cursul îl va face pe copilul meu mai agresiv?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Dimpotrivă. Disciplina Ju-Jitsu învață copilul când să NU folosească tehnica. Codul moral al artelor marțiale tradiționale interzice agresiunea — forța se folosește doar în apărare. În peste 17 ani de activitate, am observat constant că Ju-Jitsu calmează copiii agresivi și îi face mai sociabili pe cei timizi."
+        "text": "Dimpotrivă. Disciplina Ju-Jitsu învață copilul când să NU folosească tehnica. Codul moral al artelor marțiale tradiționale interzice agresiunea — forța se folosește doar în apărare. În peste <?php echo (int) kokoro_ani_experienta(); ?> ani de activitate, am observat constant că Ju-Jitsu calmează copiii agresivi și îi face mai sociabili pe cei timizi."
       }
     },
     {

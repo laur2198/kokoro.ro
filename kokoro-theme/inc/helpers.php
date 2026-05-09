@@ -141,6 +141,20 @@ function kokoro_get_palmares_rows() {
 }
 
 /**
+ * Anii de experiență ai academiei (dinamic, calculat din anul fondării).
+ *
+ * Citește ACF `set_an_fondare` (default 2008). Folosit în pillar pages,
+ * JSON-LD schema, FAQ — orice loc unde apare „N ani de experiență".
+ *
+ * @return int Numărul de ani; 0 fallback dacă an_fondare invalid.
+ */
+function kokoro_ani_experienta() {
+    $an_fondare = (int) kokoro_setting('an_fondare', 2008);
+    $current    = (int) date('Y');
+    return max(0, $current - $an_fondare);
+}
+
+/**
  * Helper: eticheta umană pentru valoarea medalie.
  */
 function kokoro_medalie_label($key) {

@@ -138,36 +138,68 @@ function kokoro_handle_form_submit() {
     $referer       = wp_get_referer() ?: home_url('/');
 
     if ($form_type === 'inscriere') {
-        $data = [
-            'first_name'  => sanitize_text_field($_POST['first_name']  ?? ''),
-            'last_name'   => sanitize_text_field($_POST['last_name']   ?? ''),
-            'birth_date'  => sanitize_text_field($_POST['birth_date']  ?? ''),
-            'group'       => sanitize_text_field($_POST['group']       ?? ''),
-            'discipline'  => sanitize_text_field($_POST['discipline']  ?? ''),
-            'parent_name' => sanitize_text_field($_POST['parent_name'] ?? ''),
-            'phone'       => sanitize_text_field($_POST['phone']       ?? ''),
-            'email'       => sanitize_email($_POST['email']            ?? ''),
-            'message'     => sanitize_textarea_field($_POST['message'] ?? ''),
-        ];
+        // Form B2 (3 required: child_name, age_group, phone; 2 optional: email, message)
+        // Backward compat cu form vechi (cached pages): acceptă și field names vechi.
+        $child_name = sanitize_text_field($_POST['child_name'] ?? '');
+        if ($child_name === '') {
+            $fn = sanitize_text_field($_POST['first_name'] ?? '');
+            $ln = sanitize_text_field($_POST['last_name']  ?? '');
+            $child_name = trim($fn . ' ' . $ln);
+        }
+        $age_group = sanitize_text_field($_POST['age_group'] ?? '');
+        if ($age_group === '') {
+            $age_group = sanitize_text_field($_POST['group'] ?? ''); // old form
+        }
+        $phone   = sanitize_text_field($_POST['phone']   ?? '');
+        $email   = sanitize_email($_POST['email']        ?? '');
+        $message = sanitize_textarea_field($_POST['message'] ?? '');
 
-        // Validări minime
-        if ($data['first_name'] === '' || $data['last_name'] === '' || $data['phone'] === '' || !is_email($data['email'])) {
+        // Backward compat — câmpuri din form vechi (le păstrăm dacă apar)
+        $legacy_birth_date  = sanitize_text_field($_POST['birth_date']  ?? '');
+        $legacy_discipline  = sanitize_text_field($_POST['discipline']  ?? '');
+        $legacy_parent_name = sanitize_text_field($_POST['parent_name'] ?? '');
+
+        // Validări — required: nume copil, vârstă, telefon. Email opțional.
+        if ($child_name === '' || $age_group === '' || $phone === '') {
+            kokoro_form_redirect_back('invalid', $referer);
+        }
+        if ($email !== '' && !is_email($email)) {
             kokoro_form_redirect_back('invalid', $referer);
         }
 
-        $title = sprintf('[Înscriere] %s %s', $data['first_name'], $data['last_name']);
-        $body_lines = [
-            'Sportiv: '          . $data['first_name'] . ' ' . $data['last_name'],
-            'Data nașterii: '    . $data['birth_date'],
-            'Grupă dorită: '     . $data['group'],
-            'Disciplină: '       . $data['discipline'],
-            'Părinte/tutore: '   . ($data['parent_name'] ?: '—'),
-            'Telefon: '          . $data['phone'],
-            'Email: '            . $data['email'],
-            '',
-            'Mesaj suplimentar:',
-            $data['message'] ?: '(niciun mesaj)',
+        $is_legacy = !empty($_POST['first_name']) || !empty($_POST['last_name']) || !empty($_POST['birth_date']);
+
+        $data = [
+            'child_name' => $child_name,
+            'age_group'  => $age_group,
+            'phone'      => $phone,
+            'email'      => $email,
+            'message'    => $message,
+            'form_variant' => $is_legacy ? 'v1-legacy' : 'v2',
         ];
+        if ($is_legacy) {
+            $data['birth_date']  = $legacy_birth_date;
+            $data['discipline']  = $legacy_discipline;
+            $data['parent_name'] = $legacy_parent_name;
+        }
+
+        $title = sprintf('[Înscriere] %s · %s', $child_name, $age_group);
+        $body_lines = [
+            'Copil: '        . $child_name,
+            'Vârstă/grupă: ' . $age_group,
+            'Telefon: '      . $phone,
+            'Email: '        . ($email !== '' ? $email : '—'),
+            '',
+            'Mesaj:',
+            $message ?: '(niciun mesaj)',
+        ];
+        if ($is_legacy) {
+            $body_lines[] = '';
+            $body_lines[] = '— Trimis din formularul vechi (cached page) —';
+            if ($legacy_birth_date  !== '') $body_lines[] = 'Data nașterii: ' . $legacy_birth_date;
+            if ($legacy_discipline  !== '') $body_lines[] = 'Disciplină: '    . $legacy_discipline;
+            if ($legacy_parent_name !== '') $body_lines[] = 'Părinte/tutore: '. $legacy_parent_name;
+        }
     } else {
         // Contact (default)
         $data = [
@@ -223,26 +255,37 @@ function kokoro_handle_form_submit() {
         $recipient = get_option('admin_email');
     }
 
-    $headers = [
-        'Content-Type: text/plain; charset=UTF-8',
-        'Reply-To: ' . $data['email'],
-    ];
+    $headers = ['Content-Type: text/plain; charset=UTF-8'];
+    // Reply-To doar dacă email valid (poate fi gol pe form-ul nou inscriere v2)
+    if (!empty($data['email']) && is_email($data['email'])) {
+        $headers[] = 'Reply-To: ' . $data['email'];
+    }
 
     $sent = wp_mail($recipient, $title, $body, $headers);
 
+    // Înscriere reușită → pagină dedicată /multumesc-inscriere/ (B5 — better
+    // analytics tracking + cross-sell). Anti-phishing token preserved via override.
+    if ($form_type === 'inscriere' && $sent) {
+        kokoro_form_redirect_back('ok', null, home_url('/multumesc-inscriere/'));
+    }
     kokoro_form_redirect_back($sent ? 'ok' : 'mail_fail', $referer);
 }
 add_action('admin_post_nopriv_kokoro_form_submit', 'kokoro_handle_form_submit');
 add_action('admin_post_kokoro_form_submit',        'kokoro_handle_form_submit');
 
 /**
- * Redirect helper: trimite înapoi la pagina de unde vine, cu un parametru status.
+ * Redirect helper: trimite înapoi la pagina de unde vine cu un parametru status,
+ * sau la un URL override (pentru thank-you page B5 pe form_type=inscriere).
  *
  * Setează un token unic într-un cookie + transient, validat de banner — fără
  * cookie, banner-ul nu se afișează (anti-phishing: linkurile shareate cu
  * ?kokoro_form=ok nu mai produc fals-pozitiv „Mesaj trimis cu succes").
+ *
+ * @param string      $status       Status key (ok, mail_fail, invalid, etc.).
+ * @param string|null $referer      URL pentru redirect-back; null → wp_get_referer().
+ * @param string|null $override_url URL absolut pentru redirect (sare peste referer flow).
  */
-function kokoro_form_redirect_back($status, $referer = null) {
+function kokoro_form_redirect_back($status, $referer = null, $override_url = null) {
     if ($referer === null) {
         $referer = wp_get_referer() ?: home_url('/');
     }
@@ -262,6 +305,11 @@ function kokoro_form_redirect_back($status, $referer = null) {
                 'samesite' => 'Lax',
             ]
         );
+    }
+
+    if ($override_url !== null) {
+        wp_safe_redirect($override_url);
+        exit;
     }
 
     $url = add_query_arg('kokoro_form', $status, remove_query_arg('kokoro_form', $referer));

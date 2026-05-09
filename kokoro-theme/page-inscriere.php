@@ -25,18 +25,7 @@ get_header();
 <section class="section section--dark">
   <div class="container container--narrow">
 
-    <?php
-      // Trage disciplinele din CPT pentru select
-      $disc_choices = get_posts([
-          'post_type'      => 'disciplina',
-          'posts_per_page' => -1,
-          'post_status'    => 'publish',
-          'orderby'        => 'menu_order title',
-          'order'          => 'ASC',
-      ]);
-
-      kokoro_form_status_banner();
-    ?>
+    <?php kokoro_form_status_banner(); ?>
 
     <form class="contact-form reveal" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" novalidate>
       <input type="hidden" name="action"     value="kokoro_form_submit">
@@ -50,51 +39,22 @@ get_header();
         <input type="text" id="kokoro-honey-inscriere" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       </div>
 
-      <!-- Datele sportivului -->
-      <h2 class="heading-4" style="margin-bottom: var(--space-xl);">DATELE <em>SPORTIVULUI</em></h2>
+      <!-- Datele copilului -->
+      <h2 class="heading-4" style="margin-bottom: var(--space-xl);">DATELE <em>COPILULUI</em></h2>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
-        <div class="form-group">
-          <label class="form-label" for="first-name">Prenume *</label>
-          <input type="text" id="first-name" name="first_name" class="form-input" placeholder="Prenumele" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="last-name">Nume *</label>
-          <input type="text" id="last-name" name="last_name" class="form-input" placeholder="Numele de familie" required>
-        </div>
-      </div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
-        <div class="form-group">
-          <label class="form-label" for="birth-date">Data nașterii *</label>
-          <input type="date" id="birth-date" name="birth_date" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="group">Grupa dorită *</label>
-          <select id="group" name="group" class="form-select" required>
-            <option value="">Alege grupa...</option>
-            <option value="Copii (4-7 ani)">Copii (4-7 ani)</option>
-            <option value="Copii (8-12 ani)">Copii (8-12 ani)</option>
-            <option value="Juniori (13-17 ani)">Juniori (13-17 ani)</option>
-            <option value="Adulți (18+ ani)">Adulți (18+ ani)</option>
-          </select>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="child-name">Nume complet copil *</label>
+        <input type="text" id="child-name" name="child_name" class="form-input" placeholder="Ex: Andrei Popescu" required>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="discipline">Disciplina *</label>
-        <select id="discipline" name="discipline" class="form-select" required>
-          <option value="">Alege disciplina...</option>
-          <?php if (!empty($disc_choices)) : ?>
-            <?php foreach ($disc_choices as $d) : ?>
-              <option value="<?php echo esc_attr(get_the_title($d->ID)); ?>"><?php echo esc_html(get_the_title($d->ID)); ?></option>
-            <?php endforeach; ?>
-          <?php else : ?>
-            <option value="Ju-Jitsu Competițional">Ju-Jitsu Competițional</option>
-            <option value="Ju-Jitsu Autoapărare">Ju-Jitsu Autoapărare</option>
-            <option value="TRX Suspension Training">TRX Suspension Training</option>
-            <option value="Personal Training">Personal Training</option>
-          <?php endif; ?>
+        <label class="form-label" for="age-group">Vârsta copilului *</label>
+        <select id="age-group" name="age_group" class="form-select" required>
+          <option value="">Alege grupa...</option>
+          <option value="4-7 ani · Piticii">4-7 ani · Piticii</option>
+          <option value="8-12 ani · Copii">8-12 ani · Copii</option>
+          <option value="13-17 ani · Juniori">13-17 ani · Juniori</option>
+          <option value="18+ · Adulți">18+ · Adulți</option>
         </select>
       </div>
 
@@ -107,38 +67,29 @@ get_header();
 
       <!-- Date contact -->
       <h2 class="heading-4" style="margin-bottom: var(--space-xl);">DATE DE <em>CONTACT</em></h2>
-      <p style="color: var(--color-gray); font-size: 0.875rem; margin-bottom: var(--space-xl);">
-        Pentru minori, completați datele părintelui/tutorelui legal.
-      </p>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
-        <div class="form-group">
-          <label class="form-label" for="parent-name">Nume părinte/tutore</label>
-          <input type="text" id="parent-name" name="parent_name" class="form-input" placeholder="Nume complet">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="phone">Telefon *</label>
-          <input type="tel" id="phone" name="phone" class="form-input" placeholder="+40 7XX XXX XXX" required>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="phone">Telefon părinte *</label>
+        <input type="tel" id="phone" name="phone" class="form-input" placeholder="+40 7XX XXX XXX" required>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="email">Email *</label>
-        <input type="email" id="email" name="email" class="form-input" placeholder="email@exemplu.ro" required>
+        <label class="form-label" for="email">Email <span style="color: var(--color-gray); font-weight: 400;">(opțional)</span></label>
+        <input type="email" id="email" name="email" class="form-input" placeholder="email@exemplu.ro">
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="message">Mesaj suplimentar</label>
-        <textarea id="message" name="message" class="form-textarea" placeholder="Experiență anterioară, întrebări, sau alte informații relevante..." rows="4"></textarea>
+        <label class="form-label" for="message">Mesaj <span style="color: var(--color-gray); font-weight: 400;">(opțional)</span></label>
+        <textarea id="message" name="message" class="form-textarea" placeholder="Întrebări, experiență anterioară, alte informații utile..." rows="3"></textarea>
       </div>
 
-      <!-- Submit -->
+      <!-- Submit (B3) + Privacy reassurance (B4) -->
       <div style="margin-top: var(--space-xl);">
         <button type="submit" class="btn btn--primary btn--large btn--block">
-          Trimite Înscrierea
+          📅 Programează Antrenamentul Gratuit
         </button>
-        <p style="color: var(--color-gray); font-size: 0.8125rem; text-align: center; margin-top: var(--space-md);">
-          Te vom contacta în maxim 24 de ore pentru a confirma înscrierea și a stabili prima lecție gratuită.
+        <p class="form-reassurance">
+          🔒 Datele tale sunt în siguranță. Te contactăm doar pentru programarea antrenamentului. Nu trimitem spam.
         </p>
       </div>
 

@@ -40,6 +40,12 @@ $inscriere_url = home_url('/inscriere/');
 <section class="section section--dark">
   <div class="container">
 
+    <?php
+      // T6 (CRO Faza 8): primul pachet featured primește CTA „low-commitment"
+      // (Antrenament Gratuit) ca să reducă friction la pachetul recomandat.
+      // Restul păstrează „Înscrie-te" (high-commitment, post-evaluare).
+      $featured_used = false;
+    ?>
     <?php if (!empty($pachete) && is_array($pachete)) : ?>
       <div class="pricing-grid reveal">
         <?php foreach ($pachete as $p) :
@@ -52,6 +58,12 @@ $inscriere_url = home_url('/inscriere/');
             $buton_text  = $p['buton_text'] ?? 'Înscrie-te';
             $buton_url   = $p['buton_url']  ?? '';
             if ($buton_url === '') $buton_url = $inscriere_url;
+
+            // Pe primul featured: low-commitment CTA. Doar dacă admin n-a override-uit explicit.
+            if ($featured && !$featured_used && ($buton_text === '' || $buton_text === 'Înscrie-te')) {
+                $buton_text = 'Începe cu Antrenament Gratuit';
+                $featured_used = true;
+            }
 
             $card_class  = 'pricing-card' . ($featured ? ' pricing-card--featured' : '');
             $btn_class   = $featured ? 'btn btn--primary btn--block' : 'btn btn--outline-accent btn--block';

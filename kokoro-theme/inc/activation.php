@@ -11,20 +11,22 @@
 defined('ABSPATH') || exit;
 
 function kokoro_activate() {
-    // [slug => [title, template_filename or null]]
+    // [slug => [title, template_filename, noindex_flag (default false)]]
     $pages = [
-        'despre-noi' => ['Despre Noi',         'page-despre-noi.php'],
-        'antrenori'  => ['Antrenori',          'page-antrenori.php'],
-        'campioni'   => ['Campioni',           'page-campioni.php'],
-        'discipline' => ['Discipline',         'page-discipline.php'],
-        'orar'       => ['Orar',               'page-orar.php'],
-        'tarife'     => ['Tarife',             'page-tarife.php'],
-        'inscriere'  => ['Înscriere',          'page-inscriere.php'],
-        'galerie'    => ['Galerie',            'page-galerie.php'],
-        'contact'    => ['Contact',            'page-contact.php'],
+        'despre-noi'           => ['Despre Noi',         'page-despre-noi.php', false],
+        'antrenori'            => ['Antrenori',          'page-antrenori.php',  false],
+        'campioni'             => ['Campioni',           'page-campioni.php',   false],
+        'discipline'           => ['Discipline',         'page-discipline.php', false],
+        'orar'                 => ['Orar',               'page-orar.php',       false],
+        'tarife'               => ['Tarife',             'page-tarife.php',     false],
+        'inscriere'            => ['Înscriere',          'page-inscriere.php',  false],
+        'galerie'              => ['Galerie',            'page-galerie.php',    false],
+        'contact'              => ['Contact',            'page-contact.php',    false],
+        // Thank-you page — never index (B5 Faza 8)
+        'multumesc-inscriere'  => ['Mulțumim — Înscriere', 'page-multumesc-inscriere.php', true],
     ];
 
-    foreach ($pages as $slug => [$title, $template]) {
+    foreach ($pages as $slug => [$title, $template, $noindex]) {
         if (!get_page_by_path($slug)) {
             $page_id = wp_insert_post([
                 'post_title'   => $title,
@@ -33,8 +35,13 @@ function kokoro_activate() {
                 'post_type'    => 'page',
                 'post_content' => '',
             ]);
-            if ($page_id && !is_wp_error($page_id) && $template) {
-                update_post_meta($page_id, '_wp_page_template', $template);
+            if ($page_id && !is_wp_error($page_id)) {
+                if ($template) {
+                    update_post_meta($page_id, '_wp_page_template', $template);
+                }
+                if ($noindex && function_exists('update_field')) {
+                    update_field('kokoro_seo_noindex', true, $page_id);
+                }
             }
         }
     }

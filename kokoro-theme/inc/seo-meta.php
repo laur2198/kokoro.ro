@@ -59,6 +59,13 @@ function kokoro_seo_data() {
         $override_og    = function_exists('get_field') ? (string) get_field('kokoro_seo_og_image', $pid) : '';
         $noindex        = function_exists('get_field') ? (bool) get_field('kokoro_seo_noindex', $pid) : false;
 
+        // B5 (Faza 8): paginile de „mulțumire" sunt thank-you pages — never index.
+        // Slug-ul/template-ul e detectat aici ca safety net peste flag-ul ACF.
+        $tpl_slug = (string) get_post_meta($pid, '_wp_page_template', true);
+        if ($tpl_slug === 'page-multumesc-inscriere.php' || strpos((string) get_post_field('post_name', $pid), 'multumesc') === 0) {
+            $noindex = true;
+        }
+
         $title       = $override_title !== '' ? $override_title : get_the_title($pid) . $separator . $site_name;
         $description = $override_desc  !== '' ? $override_desc  : wp_trim_words(wp_strip_all_tags(get_the_excerpt() ?: get_post_field('post_content', $pid)), 28, '…');
         if ($description === '' || $description === '…') {

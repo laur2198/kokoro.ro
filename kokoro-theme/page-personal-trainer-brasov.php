@@ -73,7 +73,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
         Diferența între o sală de fitness obișnuită și un personal trainer este simplă: <strong style="color: var(--color-white);">programul construit pentru dumneavoastră versus programul generic pentru toată lumea</strong>. La sală încercați să adaptați un program standard la corpul, obiectivele și limitările dumneavoastră personale. Cu un personal trainer, programul se adaptează la dumneavoastră — la istoricul de accidentări, la timpul disponibil, la motivația care vă ține sau vă slăbește, la viața reală.
       </p>
       <p style="margin-bottom: var(--space-lg);">
-        La Kokoro Brașov, antrenamentele de personal training sunt conduse direct de <strong style="color: var(--color-white);">Adrian Boglut</strong> — vicecampion european U21 -62kg, antrenor cu 17 ani de experiență în pregătirea fizică pentru sportivi de performanță, dar și pentru oameni obișnuiți care vor să-și recâștige forma. Adrian a antrenat campioni mondiali și juniori la primele competiții, dar și manageri stresați care n-au făcut sport de la liceu. Diferența o face programul, nu sala.
+        La Kokoro Brașov, antrenamentele de personal training sunt conduse direct de <strong style="color: var(--color-white);">Adrian Boglut</strong> — vicecampion european U21 -62kg, antrenor cu <?php echo (int) kokoro_ani_experienta(); ?> ani de experiență în pregătirea fizică pentru sportivi de performanță, dar și pentru oameni obișnuiți care vor să-și recâștige forma. Adrian a antrenat campioni mondiali și juniori la primele competiții, dar și manageri stresați care n-au făcut sport de la liceu. Diferența o face programul, nu sala.
       </p>
       <p>
         Veniți cu un obiectiv concret — să slăbiți 8 kilograme, să vă recuperați după operație, să intrați în formă pentru o competiție, să rezolvați o durere cronică de spate. Plecați cu un plan măsurabil, cu repere clare la 4, 8 și 12 săptămâni. Iar pe parcurs, veți avea pe cineva care urmărește fiecare ședință, ajustează programul când e nevoie și răspunde la întrebări tehnice direct, fără să citiți articole pe internet.
@@ -391,7 +391,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
           <span aria-hidden="true" style="color: var(--color-accent); font-family: var(--font-heading); font-size: 1.5rem;">+</span>
         </summary>
         <div style="color: var(--color-gray); line-height: 1.8; margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(13, 33, 55, 0.08);">
-          În sălile obișnuite, „personal trainer" este adesea un termen comercial — antrenori cu certificare scurtă, fără palmares sportiv real, care lucrează cu zeci de clienți simultan. La Kokoro, antrenamentul este condus direct de Adrian Boglut — vicecampion european cu 17 ani de experiență. Calitatea nu e comparabilă, dar nici prețul nu e cel mai mic — venim cu un raport echilibrat preț-valoare pentru oamenii care iau în serios obiectivele.
+          În sălile obișnuite, „personal trainer" este adesea un termen comercial — antrenori cu certificare scurtă, fără palmares sportiv real, care lucrează cu zeci de clienți simultan. La Kokoro, antrenamentul este condus direct de Adrian Boglut — vicecampion european cu <?php echo (int) kokoro_ani_experienta(); ?> ani de experiență. Calitatea nu e comparabilă, dar nici prețul nu e cel mai mic — venim cu un raport echilibrat preț-valoare pentru oamenii care iau în serios obiectivele.
         </div>
       </details>
     </div>
@@ -607,7 +607,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
       "name": "Care e diferența între Kokoro și o sală obișnuită cu personal trainer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "În sălile obișnuite, personal trainer este adesea un termen comercial — antrenori cu certificare scurtă, fără palmares sportiv real, care lucrează cu zeci de clienți simultan. La Kokoro, antrenamentul este condus direct de Adrian Boglut — vicecampion european cu 17 ani de experiență."
+        "text": "În sălile obișnuite, personal trainer este adesea un termen comercial — antrenori cu certificare scurtă, fără palmares sportiv real, care lucrează cu zeci de clienți simultan. La Kokoro, antrenamentul este condus direct de Adrian Boglut — vicecampion european cu <?php echo (int) kokoro_ani_experienta(); ?> ani de experiență."
       }
     }
   ]
