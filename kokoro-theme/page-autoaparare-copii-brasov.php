@@ -446,7 +446,7 @@ $kk_bbox      = sprintf('%s,%s,%s,%s', $kk_lng - 0.01, $kk_lat - 0.005, $kk_lng 
           📞 <?php echo esc_html($kk_tel); ?>
         </a>
       </div>
-      <p style="color: #0D47A1; margin-top: var(--space-xl); font-size: 0.9375rem;">
+      <p style="color: var(--color-primary-dark); margin-top: var(--space-xl); font-size: 0.9375rem;">
         Sau scrieți-ne la <a href="mailto:<?php echo esc_attr($kk_email); ?>" style="color: var(--color-bg); font-weight: 700;"><?php echo esc_html(antispambot($kk_email)); ?></a>
       </p>
     </div>

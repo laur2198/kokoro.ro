@@ -23,7 +23,8 @@ Tags: custom-menu, custom-logo, featured-images, full-width-template, one-column
   --color-bg:        #FFFFFF;
   --color-bg-alt:    #F0F4F8;
   --color-bg-card:   #FFFFFF;
-  --color-accent:    #FFD600;
+  --color-accent:      #FFD600;
+  --color-accent-dark: #E6C200;  /* darker yellow for hover/active states (NOT for text — see Faza 7+9 audit) */
   --color-primary:   #1565C0;
   --color-primary-dark: #0D47A1;
   --color-primary-light: #E3F2FD;

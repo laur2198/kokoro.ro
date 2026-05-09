@@ -19,7 +19,7 @@ $instructiuni  = $acf ? get_field('formulare_instructiuni')           : [];
 $dosar         = $acf ? get_field('formulare_dosar')                  : [];
 $cta_titlu     = $acf ? (string) get_field('formulare_cta_titlu')     : '';
 $cta_text      = $acf ? (string) get_field('formulare_cta_text')      : '';
-$telefon       = kokoro_setting('telefon', '0742 037 973');
+$telefon       = kokoro_setting('telefon', '+40 742 037 973');
 $wa_numar      = preg_replace('/\D/', '', kokoro_setting('whatsapp_numar', '40742037973'));
 
 if ($hero_eyebrow === '')  $hero_eyebrow  = 'Formulare';
@@ -96,7 +96,7 @@ if (!is_array($dosar) || empty($dosar)) {
     <?php endif; ?>
 
     <?php if (!empty($dosar)) : ?>
-    <div class="reveal" style="margin-top: var(--space-2xl); padding: var(--space-xl); background: #0D47A1; border-radius: var(--radius-md);">
+    <div class="reveal" style="margin-top: var(--space-2xl); padding: var(--space-xl); background: var(--color-primary-dark); border-radius: var(--radius-md);">
       <h3 style="color: var(--color-white); margin-bottom: var(--space-md);">Dosar complet de înscriere</h3>
       <ul style="color: rgba(255,255,255,0.95); line-height: 2; padding-left: var(--space-lg);">
         <?php foreach ($dosar as $d) : ?>
@@ -112,7 +112,7 @@ if (!is_array($dosar) || empty($dosar)) {
   <div class="container" style="text-align: center;">
     <div class="reveal">
       <h2 style="color: var(--color-bg);"><?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
-      <p style="color: #0D47A1; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;"><?php echo esc_html($cta_text); ?></p>
+      <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;"><?php echo esc_html($cta_text); ?></p>
       <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
         <a href="tel:<?php echo esc_attr(preg_replace('/\s+/','',$telefon)); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">Sună <?php echo esc_html($telefon); ?></a>
         <?php if ($wa_numar !== '') : ?>

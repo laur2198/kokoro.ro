@@ -19,7 +19,7 @@ $hero_subtitlu = $acf ? (string) get_field('faq_hero_subtitlu') : '';
 $intro         = $acf ? (string) get_field('faq_intro')         : '';
 $categorii     = $acf ? get_field('faq_categorii')              : [];
 
-$telefon  = kokoro_setting('telefon', '0742 037 973');
+$telefon  = kokoro_setting('telefon', '+40 742 037 973');
 $email    = kokoro_setting('email',   'contact@kokoro.ro');
 
 if ($hero_eyebrow === '')  $hero_eyebrow  = 'FAQ · Întrebări Frecvente';
@@ -145,7 +145,7 @@ foreach ($categorii as $cat) {
   <div class="container" style="text-align: center;">
     <div class="reveal">
       <h2 style="color: var(--color-bg);">NU AI GĂSIT<br><em>RĂSPUNSUL?</em></h2>
-      <p style="color: #0D47A1; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
+      <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
         Sună-ne sau vino la o ședință de probă gratuită — discutăm 10-15 minute și răspundem la orice întrebare.
       </p>
       <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">

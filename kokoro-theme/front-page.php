@@ -565,7 +565,7 @@ $discipline_fallback = [
         <?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
       <?php if ($cta_text !== '') : ?>
-        <p style="color: #0D47A1; max-width: 600px; margin: 0 auto var(--space-2xl);">
+        <p style="color: var(--color-primary-dark); max-width: 600px; margin: 0 auto var(--space-2xl);">
           <?php echo esc_html($cta_text); ?>
         </p>
       <?php endif; ?>

@@ -96,7 +96,7 @@ if ($cta_text === '')      $cta_text      = 'Pregătirea pentru competiție înc
   <div class="container" style="text-align: center;">
     <div class="reveal">
       <h2 style="color: var(--color-bg);"><?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
-      <p style="color: #0D47A1; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;"><?php echo esc_html($cta_text); ?></p>
+      <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;"><?php echo esc_html($cta_text); ?></p>
       <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
         <a href="<?php echo esc_url(home_url('/inscriere/')); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">Înscrie-te la Performanță</a>
         <a href="<?php echo esc_url(home_url('/campioni/')); ?>" class="btn btn--outline btn--large" style="border-color: var(--color-bg); color: var(--color-bg);">Vezi Campionii</a>

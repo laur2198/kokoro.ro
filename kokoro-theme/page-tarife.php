@@ -121,7 +121,7 @@ $inscriere_url = home_url('/inscriere/');
         <?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
       </h2>
       <?php if ($cta_text !== '') : ?>
-        <p style="color: #0D47A1; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
+        <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;">
           <?php echo esc_html($cta_text); ?>
         </p>
       <?php endif; ?>

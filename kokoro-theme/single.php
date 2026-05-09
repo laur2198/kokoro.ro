@@ -22,7 +22,7 @@ get_header();
     <?php endif; ?>
     <h1 style="font-size: clamp(2rem, 5vw, 4rem);"><?php the_title(); ?></h1>
     <div style="display: flex; gap: var(--space-lg); margin-top: var(--space-lg); color: var(--color-gray); font-size: 0.875rem;">
-      <span><?php echo get_the_date('d MMMM Y'); ?></span>
+      <span><?php echo get_the_date('d F Y'); ?></span>
       <span>•</span>
       <span><?php echo get_the_author(); ?></span>
     </div>

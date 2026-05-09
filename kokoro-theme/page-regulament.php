@@ -88,7 +88,7 @@ if (!is_array($articole) || empty($articole)) {
   <div class="container" style="text-align: center;">
     <div class="reveal">
       <h2 style="color: var(--color-bg);"><?php echo kokoro_render_italic_title($cta_titlu, '<br>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
-      <p style="color: #0D47A1; margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;"><?php echo esc_html($cta_text); ?></p>
+      <p style="color: var(--color-primary-dark); margin: var(--space-lg) auto var(--space-2xl); max-width: 500px;"><?php echo esc_html($cta_text); ?></p>
       <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
         <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--large" style="background: var(--color-bg); color: var(--color-accent); border-color: var(--color-bg);">Contactează-ne</a>
         <a href="<?php echo esc_url(home_url('/formulare/')); ?>" class="btn btn--outline btn--large" style="border-color: var(--color-bg); color: var(--color-bg);">Vezi Formularele</a>
