@@ -11,7 +11,7 @@ kokoro.ro/
 │   │                     single-*, page-*, archive, category, search, 404
 │   ├── style.css         Antet WordPress + import variabile
 │   ├── theme.json        Settings Gutenberg (paletă, tipografie, layout)
-│   ├── inc/              ACF fields, SEO meta, form handler, CPT notices
+│   ├── inc/              Custom fields (SCF/ACF), SEO meta, form handler, CPT notices
 │   ├── languages/        Folder pentru traduceri .po/.mo (text-domain: kokoro)
 │   ├── comments.php      Template comentarii
 │   ├── assets/           CSS (5), JS (1), SVG (3)

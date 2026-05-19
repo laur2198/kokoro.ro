@@ -18,7 +18,7 @@ defined('ABSPATH') || exit;
 
 /**
  * Înregistrează „Setări Kokoro" ca options page (date globale: contact,
- * social, etc.). Necesită ACF 6.2+ (Free) sau ACF Pro pentru
+ * social, etc.). Necesită SCF (Free, by WP Engine) sau ACF 6.2+ pentru
  * acf_add_options_page().
  */
 function kokoro_register_options_page() {

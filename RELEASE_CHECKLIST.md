@@ -299,7 +299,7 @@ Save & Clear Cache.
 - [ ] View Source homepage: `<meta name="geo.position" content="45.6427;25.5887">`
 - [ ] Schema Organization include `aggregateRating` cu valori actualizate
 
-**Dacă nu merge**: ACF options page nu apare în meniu → instalează ACF Pro SAU verifică `acf_add_options_page` rulează pe `acf/init` (debug log).
+**Dacă nu merge**: SCF/ACF options page nu apare în meniu → asigură-te că SCF este instalat (sau ACF în varianta cu options page) SAU verifică `acf_add_options_page` rulează pe `acf/init` (debug log).
 
 ### 2.5 ACF testimoniale consimtamant
 
