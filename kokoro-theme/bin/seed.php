@@ -158,8 +158,8 @@ $antrenori = [
         'title'  => 'Sempai Dan',
         'image'  => 'assets/images/antrenori/sempai-dan.png',
         'meta'   => [
-            // family_name TODO — surname necunoscut (confirmă cu Sempai Dan)
             'antrenor_given_name'       => 'Dan',
+            'antrenor_family_name'      => 'Stoica',
             'antrenor_honorific_prefix' => 'Sempai',
             'antrenor_rol'              => 'Antrenor',
             'antrenor_bio_scurt'        => 'Specialist în Jiu-Jitsu Gi și grupa Avansați Kokoro. Aduce experiență tehnică și didactică în sesiunile de luptă la sol cu kimono.',
@@ -168,11 +168,11 @@ $antrenori = [
         ],
     ],
     [
-        'title'  => 'Sempai Petru',
+        'title'  => 'Sempai Petru Alec Popescu',
         'image'  => 'assets/images/antrenori/sempai-petru.png',
         'meta'   => [
-            // family_name TODO — surname necunoscut (confirmă cu Sempai Petru)
-            'antrenor_given_name'       => 'Petru',
+            'antrenor_given_name'       => 'Petru Alec',
+            'antrenor_family_name'      => 'Popescu',
             'antrenor_honorific_prefix' => 'Sempai',
             'antrenor_rol'              => 'Sempai · Ju-Jitsu Fighting',
             'antrenor_bio_scurt'        => 'Co-antrenor pentru Ju-Jitsu Fighting alături de Sempai Adrian. Pregătire competițională pentru juniori și adulți.',
@@ -255,6 +255,19 @@ $campioni = [
     ['nume' => 'Sara Stoica',              'img' => 'assets/images/campioni/20.png', 'palmares' => "Multipla Medaliată Cupe Naționale", 'titlu' => 'Medaliată Națională', 'ordine' => 21],
     ['nume' => 'Emma Porumboiu',           'img' => 'assets/images/campioni/21.png', 'palmares' => "Multipla Campioană la concursurile de nivel Național", 'titlu' => 'Campioană Națională', 'ordine' => 22],
     ['nume' => 'Toma Stoianovici',         'img' => 'assets/images/campioni/22.png', 'palmares' => "Bronz Balcanic 2024", 'titlu' => 'Medaliat Balcanic', 'ordine' => 23],
+    // Set adițional — sportivi medaliați la concursuri naționale (postări Facebook 6 mai 2026).
+    // Foto + palmares detaliat se completează manual în WP admin post-lansare.
+    ['nume' => 'Andrei Ștefan',       'img' => '', 'bio' => 'Andrei Ștefan — Sportiv Kokoro Brașov, medaliat la concursuri și cupe naționale.',       'ordine' => 24],
+    ['nume' => 'Bălan Achim',         'img' => '', 'bio' => 'Bălan Achim — Sportiv Kokoro Brașov, medaliat la concursuri și cupe naționale.',         'ordine' => 25],
+    ['nume' => 'Cojocariu Mara',      'img' => '', 'bio' => 'Cojocariu Mara — Sportiv Kokoro Brașov, medaliată la concursuri și cupe naționale.',     'ordine' => 26],
+    ['nume' => 'Stratulat Răzvan',    'img' => '', 'bio' => 'Stratulat Răzvan — Sportiv Kokoro Brașov, medaliat la concursuri și cupe naționale.',    'ordine' => 27],
+    ['nume' => 'Buga Darius',         'img' => '', 'bio' => 'Buga Darius — Sportiv Kokoro Brașov, medaliat la concursuri și cupe naționale.',         'ordine' => 28],
+    ['nume' => 'Balint David',        'img' => '', 'bio' => 'Balint David — Membru al echipei competiționale Kokoro, prezent pe podium la nivel național.',        'ordine' => 29],
+    ['nume' => 'Nicolae Popa Casian', 'img' => '', 'bio' => 'Nicolae Popa Casian — Membru al echipei competiționale Kokoro, prezent pe podium la nivel național.', 'ordine' => 30],
+    ['nume' => 'Porumboiu Tudor',     'img' => '', 'bio' => 'Porumboiu Tudor — Membru al echipei competiționale Kokoro, prezent pe podium la nivel național.',     'ordine' => 31],
+    ['nume' => 'Gherman Iris',        'img' => '', 'bio' => 'Gherman Iris — Membră a echipei competiționale Kokoro, prezentă pe podium la nivel național.',        'ordine' => 32],
+    ['nume' => 'Andrei Robert',       'img' => '', 'bio' => 'Andrei Robert — Membru al echipei competiționale Kokoro, prezent pe podium la nivel național.',       'ordine' => 33],
+    ['nume' => 'Stancu Ecaterina',    'img' => '', 'bio' => 'Stancu Ecaterina — Membră a echipei competiționale Kokoro, prezentă pe podium la nivel național.',    'ordine' => 34],
 ];
 // Identitate canonică: campionii care sunt și antrenori → URL canonic spre #person.
 // Permite schema Person.sameAs să consolideze entitatea în Knowledge Graph.
@@ -263,8 +276,12 @@ $campion_to_antrenor_canonical = [
 ];
 
 foreach ($campioni as $c) {
+    // Permite override bio direct (set adițional fără palmares structurat);
+    // fallback la pattern titlu + palmares pentru sportivii cu palmares detaliat.
+    $bio_scurt = $c['bio']
+        ?? (($c['titlu'] ?? '') . ' — ' . str_replace("\n", '. ', $c['palmares'] ?? ''));
     $meta = [
-        'campion_bio_scurt'   => $c['titlu'] . ' — ' . str_replace("\n", '. ', $c['palmares']),
+        'campion_bio_scurt'   => $bio_scurt,
         'campion_centura'     => 'neagra',
         'campion_is_featured' => ($c['ordine'] === 1),
     ];
@@ -349,24 +366,59 @@ k_seed_log('=== Seed orar program ===');
 $orar_page = get_page_by_path('orar');
 if ($orar_page) {
     update_field('orar_legenda', [
-        ['slug' => 'piticii',  'nume' => 'Piticii Kokoro',           'varsta' => ''],
-        ['slug' => 'avansati', 'nume' => 'Avansați Kokoro',          'varsta' => ''],
-        ['slug' => 'initiere', 'nume' => 'Inițiere Ju-Jitsu Fighting','varsta' => ''],
-        ['slug' => 'fighting', 'nume' => 'Ju-Jitsu Fighting',        'varsta' => ''],
-        ['slug' => 'gi',       'nume' => 'Jiu-Jitsu Gi',             'varsta' => ''],
-        ['slug' => 'contact',  'nume' => 'Ju-Jitsu Contact',         'varsta' => ''],
-        ['slug' => 'pt',       'nume' => 'PT',                        'varsta' => 'Antrenamente personalizate la cerere'],
+        ['slug' => 'piticii',  'nume' => 'Piticii Kokoro',                  'varsta' => '4-7 ani'],
+        ['slug' => 'initiere', 'nume' => 'Inițiere Ju-Jitsu Fighting',      'varsta' => '5-8 ani'],
+        ['slug' => 'avansati', 'nume' => 'Avansații Kokoro',                'varsta' => '8-10 ani'],
+        ['slug' => 'fighting', 'nume' => 'Ju-Jitsu Fighting copii',         'varsta' => '9-13 ani'],
+        ['slug' => 'gi',       'nume' => 'Jiu-Jitsu Gi',                    'varsta' => '10-12 ani'],
+        ['slug' => 'juniori',  'nume' => 'Ju-Jitsu Fighting juniori',       'varsta' => '17-18 ani'],
+        ['slug' => 'contact',  'nume' => 'Jiu-Jitsu Contact',               'varsta' => '18+ ani'],
+        ['slug' => 'pt',       'nume' => 'Antrenamente personalizate',      'varsta' => 'La cerere'],
     ], $orar_page->ID);
 
     $rows = [];
     $week = ['Luni','Marți','Miercuri','Joi','Vineri','Sâmbătă'];
+    // Sursă de adevăr: orarul publicat oficial (carusel 2 mai 2026).
+    // Distribuție antrenori: Lucian pe grupele copii inițiere/piticii; Dan pe
+    // Avansați + Gi; Adi (Sempai Adrian, nickname public) pe PT + Contact +
+    // Fighting împreună cu Petru pe Fighting copii / juniori.
     $template = [
-        'Luni'    => [['09:00 – 15:00','Personal Training','pt','Sempai Adrian'],['17:00 – 18:00','Inițiere Ju-Jitsu Fighting','initiere','Sensei Lucian'],['18:00 – 19:30','Ju-Jitsu Fighting','fighting','Sempai Adrian / Sempai Petru'],['19:30 – 21:00','Ju-Jitsu Fighting','fighting','Sempai Adrian / Sempai Petru']],
-        'Marți'   => [['09:00 – 15:00','Personal Training','pt','Sempai Adrian'],['17:00 – 18:00','Inițiere Ju-Jitsu Fighting','initiere','Sensei Lucian'],['18:00 – 19:30','Ju-Jitsu Fighting','fighting','Sempai Adrian / Sempai Petru'],['19:30 – 21:00','Ju-Jitsu Fighting','fighting','Sempai Adrian / Sempai Petru']],
-        'Miercuri'=> [['09:00 – 15:00','Personal Training','pt','Sempai Adrian'],['16:30 – 17:30','Piticii Kokoro','piticii','Sensei Lucian'],['17:00 – 18:00','Avansați Kokoro','avansati','Sempai Dan'],['18:00 – 19:30','Jiu-Jitsu Gi','gi','Sempai Dan'],['19:30 – 21:00','Ju-Jitsu Contact','contact','Sempai Adrian']],
-        'Joi'     => [['09:00 – 15:00','Personal Training','pt','Sempai Adrian'],['17:00 – 18:00','Inițiere Ju-Jitsu Fighting','initiere','Sensei Lucian'],['18:00 – 19:30','Ju-Jitsu Fighting','fighting','Sempai Adrian / Sempai Petru'],['19:30 – 21:00','Ju-Jitsu Fighting','fighting','Sempai Adrian / Sempai Petru']],
-        'Vineri'  => [['09:00 – 15:00','Personal Training','pt','Sempai Adrian'],['16:30 – 17:30','Piticii Kokoro','piticii','Sensei Lucian'],['17:00 – 18:00','Avansați Kokoro','avansati','Sempai Dan'],['18:00 – 19:30','Jiu-Jitsu Gi','gi','Sempai Dan'],['19:30 – 21:00','Ju-Jitsu Contact','contact','Sempai Adrian']],
-        'Sâmbătă' => [['09:00 – 11:30','Ju-Jitsu Fighting','fighting','Sempai Adrian / Sempai Petru']],
+        'Luni'    => [
+            ['09:00 – 11:30','Antrenamente personalizate','pt','Sempai Adi'],
+            ['17:00 – 18:00','Inițiere Ju-Jitsu Fighting','initiere','Sensei Lucian'],
+            ['18:00 – 19:30','Ju-Jitsu Fighting copii','fighting','Sempai Adi / Sempai Petru'],
+            ['19:30 – 21:00','Ju-Jitsu Fighting juniori','juniori','Sempai Adi / Sempai Petru'],
+        ],
+        'Marți'   => [
+            ['09:00 – 11:30','Antrenamente personalizate','pt','Sempai Adi'],
+            ['17:00 – 18:00','Inițiere Ju-Jitsu Fighting','initiere','Sensei Lucian'],
+            ['18:00 – 19:30','Ju-Jitsu Fighting copii','fighting','Sempai Adi / Sempai Petru'],
+            ['19:30 – 21:00','Ju-Jitsu Fighting juniori','juniori','Sempai Adi / Sempai Petru'],
+        ],
+        'Miercuri'=> [
+            ['09:00 – 11:30','Antrenamente personalizate','pt','Sempai Adi'],
+            ['16:30 – 17:30','Piticii Kokoro','piticii','Sensei Lucian'],
+            ['17:00 – 18:30','Avansații Kokoro','avansati','Sempai Dan'],
+            ['18:00 – 19:30','Jiu-Jitsu Contact','contact','Sempai Adi'],
+            ['18:30 – 19:30','Jiu-Jitsu Gi','gi','Sempai Dan'],
+        ],
+        'Joi'     => [
+            ['09:00 – 11:30','Antrenamente personalizate','pt','Sempai Adi'],
+            ['17:00 – 18:00','Inițiere Ju-Jitsu Fighting','initiere','Sensei Lucian'],
+            ['18:00 – 19:30','Ju-Jitsu Fighting copii','fighting','Sempai Adi / Sempai Petru'],
+            ['19:30 – 21:00','Ju-Jitsu Fighting juniori','juniori','Sempai Adi / Sempai Petru'],
+        ],
+        'Vineri'  => [
+            ['09:00 – 11:30','Antrenamente personalizate','pt','Sempai Adi'],
+            ['16:30 – 17:30','Piticii Kokoro','piticii','Sensei Lucian'],
+            ['17:00 – 18:30','Avansații Kokoro','avansati','Sempai Dan'],
+            ['18:00 – 19:30','Jiu-Jitsu Contact','contact','Sempai Adi'],
+            ['18:30 – 19:30','Jiu-Jitsu Gi','gi','Sempai Dan'],
+        ],
+        'Sâmbătă' => [
+            ['09:00 – 10:30','Ju-Jitsu Fighting copii','fighting','Sempai Adi / Sempai Petru'],
+            ['10:30 – 11:30','Ju-Jitsu Fighting juniori','juniori','Sempai Adi / Sempai Petru'],
+        ],
     ];
     foreach ($template as $zi => $sesiuni) {
         foreach ($sesiuni as $s) {
