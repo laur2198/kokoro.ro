@@ -6,6 +6,11 @@
 (function () {
   'use strict';
 
+  // Respectă preferința utilizatorului pentru reduced motion (WCAG 2.3.3).
+  var prefersReducedMotion =
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* ==========================================================================
      1. Mobile Menu Toggle
      ========================================================================== */
@@ -165,6 +170,16 @@
     var counters = document.querySelectorAll('[data-counter]');
     if (!counters.length) return;
 
+    // Reduced motion: afișează direct valoarea finală, fără număratoare.
+    if (prefersReducedMotion) {
+      counters.forEach(function (el) {
+        var prefix = el.getAttribute('data-prefix') || '';
+        var suffix = el.getAttribute('data-suffix') || '';
+        el.textContent = prefix + el.getAttribute('data-counter') + suffix;
+      });
+      return;
+    }
+
     if (!('IntersectionObserver' in window)) {
       counters.forEach(function (el) {
         el.textContent = el.getAttribute('data-counter');
@@ -222,6 +237,9 @@
      ========================================================================== */
 
   function initSakuraPetals() {
+    // Reduced motion: skip complet — petalele sunt pur decorative.
+    if (prefersReducedMotion) return;
+
     var container = document.querySelector('.sakura-container');
     if (!container) return;
 
