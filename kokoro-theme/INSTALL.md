@@ -6,7 +6,7 @@ Ghid complet pas cu pas pentru lansarea site-ului pe un server WordPress.
 
 - WordPress 6.0+ instalat
 - PHP 7.4+
-- Plugin **Advanced Custom Fields (ACF)** — gratuit, disponibil pe wp.org
+- Plugin **Secure Custom Fields (SCF, by WP Engine)** — gratuit, disponibil pe wp.org. Alternativ, **Advanced Custom Fields (ACF)** rămâne compatibil — tema funcționează cu oricare.
 - Acces FTP/SSH la server (sau wp-cli)
 - SSL/HTTPS activ (esențial pentru WhatsApp + securitate)
 
@@ -50,13 +50,13 @@ wp scaffold _mu-plugin   # doar dacă vrei să creezi folderul; opțional
 
 ---
 
-## PAS 2 — Activează ACF
+## PAS 2 — Activează plugin-ul Custom Fields (SCF recomandat)
 
 1. WP Admin → Plugins → Adaugă nou
-2. Caută **"Advanced Custom Fields"** (de la WP Engine)
+2. Caută **"Secure Custom Fields"** (de la WP Engine) — sau **"Advanced Custom Fields"** dacă preferi versiunea originală
 3. Instalează → Activează
 
-⚠ Tema nu va funcționa corect fără ACF.
+⚠ Tema nu va funcționa corect fără SCF (sau ACF) — câmpurile custom sunt esențiale pentru tot conținutul editabil.
 
 ---
 
@@ -172,7 +172,7 @@ Tema are 3 instrumente disponibile pentru a identifica bottleneck-uri reale îna
    - Homepage
    - `/noutati/` (archive)
    - `/contact/`, `/inscriere/` (forms)
-   - `/tarife/`, `/orar/` (heavy ACF)
+   - `/tarife/`, `/orar/` (heavy custom fields)
    - `/ju-jitsu-copii-brasov/` (pillar SEO)
 
    Pentru fiecare, notează:
@@ -236,14 +236,14 @@ Fără aceste date, optimizările următoare sunt speculative.
 ### „Buton WhatsApp nu apare"
 → Verifică în WP admin → Setări Kokoro → "Arată WhatsApp" = Da, și completează numărul.
 
-### „Format ACF nu apare"
-→ Hard-refresh (Ctrl+Shift+R) WP admin. Plugin-ul ACF trebuie să fie activ.
+### „Format custom fields nu apare"
+→ Hard-refresh (Ctrl+Shift+R) WP admin. Plugin-ul SCF (sau ACF) trebuie să fie activ.
 
 ---
 
 ## Editare conținut după launch
 
-Toate textele sunt editabile via ACF, fără să atingi codul. Vezi [bin/README.md](bin/README.md) pentru lista completă a câmpurilor editabile pe fiecare pagină.
+Toate textele sunt editabile via SCF (sau ACF), fără să atingi codul. Vezi [bin/README.md](bin/README.md) pentru lista completă a câmpurilor editabile pe fiecare pagină.
 
 ---
 

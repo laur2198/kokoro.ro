@@ -411,7 +411,7 @@ add_filter('excerpt_more', 'kokoro_excerpt_more');
    ========================================================================== */
 
 /* ==========================================================================
-   7. ACF Plugin Dependency Notice
+   7. Custom Fields Plugin Dependency Notice (SCF / ACF compatible)
    ========================================================================== */
 
 function kokoro_acf_admin_notice() {
@@ -419,18 +419,18 @@ function kokoro_acf_admin_notice() {
     if (!current_user_can('activate_plugins')) return;
 
     $install_url = wp_nonce_url(
-        self_admin_url('update.php?action=install-plugin&plugin=advanced-custom-fields'),
-        'install-plugin_advanced-custom-fields'
+        self_admin_url('update.php?action=install-plugin&plugin=secure-custom-fields'),
+        'install-plugin_secure-custom-fields'
     );
     $plugins_url = self_admin_url('plugins.php');
     ?>
     <div class="notice notice-error">
         <p>
             <strong><?php esc_html_e('Kokoro Brașov Academy', 'kokoro'); ?></strong> —
-            <?php esc_html_e('tema necesită plugin-ul Advanced Custom Fields (ACF) pentru a funcționa corect. Conținutul paginilor (texte, imagini, setări) nu va putea fi editat fără el.', 'kokoro'); ?>
+            <?php esc_html_e('tema necesită plugin-ul Secure Custom Fields (SCF, by WP Engine) pentru a funcționa corect. Conținutul paginilor (texte, imagini, setări) nu va putea fi editat fără el. Tema este compatibilă și cu Advanced Custom Fields (ACF) — instalează oricare din cele două.', 'kokoro'); ?>
         </p>
         <p>
-            <a href="<?php echo esc_url($install_url); ?>" class="button button-primary"><?php esc_html_e('Instalează ACF', 'kokoro'); ?></a>
+            <a href="<?php echo esc_url($install_url); ?>" class="button button-primary"><?php esc_html_e('Instalează SCF', 'kokoro'); ?></a>
             <a href="<?php echo esc_url($plugins_url); ?>" class="button"><?php esc_html_e('Pagina Plugin-uri', 'kokoro'); ?></a>
         </p>
     </div>

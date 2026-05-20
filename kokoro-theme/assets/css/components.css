@@ -1620,3 +1620,15 @@ details > summary:focus-visible {
     bottom: calc(96px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* ==========================================================================
+   Accesibilitate — prefers-reduced-motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Banda marquee rulează infinit — trigger vestibular. Oprește scroll-ul,
+     conținutul rămâne lizibil static. */
+  .marquee__track {
+    animation: none !important;
+  }
+}
